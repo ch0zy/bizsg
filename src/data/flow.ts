@@ -37,7 +37,7 @@ export const flow: FlowNode[] = [
     id: "cpf-intent",
     botMessages: [
       "To set up CPF contributions, you'll need three things:",
-      "1. Corppass — corporate digital identity for government portals\n2. Customer Service Number (CSN) — your CPF employer reference\n3. CPF EZPay — the portal for filing and paying contributions",
+      "1. Corppass — corporate digital identity for government portals\n2. CPF Submission Number (CSN) — your CPF employer reference\n3. CPF EZPay — the portal for filing and paying contributions",
       "I can handle the applications for you. Want to get started?",
     ],
     quickReplies: [

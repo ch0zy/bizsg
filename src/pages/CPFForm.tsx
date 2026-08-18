@@ -26,7 +26,7 @@ export function CPFForm({ onSubmit, onBack }: CPFFormProps) {
         </div>
         <FormSuccess
           title="Registration submitted"
-          description="Your CPF employer registration has been received. Your Customer Service Number (CSN) is issued instantly for mandatory contributions — you can start submitting CPF payments from the next calendar day."
+          description="Your CPF employer registration has been received. Your CPF Submission Number (CSN) is issued instantly for mandatory contributions — you can start submitting CPF payments from the next calendar day."
           details={[
             "Employer: Tan & Co Pte Ltd (UEN 202412345A)",
             "CPF Submission Number (CSN): 12345678A",

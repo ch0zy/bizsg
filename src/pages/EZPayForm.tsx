@@ -82,7 +82,7 @@ export function EZPayForm({ onSubmit, onBack }: EZPayFormProps) {
           </div>
 
           <div className="form-field">
-            <label className="form-label">Customer Service Number (CSN)</label>
+            <label className="form-label">CPF Submission Number (CSN)</label>
             <input className="form-input form-input--prefilled" value="12345678A" readOnly />
             <span className="form-prefilled-tag">Pre-filled</span>
           </div>
