@@ -11,7 +11,7 @@ function DemoPage() {
   return (
     <div className="demo-page">
       <div className="demo-page-content">
-        <div className="demo-badge">GoBusiness</div>
+        <div className="demo-badge">ACRA</div>
         <h1 className="demo-title">Register Your Business</h1>
         <p className="demo-body">
           Congratulations on registering with ACRA! Your business is now officially recognised.
