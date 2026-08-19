@@ -4,23 +4,36 @@ export interface QuickReply {
   action?: string;
 }
 
+export interface Hotspot {
+  top: string;
+  left: string;
+  width: string;
+  height: string;
+  nextBackground: string;
+}
+
 export interface FlowNode {
   id: string;
   botMessages: string[];
   quickReplies?: QuickReply[];
+  background?: string; // screenshot filename in public/screenshots/
+  hotspot?: Hotspot;   // clickable region on initial background
+  hotspotChain?: Record<string, Hotspot>; // hotspots keyed by override filename
+  delays?: number[];   // cumulative ms delay per message (index-matched)
 }
 
 export const flow: FlowNode[] = [
   {
     id: "greeting",
+    background: "acra-inbox-reg-approved.jpeg",
     botMessages: [
-      "Hi! Congratulations on registering your business with ACRA.",
-      "I'm the BizSG assistant. I can guide you through next steps for your business.",
-      "Ready to get started?",
+      "To set up CPF contributions, you'll need three things:",
+      "1. Corppass — corporate digital identity for government portals\n2. CPF Submission Number (CSN) — your CPF employer reference\n3. CPF EZPay — the portal for filing and paying contributions",
+      "I can begin by applying for Corppass on your behalf. Want to get started?",
     ],
     quickReplies: [
-      { label: "Apply for CPF as new employer", nextId: "cpf-intent" },
-      { label: "I need help with something else", nextId: "other" },
+      { label: "Yes, let's start", nextId: "corppass-provision-choice" },
+      { label: "Tell me more first", nextId: "cpf-explainer" },
     ],
   },
   {
@@ -60,13 +73,17 @@ export const flow: FlowNode[] = [
   // ── Corppass provisioning ────────────────────────────────────────────────
   {
     id: "corppass-provision-choice",
+    delays: [0, 1000],
     botMessages: [
       "First step: Corppass setup.",
-      "Should I automatically provision a Corppass account for your business, or would you prefer to review and submit the form yourself?",
+      "I have created the Corppass admin account for you. Log in with Singpass to continue with the CPF setup.",
     ],
     quickReplies: [
-      { label: "Auto-provision for me", nextId: "corppass-auto-processing" },
-      { label: "I'll review the form first", nextId: "corppass-manual-prefill" },
+      {
+        label: "Log in with Singpass →",
+        nextId: "corppass-provision-choice",
+        action: "open-singpass-qr",
+      },
     ],
   },
 
@@ -141,19 +158,58 @@ export const flow: FlowNode[] = [
   // ── CPF form (both paths land here after Singpass login) ─────────────────
   {
     id: "cpf-form-prefill",
+    background: "cpf-form-01.png",
+    hotspot: {
+      top: "50%",
+      left: "10%",
+      width: "80%",
+      height: "24%",
+      nextBackground: "cpf-form-02.png",
+    },
+    hotspotChain: {
+      "cpf-form-02.png": {
+        top: "73.5%",
+        left: "77.4%",
+        width: "12%",
+        height: "3%",
+        nextBackground: "cpf-form-03b.png",
+      },
+      "cpf-form-03b.png": {
+        top: "75.75%",
+        left: "77.3%",
+        width: "12%",
+        height: "3%",
+        nextBackground: "cpf-form-04b.png",
+      },
+      "cpf-form-04b.png": {
+        top: "74.75%",
+        left: "77.4%",
+        width: "12%",
+        height: "3%",
+        nextBackground: "cpf-form-05.png",
+      },
+      "cpf-form-05.png": {
+        top: "73.5%",
+        left: "10.54%",
+        width: "34.1%",
+        height: "2.5%",
+        nextBackground: "cpf-form-05b.png",
+      },
+      "cpf-form-05b.png": {
+        top: "77.6%",
+        left: "76.1%",
+        width: "12.93%",
+        height: "2.5%",
+        nextBackground: "cpf-form-06.png",
+      },
+    },
+    delays: [1000, 2000, 3000],
     botMessages: [
       "You're now logged in to Corppass. ✓",
       "I've pre-filled your CPF employer registration form using your business details and Corppass credentials.",
       "Review the details, then submit.",
     ],
-    quickReplies: [
-      {
-        label: "Open pre-filled CPF form →",
-        nextId: "cpf-form-prefill",
-        action: "open-cpf-form",
-      },
-      { label: "Make an amendment", nextId: "cpf-amend" },
-    ],
+    quickReplies: [],
   },
   {
     id: "cpf-amend",
@@ -169,18 +225,29 @@ export const flow: FlowNode[] = [
       },
     ],
   },
-  // Signal: "cpf-form-submitted" → advances to cpf-submitted
+  // Signal: "cpf-form-submitted" → advances to cpf-submitted-interim
   {
-    id: "cpf-submitted",
+    id: "cpf-submitted-interim",
+    background: "cpf-form-06.png",
+    delays: [1000, 2000],
     botMessages: [
       "CPF employer registration submitted. ✓",
-      "Good news: for mandatory CPF contributions, your CSN is processed instantly — right after your online application.",
-      "Your CPF Submission Number (CSN): 12345678A\n\nYou can start submitting staff CPF payments from the very next calendar day.",
+      "I can help you link your CSN to Corppass and grant CPF EZPay access.",
     ],
     quickReplies: [
-      { label: "Set up EZPay now →", nextId: "ezpay-intro" },
-      { label: "What do I need to know first?", nextId: "csn-explainer" },
+      { label: "Proceed with CPF EZPay setup", nextId: "cpf-submitted" },
     ],
+  },
+  {
+    id: "cpf-submitted",
+    background: "cpf-form-06.png",
+    delays: [1000, 3000, 4000],
+    botMessages: [
+      "Linking CSN to Corppass and setting up CPF EZPay access…",
+      "CSN linked to your Corppass; CPF EZPay access granted. ✓",
+      "You can start making CPF contributions for your employees from the next calendar day.",
+    ],
+    quickReplies: [],
   },
   {
     id: "csn-explainer",
@@ -240,6 +307,6 @@ export const flow: FlowNode[] = [
 export const signalToNode: Record<string, string> = {
   "corppass-form-submitted": "corppass-manual-done",
   "singpass-logged-in": "cpf-form-prefill",
-  "cpf-form-submitted": "cpf-submitted",
+  "cpf-form-submitted": "cpf-submitted-interim",
   "ezpay-form-submitted": "complete",
 };

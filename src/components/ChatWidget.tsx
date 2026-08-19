@@ -13,6 +13,8 @@ interface ChatWidgetProps {
   onAction?: (action: string) => void;
   externalSignal?: string | null;
   onSignalHandled?: () => void;
+  onNodeChange?: (nodeId: string) => void;
+  requestOpen?: boolean;
 }
 
 const COMPANY_CONTEXT = {
@@ -21,7 +23,7 @@ const COMPANY_CONTEXT = {
   type: "Private Limited Company",
 };
 
-export function ChatWidget({ onAction, externalSignal, onSignalHandled }: ChatWidgetProps) {
+export function ChatWidget({ onAction, externalSignal, onSignalHandled, onNodeChange, requestOpen }: ChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentNodeId, setCurrentNodeId] = useState("greeting");
@@ -43,6 +45,16 @@ export function ChatWidget({ onAction, externalSignal, onSignalHandled }: ChatWi
     }
   }, [isOpen, messages.length]);
 
+  // Notify parent when node changes
+  useEffect(() => {
+    onNodeChange?.(currentNodeId);
+  }, [currentNodeId, onNodeChange]);
+
+  // Open widget when requested externally
+  useEffect(() => {
+    if (requestOpen) setIsOpen(true);
+  }, [requestOpen]);
+
   // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -61,12 +73,16 @@ export function ChatWidget({ onAction, externalSignal, onSignalHandled }: ChatWi
       onSignalHandled?.();
       return;
     }
-    const botMsgs: Message[] = node.botMessages.map((content, i) => ({
-      id: `signal-${Date.now()}-${i}`,
-      role: "assistant",
-      content,
-    }));
-    setMessages((prev) => [...prev, ...botMsgs]);
+    const delays = node.delays ?? node.botMessages.map(() => 0);
+    const ts = Date.now();
+    node.botMessages.forEach((content, i) => {
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          { id: `signal-${ts}-${i}`, role: "assistant" as const, content },
+        ]);
+      }, delays[i] ?? 0);
+    });
     setCurrentNodeId(targetId);
     setIsOpen(true);
     onSignalHandled?.();
@@ -91,13 +107,19 @@ export function ChatWidget({ onAction, externalSignal, onSignalHandled }: ChatWi
     const nextNode = flow.find((n) => n.id === nextId);
     if (!nextNode) return;
 
-    const botMsgs: Message[] = nextNode.botMessages.map((content, i) => ({
-      id: `bot-${Date.now()}-${i}`,
-      role: "assistant",
-      content,
-    }));
-    setMessages((prev) => [...prev, userMsg, ...botMsgs]);
+    setMessages((prev) => [...prev, userMsg]);
     setCurrentNodeId(nextId);
+
+    const delays = nextNode.delays ?? nextNode.botMessages.map(() => 0);
+    const ts = Date.now();
+    nextNode.botMessages.forEach((content, i) => {
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          { id: `bot-${ts}-${i}`, role: "assistant" as const, content },
+        ]);
+      }, delays[i] ?? 0);
+    });
   }
 
   function handleReset() {
@@ -139,10 +161,9 @@ export function ChatWidget({ onAction, externalSignal, onSignalHandled }: ChatWi
                   <path d="M3.51 15a9 9 0 1 0 .49-4.95" />
                 </svg>
               </button>
-              <button className="widget-icon-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
+              <button className="widget-icon-btn" onClick={() => setIsOpen(false)} aria-label="Minimize chat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
               </button>
             </div>

@@ -1,79 +1,52 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { ChatWidget } from "./components/ChatWidget";
 import { SingpassModal } from "./components/SingpassModal";
+import { ScreenshotBackground } from "./components/ScreenshotBackground";
+import { WelcomeModal } from "./components/WelcomeModal";
+import { CSNModal } from "./components/CSNModal";
 import { CorpassForm } from "./pages/CorpassForm";
 import { CPFForm } from "./pages/CPFForm";
 import { EZPayForm } from "./pages/EZPayForm";
 
-type Page = "main" | "corppass-form" | "cpf-form" | "ezpay-form";
-
-function DemoPage() {
-  return (
-    <div className="demo-page">
-      <div className="demo-page-content">
-        <div className="demo-badge">ACRA</div>
-        <h1 className="demo-title">Register Your Business</h1>
-        <p className="demo-body">
-          Congratulations on registering with ACRA! Your business is now officially recognised.
-        </p>
-        <p className="demo-body">
-          As a new business owner, here are the next steps to get your operations started:
-        </p>
-        <ul className="demo-list">
-          <li>Open a corporate bank account</li>
-          <li>Register for GST if annual turnover exceeds $1M</li>
-          <li>Set up CPF contributions if you plan to hire employees</li>
-          <li>Apply for relevant business licences</li>
-        </ul>
-        <p className="demo-hint">
-          Need help with CPF setup? The BizSG Assistant is ready — look for the chat icon at the bottom right.
-        </p>
-      </div>
-    </div>
-  );
-}
+type Modal = "corppass-form" | "cpf-form" | "ezpay-form" | "singpass" | null;
 
 export default function App() {
-  const [page, setPage] = useState<Page>("main");
-  const [showSingpassModal, setShowSingpassModal] = useState(false);
+  const [modal, setModal] = useState<Modal>(null);
   const [chatSignal, setChatSignal] = useState<string | null>(null);
+  const [bgNode, setBgNode] = useState("greeting");
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [showCSNModal, setShowCSNModal] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
+  const csnTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const csnShownRef = useRef(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowWelcome(true), 2000);
+    return () => clearTimeout(t);
+  }, []);
+
+  const handleBackgroundChange = useCallback((filename: string) => {
+    if (filename === "cpf-form-06.png" && !csnShownRef.current) {
+      csnTimerRef.current = setTimeout(() => setShowCSNModal(true), 3000);
+    }
+  }, []);
 
   const handleAction = useCallback((action: string) => {
     switch (action) {
       case "open-corppass-form":
-        setPage("corppass-form");
+        setModal("corppass-form");
         break;
       case "open-singpass-qr":
-        setShowSingpassModal(true);
+        setModal("singpass");
         break;
       case "open-cpf-form":
-        setPage("cpf-form");
+        setModal("cpf-form");
         break;
       case "open-ezpay-form":
-        setPage("ezpay-form");
+        setModal("ezpay-form");
         break;
     }
   }, []);
-
-  function handleCorpassSubmit() {
-    setPage("main");
-    setChatSignal("corppass-form-submitted");
-  }
-
-  function handleSingpassSuccess() {
-    setShowSingpassModal(false);
-    setChatSignal("singpass-logged-in");
-  }
-
-  function handleCPFSubmit() {
-    setPage("main");
-    setChatSignal("cpf-form-submitted");
-  }
-
-  function handleEZPaySubmit() {
-    setPage("main");
-    setChatSignal("ezpay-form-submitted");
-  }
 
   const handleSignalHandled = useCallback(() => {
     setChatSignal(null);
@@ -81,21 +54,53 @@ export default function App() {
 
   return (
     <>
-      {page === "main" && <DemoPage />}
-      {page === "corppass-form" && (
-        <CorpassForm onSubmit={handleCorpassSubmit} onBack={() => setPage("main")} />
-      )}
-      {page === "cpf-form" && (
-        <CPFForm onSubmit={handleCPFSubmit} onBack={() => setPage("main")} />
-      )}
-      {page === "ezpay-form" && (
-        <EZPayForm onSubmit={handleEZPaySubmit} onBack={() => setPage("main")} />
+      <ScreenshotBackground nodeId={bgNode} onBackgroundChange={handleBackgroundChange} />
+
+      {modal === "corppass-form" && (
+        <div className="modal-overlay">
+          <CorpassForm
+            onSubmit={() => { setModal(null); setChatSignal("corppass-form-submitted"); }}
+            onBack={() => setModal(null)}
+          />
+        </div>
       )}
 
-      {showSingpassModal && (
+      {modal === "cpf-form" && (
+        <div className="modal-overlay">
+          <CPFForm
+            onSubmit={() => { setModal(null); setChatSignal("cpf-form-submitted"); }}
+            onBack={() => setModal(null)}
+          />
+        </div>
+      )}
+
+      {modal === "ezpay-form" && (
+        <div className="modal-overlay">
+          <EZPayForm
+            onSubmit={() => { setModal(null); setChatSignal("ezpay-form-submitted"); }}
+            onBack={() => setModal(null)}
+          />
+        </div>
+      )}
+
+      {showCSNModal && (
+        <CSNModal
+          onProceed={() => { csnShownRef.current = true; setShowCSNModal(false); setChatSignal("cpf-form-submitted"); setOpenChat(true); }}
+          onDismiss={() => { csnShownRef.current = true; setShowCSNModal(false); }}
+        />
+      )}
+
+      {showWelcome && (
+        <WelcomeModal
+          onStart={() => { setShowWelcome(false); setOpenChat(true); }}
+          onDismiss={() => setShowWelcome(false)}
+        />
+      )}
+
+      {modal === "singpass" && (
         <SingpassModal
-          onSuccess={handleSingpassSuccess}
-          onClose={() => setShowSingpassModal(false)}
+          onSuccess={() => { setModal(null); setChatSignal("singpass-logged-in"); }}
+          onClose={() => setModal(null)}
         />
       )}
 
@@ -103,6 +108,8 @@ export default function App() {
         onAction={handleAction}
         externalSignal={chatSignal}
         onSignalHandled={handleSignalHandled}
+        onNodeChange={setBgNode}
+        requestOpen={openChat}
       />
     </>
   );
