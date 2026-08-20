@@ -252,7 +252,7 @@ export const flow: FlowNode[] = [
     botMessages: [
       "Linking CSN to Corppass and setting up CPF EZPay access…",
       "CSN linked to your Corppass; CPF EZPay access granted. ✓",
-      "You can start making CPF contributions for your employees from the next calendar day.",
+      "You can start making CPF contributions for your employees from tomorrow onwards.",
     ],
     quickReplies: [],
   },
