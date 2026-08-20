@@ -91,11 +91,21 @@ export function ChatWidget({ onAction, externalSignal, onSignalHandled, onNodeCh
   function handleQuickReply(label: string, nextId: string, action?: string) {
     if (action) {
       onAction?.(action);
-      // Add user message to show selection
       setMessages((prev) => [
         ...prev,
         { id: `user-${Date.now()}`, role: "user", content: label },
       ]);
+      const nextNode = flow.find((n) => n.id === nextId);
+      if (nextNode && nextNode.botMessages.length > 0) {
+        setCurrentNodeId(nextId);
+        const delays = nextNode.delays ?? nextNode.botMessages.map(() => 0);
+        const ts = Date.now();
+        nextNode.botMessages.forEach((content, i) => {
+          setTimeout(() => {
+            setMessages((prev) => [...prev, { id: `bot-${ts}-${i}`, role: "assistant" as const, content }]);
+          }, delays[i] ?? 0);
+        });
+      }
       return;
     }
 

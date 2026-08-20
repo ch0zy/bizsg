@@ -64,7 +64,7 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1;
+  z-index: 10000;
   border-radius: 0.25rem;
   transition: background 0.15s;
   pointer-events: auto;

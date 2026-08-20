@@ -27,6 +27,7 @@ export const flow: FlowNode[] = [
     id: "greeting",
     background: "acra-inbox-reg-approved.jpeg",
     botMessages: [
+      "Hi! I'm the BizSG Assistant.",
       "To set up CPF contributions, you'll need three things:",
       "1. Corppass — corporate digital identity for government portals\n2. CPF Submission Number (CSN) — your CPF employer reference\n3. CPF EZPay — the portal for filing and paying contributions",
       "I can begin by applying for Corppass on your behalf. Want to get started?",
@@ -81,7 +82,7 @@ export const flow: FlowNode[] = [
     quickReplies: [
       {
         label: "Log in with Singpass →",
-        nextId: "corppass-provision-choice",
+        nextId: "singpass-qr-hint",
         action: "open-singpass-qr",
       },
     ],
@@ -146,13 +147,19 @@ export const flow: FlowNode[] = [
     quickReplies: [
       {
         label: "Log in with Singpass →",
-        nextId: "corppass-manual-done",
+        nextId: "singpass-qr-hint",
         action: "open-singpass-qr",
       },
     ],
   },
 
   // ── Singpass login (both paths land here via signal) ─────────────────────
+  {
+    id: "singpass-qr-hint",
+    delays: [1000],
+    botMessages: ["Scan the QR code in the main window."],
+    quickReplies: [],
+  },
   // Signal: "singpass-logged-in" → advances to cpf-form-prefill
 
   // ── CPF form (both paths land here after Singpass login) ─────────────────
@@ -207,7 +214,7 @@ export const flow: FlowNode[] = [
     botMessages: [
       "You're now logged in to Corppass. ✓",
       "I've pre-filled your CPF employer registration form using your business details and Corppass credentials.",
-      "Review the details, then submit.",
+      "Select the contribution type in the main window. Please check the details, then click on Next.",
     ],
     quickReplies: [],
   },

@@ -27,7 +27,7 @@ export default function App() {
 
   const handleBackgroundChange = useCallback((filename: string) => {
     if (filename === "cpf-form-06.png" && !csnShownRef.current) {
-      csnTimerRef.current = setTimeout(() => setShowCSNModal(true), 3000);
+      csnTimerRef.current = setTimeout(() => setShowCSNModal(true), 5000);
     }
   }, []);
 
