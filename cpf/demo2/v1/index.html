@@ -334,7 +334,8 @@ const spOv=document.getElementById('spOv'),spUrl=document.getElementById('spUrl'
 const spPg=document.getElementById('spPg'),spLoad=document.getElementById('spLoad'),spSucc=document.getElementById('spSucc');
 let authed=false,pendingFlow=null,convState=null,_ctaBtn=null,_timer=null;
 let _notifyEmpName='',_notifyEmpNric='',_notifyMessage='';
-let _refundNric='',_refundReason='',_refundMonth='',_refundStmtId='',_refundAmount='',_refundPayDate='';
+let _refundNric='',_refundReason='',_refundMonth='',_refundStmtId='',_refundAmount='',_refundPayDate='',_refundWageRepayDate='';
+let _adjustType='',_adjustStmtId='',_adjustPayDate='',_adjustScope='';
 let _newSsic='',_ssicMatches=[];
 let _ddaType='',_ddaBank='',_ddaAcct='';
 const SSIC_STUB=[
@@ -555,43 +556,109 @@ async function go(v){
       aT('out','🔄 Adjust');
       await say(()=>{aLM('What needs to be adjusted?','','Adjustment type',[
         {label:'Change contributions month/year',desc:'Wrong period submitted',v:'refund_adjust_month'},
-        {label:'Change CPF Submission No. (CSN)',desc:'Submitted under wrong CSN',v:'refund_adjust_csn'},
+        {label:'Change CPF Submission Number',desc:'Submitted under wrong submission number',v:'refund_adjust_csn'},
         {label:'Change payment recipient',desc:'Wrong NRIC or CPF account number',v:'refund_adjust_recip'}
       ],'list message');},900);
       break;
 
     case 'refund_adjust_month':
+      aT('out','Change contributions month/year');
+      _adjustType='Change contributions month and year';
+      await say(()=>{aT('in','*Adjustment — change contributions month and year*\n\n*CPF Submission No.:* 53414602C-PTE-01\n\nEnter the *Statement Number / Submission ID:*','text message');},1000);
+      convState='adjust_stmt';
+      break;
+
     case 'refund_adjust_csn':
+      aT('out','Change CPF Submission Number');
+      _adjustType='Change CPF Submission Number';
+      await say(()=>{aT('in','*Adjustment — change CPF Submission Number*\n\n*CPF Submission No.:* 53414602C-PTE-01\n\nEnter the *Statement Number / Submission ID:*','text message');},1000);
+      convState='adjust_stmt';
+      break;
+
     case 'refund_adjust_recip':
-      await say(()=>{aT('in','Adjustments to contribution details are processed via the CPF employer portal.\n\n_This transaction is outside the current prototype scope._','text message');aCTA('🔗 *Open CPF Employer Portal*\n\nLog in to e-Submit@CPF to submit your adjustment.','Open CPF Portal',()=>{},'CTA URL button');aRB('Need anything else?',[{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1000);
+      aT('out','Change payment recipient');
+      _adjustType='Change payment recipient (NRIC or CPF account number)';
+      await say(()=>{aT('in','*Adjustment — change payment recipient*\n\n*CPF Submission No.:* 53414602C-PTE-01\n\nEnter the *Statement Number / Submission ID:*','text message');},1000);
+      convState='adjust_stmt';
+      break;
+
+    case 'adjust_get_paydate':
+      await say(()=>{aT('in','Enter *date payment was received* by CPF (DD/MM/YYYY):','text message');},700);
+      convState='adjust_paydate';
+      break;
+
+    case 'adjust_get_scope':
+      await say(()=>{aT('in','Which entries do you want to adjust?','text message');aRB('Select scope:',[{label:'All entries',v:'adjust_scope_all'},{label:'Selected employees',v:'adjust_scope_selected'}],'reply buttons');},800);
+      break;
+
+    case 'adjust_scope_all':
+      aT('out','All entries');
+      _adjustScope='All entries in this contributions record';
+      go('adjust_review');
+      break;
+
+    case 'adjust_scope_selected':
+      aT('out','Selected employees');
+      _adjustScope='Entries on CPF contributions for selected employees / platform workers';
+      go('adjust_review');
+      break;
+
+    case 'adjust_review':
+      await say(()=>{aT('in',`*Adjustment application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Adjustment of contributions paid\n*Adjustment:* ${_adjustType}\n━━━━━━━━━━━━━\n*CPF Submission No.:* 53414602C-PTE-01\n*Statement No / Submission ID:* ${_adjustStmtId}\n*Payment received on:* ${_adjustPayDate}${_adjustScope?'\n*Entries to adjust:* '+_adjustScope:''}\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'adjust_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
+      break;
+
+    case 'adjust_submitted':
+      aT('out','✅ Submit');
+      await say(()=>{aT('in','⏳ Submitting adjustment application…','text message');},900);
+      await say(()=>{aT('in','✅ *Application submitted.*\n\nRef: ADJUST-2026-00156\nCPF will process within 7–14 business days. Confirmation sent to contact@chocoero.sg.','text message');aCTA('*Adjustment receipt* · ADJUST-2026-00156','Download Receipt',()=>{},'CTA URL button');aRB('All done!',[{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1500);
       break;
 
     case 'refund_1emp_start':
       aT('out','👤 1 employee');
-      await say(()=>{aT('in','*Refund of contributions — 1 employee*\n\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n\nEnter the *employee\'s NRIC / FIN or CPF account number:*','text message');},1000);
+      await say(()=>{aT('in','*Refund of contributions — 1 employee*\n\n*Company:* Chocoero Pte Ltd\n*CPF Submission No.:* 53414602C-PTE-01\n\nEnter the *employee\'s NRIC / FIN or CPF account number:*','text message');},1000);
       convState='refund_nric';
       break;
 
     case 'refund_get_reason':
       await say(()=>{aLM('Select refund reason:','','Refund reason',[
-        {label:'Employee on no-pay leave',desc:'CPF paid during unpaid leave period',v:'refund_reason_nopay'},
-        {label:'Duplicate payment',desc:'Same contribution paid more than once',v:'refund_reason_dup'},
-        {label:'CPF not applicable',desc:'Foreigner, contractor, or non-employee',v:'refund_reason_notappl'},
-        {label:'Incorrect wages used',desc:'Wrong ordinary or additional wages submitted',v:'refund_reason_wages'},
-        {label:'Other',desc:'I\'ll provide details in the application',v:'refund_reason_other'}
+        {label:'Paid CPF not attracting CPF',desc:'Payments which do not attract CPF',v:'refund_reason_no_attract'},
+        {label:'Above additional wage ceiling',desc:'Paid CPF above additional wage ceiling',v:'refund_reason_above_aw'},
+        {label:'Above ordinary wage ceiling',desc:'Paid CPF above ordinary wage ceiling',v:'refund_reason_above_ow'},
+        {label:'Paid for non-employee',desc:'Contractor, freelancer, or non-employee',v:'refund_reason_non_emp'},
+        {label:'Employee left employment',desc:'Contributions after employee resigned',v:'refund_reason_resigned'},
+        {label:'Duplicate CPF contributions',desc:'Same contribution paid more than once',v:'refund_reason_duplicate'},
+        {label:'Paid CPF on no-pay leave',desc:'CPF paid during unpaid leave period',v:'refund_reason_nopay'},
+        {label:'Wrong contribution rates',desc:'Used wrong CPF rates for computation',v:'refund_reason_wrong_rates'},
+        {label:'Annual leave re-computation',desc:'Re-computed annual leave entitlement',v:'refund_reason_annual_leave'},
+        {label:'Employee repaying wages',desc:'Employee did not fulfil stipulated condition',v:'refund_reason_repay_wages'}
       ],'list message');},900);
       break;
 
+    case 'refund_reason_no_attract':
+      _refundReason='Paid CPF on payment(s) which do not attract CPF';go('refund_get_month');break;
+    case 'refund_reason_above_aw':
+      _refundReason='Paid CPF above additional wage ceiling';go('refund_get_month');break;
+    case 'refund_reason_above_ow':
+      _refundReason='Paid CPF above ordinary wage ceiling';go('refund_get_month');break;
+    case 'refund_reason_non_emp':
+      _refundReason='Paid CPF for non-employee';go('refund_get_month');break;
+    case 'refund_reason_resigned':
+      _refundReason='Employee left employment';go('refund_get_month');break;
+    case 'refund_reason_duplicate':
+      _refundReason='Paid multiple CPF contributions for employee';go('refund_get_month');break;
     case 'refund_reason_nopay':
-      _refundReason='No-pay leave — CPF not due for that period';go('refund_get_month');break;
-    case 'refund_reason_dup':
-      _refundReason='Duplicate payment';go('refund_get_month');break;
-    case 'refund_reason_notappl':
-      _refundReason='CPF not applicable (foreigner or non-employee)';go('refund_get_month');break;
-    case 'refund_reason_wages':
-      _refundReason='Incorrect wages used in calculation';go('refund_get_month');break;
-    case 'refund_reason_other':
-      _refundReason='Other';go('refund_get_month');break;
+      _refundReason='Paid CPF on no-pay leave taken in the month';go('refund_get_month');break;
+    case 'refund_reason_wrong_rates':
+      _refundReason='Used wrong contribution rates';go('refund_get_month');break;
+    case 'refund_reason_annual_leave':
+      _refundReason='Re-computed annual leave entitlement for employee';go('refund_get_repay_date');break;
+    case 'refund_reason_repay_wages':
+      _refundReason='Employee has to repay wages as he did not fulfil stipulated condition(s)';go('refund_get_repay_date');break;
+
+    case 'refund_get_repay_date':
+      await say(()=>{aT('in',`*Reason:* ${_refundReason}\n\nEnter the *date the employee has to repay wages to employer* (DD/MM/YYYY):`,'text message');},700);
+      convState='refund_repay_date';
+      break;
 
     case 'refund_get_month':
       await say(()=>{aT('in',`*Reason:* ${_refundReason}\n\nEnter the *contribution month and year* (MM/YYYY):`,'text message');},700);
@@ -603,13 +670,22 @@ async function go(v){
       convState='refund_stmt';
       break;
 
+    case 'refund_get_1emp_paydate':
+      await say(()=>{aT('in','Enter *date payment was received* by CPF (DD/MM/YYYY):','text message');},700);
+      convState='refund_1emp_paydate';
+      break;
+
     case 'refund_get_amount':
       await say(()=>{aT('in','Enter the *refund amount requested* (S$):','text message');},700);
       convState='refund_amount';
       break;
 
     case 'refund_1emp_summary':
-      await say(()=>{aT('in',`*Refund application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Refund of contributions paid\n*Scope:* 1 employee / platform worker\n━━━━━━━━━━━━━\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n*Employee NRIC/FIN:* ${_refundNric}\n*Refund reason:* ${_refundReason}\n*Contribution month/year:* ${_refundMonth}\n*Statement No / Submission ID:* ${_refundStmtId}\n*Refund amount requested:* S$${_refundAmount}\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'refund_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
+      await say(()=>{aT('in',`*Refund application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Refund of contributions paid\n*Scope:* 1 employee / platform worker\n━━━━━━━━━━━━━\n*CPF Submission No.:* 53414602C-PTE-01\n*NRIC / CPF account no.:* ${_refundNric}\n*Refund reason:* ${_refundReason}\n━━━━━━━━━━━━━\n*Month and year:* ${_refundMonth}\n*Statement No / Submission ID:* ${_refundStmtId}\n*Payment received on:* ${_refundPayDate}\n*Ordinary Wages / net earnings:* S$2,800.00\n*Additional Wages:* S$0.00\n*CPF contributions paid:* S$342.00\n*Refund amount requested:* S$${_refundAmount}\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'refund_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
+      break;
+
+    case 'refund_1emp_repay_summary':
+      await say(()=>{aT('in',`*Refund application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Refund of contributions paid\n*Scope:* 1 employee / platform worker\n━━━━━━━━━━━━━\n*CPF Submission No.:* 53414602C-PTE-01\n*NRIC / CPF account no.:* ${_refundNric}\n*Refund reason:* ${_refundReason}\n*Date employee repays wages:* ${_refundWageRepayDate}\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'refund_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
       break;
 
     case 'refund_submitted':
@@ -620,7 +696,7 @@ async function go(v){
 
     case 'refund_entire_start':
       aT('out','📋 Entire submission');
-      await say(()=>{aT('in','*Refund of contributions — entire submission*\n\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n\nEnter the *Statement Number / Submission ID:*','text message');},1000);
+      await say(()=>{aT('in','*Refund of contributions — entire submission*\n\n*Company:* Chocoero Pte Ltd\n*CPF Submission No.:* 53414602C-PTE-01\n\nEnter the *Statement Number / Submission ID:*','text message');},1000);
       convState='refund_entire_stmt';
       break;
 
@@ -649,7 +725,7 @@ async function go(v){
       break;
 
     case 'refund_entire_summary':
-      await say(()=>{aT('in',`*Refund application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Refund of contributions paid\n*Scope:* Entire submission\n━━━━━━━━━━━━━\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n*Statement No / Submission ID:* ${_refundStmtId}\n*Payment received on:* ${_refundPayDate}\n*Total refund amount:* S$${_refundAmount}\n*Wage update:* Change all wages / net income to S$0\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'refund_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
+      await say(()=>{aT('in',`*Refund application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Refund of contributions paid\n*Scope:* Entire submission\n━━━━━━━━━━━━━\n*CPF Submission No.:* 53414602C-PTE-01\n*Statement No / Submission ID:* ${_refundStmtId}\n*Payment received on:* ${_refundPayDate}\n*Total refund amount:* S$${_refundAmount}\n*Wage update:* Change all wages / net income to S$0\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'refund_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
       break;
 
     /* ── OTHER ── */
@@ -690,12 +766,16 @@ function handleTxt(t){
   if(convState==='edit_address'){convState=null;go('diff_confirm');return;}
   if(convState==='edit_contact'){convState=null;go('diff_confirm');return;}
   if(convState==='refund_nric'){_refundNric=t;convState=null;go('refund_get_reason');return;}
+  if(convState==='refund_repay_date'){_refundWageRepayDate=t;convState=null;go('refund_1emp_repay_summary');return;}
   if(convState==='refund_month'){_refundMonth=t;convState=null;go('refund_get_stmt');return;}
-  if(convState==='refund_stmt'){_refundStmtId=t;convState=null;go('refund_get_amount');return;}
+  if(convState==='refund_stmt'){_refundStmtId=t;convState=null;go('refund_get_1emp_paydate');return;}
+  if(convState==='refund_1emp_paydate'){_refundPayDate=t;convState=null;go('refund_get_amount');return;}
   if(convState==='refund_amount'){_refundAmount=t;convState=null;go('refund_1emp_summary');return;}
   if(convState==='refund_entire_stmt'){_refundStmtId=t;convState=null;go('refund_entire_get_paydate');return;}
   if(convState==='refund_entire_paydate'){_refundPayDate=t;convState=null;go('refund_entire_get_amount');return;}
   if(convState==='refund_entire_amount'){_refundAmount=t;convState=null;go('refund_entire_wage_opt');return;}
+  if(convState==='adjust_stmt'){_adjustStmtId=t;convState=null;go('adjust_get_paydate');return;}
+  if(convState==='adjust_paydate'){_adjustPayDate=t;convState=null;if(_adjustType==='Change payment recipient (NRIC or CPF account number)')go('adjust_review');else go('adjust_get_scope');return;}
   if(convState==='free_qa'){say(()=>{aT('in','_This prototype covers 3 CPF transactions. For detailed policy questions, visit cpf.gov.sg or call the CPF hotline._','text message');aRB('Browse transactions:',[{label:'📝 Update details',v:'flow_update'},{label:'🚫 No contributions',v:'flow_notify'},{label:'↩️ Refund',v:'flow_refund'}],'reply buttons');},900);convState=null;return;}
   if(l.match(/update|change|address|contact|ssic|dda|giro|particular|registered/))go('flow_update');
   else if(l.match(/no.?cpf|no contrib|no.?pay|sabbatical|renovat|clos|cessation/))go('flow_notify');
