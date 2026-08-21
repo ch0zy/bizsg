@@ -550,6 +550,10 @@ async function go(v){
       await say(()=>{aT('in','I can help you apply for a *CPF refund or adjustment*.\n\nWhich type of application?','text message');aRB('Select application type:',[{label:'↩️ Refund',v:'refund_sel_refund'},{label:'🔄 Adjust',v:'refund_sel_adjust'}],'reply buttons');},1200);
       break;
 
+    case 'refund_pick':
+      await say(()=>{aRB('Select application type:',[{label:'↩️ Refund',v:'refund_sel_refund'},{label:'🔄 Adjust',v:'refund_sel_adjust'}],'reply buttons');},800);
+      break;
+
     case 'refund_sel_refund':
       aT('out','↩️ Refund');
       await say(()=>{aT('in','I\'ll help you apply for a *CPF refund*.\n\nDoes this refund apply to one employee, or an entire submission?','text message');},900);
@@ -749,7 +753,7 @@ function afterAuth(){
     setTimeout(()=>{
       if(f==='update')go('update_choice');
       else if(f==='notify')go('notify_review');
-      else if(f==='refund')go('flow_refund');
+      else if(f==='refund')go('refund_pick');
       else aRB('What would you like to do?',[{label:'📝 Update details',v:'flow_update'},{label:'🚫 No contributions',v:'flow_notify'},{label:'↩️ Refund',v:'flow_refund'}],'reply buttons');
     },400);
   });
