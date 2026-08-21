@@ -385,7 +385,7 @@ async function go(v){
 
     /* ── WELCOME ── */
     case 'welcome':
-      await say(()=>{aT('in','👋 *Hi, I\'m BusinessSG.*\n\nI can help you with CPF employer transactions. What do you need to do today?\n\n_Type your situation or browse common tasks below._','text message');},800);
+      await say(()=>{aT('in','👋 *Hi! I\'m the BusinessSG Assistant.*\n\nI can help you with CPF employer transactions. What do you need to do today?\n\n_Type your situation or browse common tasks below._','text message');},800);
       await say(()=>{aLM('Common CPF tasks:','Tap to see options','Browse tasks',[
         {label:'📝 Update company details',desc:'Address, contact, SSIC or DDA',v:'flow_update'},
         {label:'🚫 No CPF contributions',desc:'Notify CPF when nothing is due',v:'flow_notify'},
