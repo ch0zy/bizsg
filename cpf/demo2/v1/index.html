@@ -552,11 +552,13 @@ async function go(v){
 
     case 'refund_sel_refund':
       aT('out','↩️ Refund');
-      await say(()=>{aRB('Refund applies to:',[{label:'👤 1 employee',v:'refund_1emp_start'},{label:'📋 Entire submission',v:'refund_entire_start'}],'reply buttons');},900);
+      await say(()=>{aT('in','I\'ll help you apply for a *CPF refund*.\n\nDoes this refund apply to one employee, or an entire submission?','text message');},900);
+      await say(()=>{aRB('Refund applies to:',[{label:'👤 1 employee',v:'refund_1emp_start'},{label:'📋 Entire submission',v:'refund_entire_start'}],'reply buttons');},600);
       break;
 
     case 'refund_sel_adjust':
       aT('out','🔄 Adjust');
+      await say(()=>{aT('in','I\'ll help you submit a *CPF adjustment*.\n\nWhat needs to be adjusted?','text message');},900);
       await say(()=>{aLM('What needs to be adjusted?','','Adjustment type',[
         {label:'Change contributions month/year',desc:'Wrong period submitted',v:'refund_adjust_month'},
         {label:'Change CPF Submission Number',desc:'Submitted under wrong submission number',v:'refund_adjust_csn'},
