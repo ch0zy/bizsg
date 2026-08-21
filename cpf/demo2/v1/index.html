@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>BusinessSG AI Agent — WhatsApp Prototype</title>
+<title>BusinessSG — CPF Employer Transactions</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -146,8 +146,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <body>
 
 <div class="page-hdr">
-  <h1>BusinessSG AI Agent</h1>
-  <p>WhatsApp Prototype · Phase 1 MVP 2026</p>
+  <h1>BusinessSG CPF Employer Transactions</h1>
+  <p>WhatsApp Prototype</p>
   <div class="badge">🔒 Design Prototype · Not for public use</div>
 </div>
 
@@ -316,7 +316,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="sp-chk"><svg viewBox="0 0 32 32" fill="none"><path d="M6 16L13 23L26 9" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="sp-sh">Verification successful</div>
       <div class="sp-ss">You have been verified as a Corppass user.</div>
-      <div class="sp-card">Alan Tan &#183; Entity Admin<br><span style="font-size:13px;color:#888;font-weight:400">Tech Horizons Pte Ltd &#183; UEN 202312345A</span></div>
+      <div class="sp-card">David Lim &#183; Entity Admin<br><span style="font-size:13px;color:#888;font-weight:400">Chocoero Pte Ltd &#183; UEN 202500298W</span></div>
       <button class="sp-ret" onclick="retWA()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.847L0 24l6.313-1.498A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
         Return to WhatsApp
@@ -332,7 +332,28 @@ const inp=document.getElementById('inp'),snd=document.getElementById('snd');
 const drwOv=document.getElementById('drwOv'),drwIt=document.getElementById('drwIt');
 const spOv=document.getElementById('spOv'),spUrl=document.getElementById('spUrl');
 const spPg=document.getElementById('spPg'),spLoad=document.getElementById('spLoad'),spSucc=document.getElementById('spSucc');
-let authed=false,pendingFlow=null,convState=null,_email='',_ctaBtn=null,_timer=null;
+let authed=false,pendingFlow=null,convState=null,_ctaBtn=null,_timer=null;
+let _notifyEmpName='',_notifyEmpNric='',_notifyMessage='';
+let _refundNric='',_refundReason='',_refundMonth='',_refundStmtId='',_refundAmount='',_refundPayDate='';
+let _newSsic='',_ssicMatches=[];
+let _ddaType='',_ddaBank='',_ddaAcct='';
+const SSIC_STUB=[
+  {code:'56101',desc:'Full-service restaurants'},
+  {code:'56102',desc:'Fast food restaurants'},
+  {code:'56209',desc:'Other food service activities'},
+  {code:'56301',desc:'Cafes and coffee houses'},
+  {code:'47111',desc:'Supermarkets and hypermarkets'},
+  {code:'47191',desc:'Other retail in non-specialised stores'},
+  {code:'47721',desc:'Retail of clothing and footwear'},
+  {code:'62010',desc:'Computer programming activities'},
+  {code:'62090',desc:'Other IT and computer service activities'},
+  {code:'70100',desc:'Head offices and holding companies'},
+  {code:'69100',desc:'Legal activities'},
+  {code:'86100',desc:'Hospital activities'},
+  {code:'41001',desc:'Construction of residential buildings'},
+  {code:'49410',desc:'Freight transport by road'},
+  {code:'68100',desc:'Real estate activities with own property'},
+];
 function ts(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');}
 function sb(){setTimeout(()=>{waO.scrollTop=waO.scrollHeight;},50);}
 function fmt(s){return s.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<strong>$1</strong>').replace(/_(.*?)_/g,'<em>$1</em>');}
@@ -355,78 +376,332 @@ function swTab(t){document.getElementById('tApp').classList.toggle('active',t===
 function simLogin(){clearInterval(_timer);spPg.style.display='none';spLoad.style.display='flex';spUrl.textContent='login.id.singpass.gov.sg/auth/verify…';setTimeout(()=>{spLoad.style.display='none';spSucc.style.display='flex';spUrl.textContent='businesssg.gov.sg/callback?state=wa_return&token=eyJ…';},2200);}
 function retWA(){spOv.classList.remove('open');clearInterval(_timer);if(_ctaBtn){_ctaBtn.innerHTML='✅ Verified with Singpass';_ctaBtn.disabled=true;_ctaBtn.style.color='#888';}if(window._cb){setTimeout(window._cb,700);window._cb=null;}}
 async function go(v){
+  if(v.startsWith('ssic_pick_')){
+    const s=_ssicMatches[parseInt(v.replace('ssic_pick_',''))];
+    if(s){_newSsic=s.code+' — '+s.desc;go('update_ssic_confirm');}
+    return;
+  }
   switch(v){
+
+    /* ── WELCOME ── */
     case 'welcome':
-      await say(()=>{aT('in',`👋 *Welcome to BusinessSG*\n\nThis is an official Singapore Government service. I can help you with:\n&#8226; Company directorships\n&#8226; Grants & licensing\n&#8226; Trade & tariff queries\n&#8226; Compliance records`,'text message');},800);
-      await say(()=>{aLM('How can I help you today?','Select a service to get started','View services',[{label:'📋 Directorship',desc:'Add or remove company directors',v:'flow_dir'},{label:'💰 Grants & Licensing',desc:'Check eligibility and apply',v:'flow_grants'},{label:'💬 Trade/Tariff Query',desc:'Check import/export policies',v:'flow_tariff'},{label:'🔍 Audit Trail',desc:'View transaction history',v:'flow_audit'},{label:'📞 Speak to an agent',desc:'Connect to human support',v:'flow_human'}],'list message');},600);
+      await say(()=>{aT('in','👋 *Hi, I\'m BusinessSG.*\n\nI can help you with CPF employer transactions. What do you need to do today?\n\n_Type your situation or browse common tasks below._','text message');},800);
+      await say(()=>{aLM('Common CPF tasks:','Tap to see options','Browse tasks',[
+        {label:'📝 Update company details',desc:'Address, contact, SSIC or DDA',v:'flow_update'},
+        {label:'🚫 No CPF contributions',desc:'Notify CPF when nothing is due',v:'flow_notify'},
+        {label:'↩️ Refund or adjustment',desc:'Correct a CPF contribution error',v:'flow_refund'},
+        {label:'💬 Other CPF question',desc:'Rules, eligibility, processes',v:'flow_other'}
+      ],'list message');},600);
       break;
-    case 'flow_tariff':
-      aT('out','💬 Trade/Tariff Query');pendingFlow='tariff';
-      await say(()=>{aT('in',`Hello Mr Alan, let me check the details on your imports and current trade policies.\n\nFirst, I need to verify your identity via *Corppass*. Tap below — you'll be taken to the Singpass login page, then redirected back here automatically.`,'text message');},1300);
-      await say(()=>{aCTA(`🔐 *Corppass verification required*\n\nThis takes about 20 seconds. Your session will be valid for 60 minutes.`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button → Singpass webview');},600);
+
+    /* ── T2: UPDATE EMPLOYER PARTICULARS ── */
+    case 'flow_update':
+      if(authed){go('update_choice');break;}
+      pendingFlow='update';
+      await say(()=>{aT('in','I can help update your employer particulars with CPF.\n\nFirst, I need to verify your Corppass authority for *Chocoero Pte Ltd*.','text message');},1200);
+      await say(()=>{aCTA('🔐 *Corppass verification required*\n\nThis takes about 20 seconds. Your session will be valid for 60 minutes.','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button → Singpass webview');},600);
       break;
-    case 'flow_dir':
-      aT('out','📋 Change Directorship');
-      if(!authed){pendingFlow='director';await say(()=>{aT('in','To make directorship changes, I need to verify your identity first.','text message');},900);await say(()=>{aCTA(`🔐 *Corppass verification required*`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);}
-      else go('dir_authed');break;
-    case 'flow_grants':
-      aT('out','💰 Grants & Licensing');
-      if(!authed){pendingFlow='grants';await say(()=>{aT('in','To check your grant eligibility, I need to verify your identity first.','text message');},900);await say(()=>{aCTA(`🔐 *Corppass verification required*`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);}
-      else go('grants_ok');break;
-    case 'flow_audit':
-      aT('out','🔍 Audit Trail');
-      if(!authed){pendingFlow='audit';await say(()=>{aT('in','Your audit trail contains sensitive records. Please verify your identity first.','text message');},900);await say(()=>{aCTA(`🔐 *Corppass verification required*`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);}
-      else go('audit_ok');break;
-    case 'tariff_ans':
-      await say(()=>{aT('in',`I've checked — I understand you sell *tungsten carbide C&C tips*. The recent trade summit has removed tungsten carbide C&C tips from the tariff list. Your exports to the US will *not* be affected.\n\n_⚠️ AI-generated — please verify at customs.gov.sg_`,'text message');},1000);
-      await say(()=>{aT('in',`Mr Alan, my records note you have yet to apply for a *S$5,000 AI Software Grant*.`,'text message');aRB('Would you like to apply?',[{label:'Yes, apply',v:'grant_apply'},{label:'No thanks',v:'grant_no'},{label:'Tell me more',v:'grant_more'}],'reply buttons (3 of max 3)');},800);break;
-    case 'dir_authed':
-      authed=true;await say(()=>{aT('in','✅ *Entity Admin* confirmed for Tech Horizons Pte Ltd (UEN: 202312345A).','text message');aLM('What directorship change?','','Select action',[{label:'➕ Add New Director',desc:'Send secure Singpass invite',v:'dir_add'},{label:'➖ Remove Director',desc:'File removal with ACRA',v:'dir_remove'},{label:'🔄 Update Details',desc:'Change address, ID etc.',v:'dir_update'}],'list message');},1000);break;
-    case 'grants_ok':
-      authed=true;await say(()=>{aT('in','Based on your profile for *Tech Horizons Pte Ltd*, I found grants you qualify for:','text message');aLM('🌟 *Available Grants*','Tap to view and apply','View grants',[{label:'AI Grant — S$5,000',desc:'Automate business processes · EnterpriseSG',v:'grant_apply'},{label:'Productivity Grant',desc:'Tech adoption subsidy · IMDA',v:'grant_other'},{label:'Market Readiness',desc:'Internationalisation · EnterpriseSG',v:'grant_other'}],'list message');},1000);break;
-    case 'audit_ok':
-      authed=true;await say(()=>{aT('in','*Recent transactions* for Tech Horizons Pte Ltd:','text message');aLM('','Tap to view details','View transactions',[{label:'Grant Application',desc:'GRT-2026-084521 · Today',v:'a_grant'},{label:'Director Change',desc:'ACRA-DIR-20260414 · Today',v:'a_dir'},{label:'Corppass Login',desc:'✅ Verified · Today',v:'a_login'}],'list message');aCTA('Download full audit log.','Export Audit Log',()=>{},'CTA URL button');},1100);break;
-    case 'grant_apply':aT('out','AI Software Grant — S$5,000');await say(()=>{aT('in',`*AI Software Grant — S$5,000*\n\nAgency: EnterpriseSG · Eligibility: ✅\n\nPre-filled from Corppass:\n• Company: Tech Horizons Pte Ltd\n• UEN: 202312345A\n• Bank: DBS ···· 4821`,'text message');aRB('Submit the application?',[{label:'✅ Confirm & Submit',v:'grant_submit'},{label:'❌ Cancel',v:'grant_no'}],'reply buttons');},1200);break;
-    case 'grant_submit':aT('out','✅ Confirm & Submit');await say(()=>{aT('in','🎉 *Application submitted!*\n\nRef: GRT-2026-084521\nStatus: Under review · 5–7 business days','text message');},1600);await say(()=>{aCTA(`*Audit receipt* · GRT-2026-084521 · ${ts()} SGT`,'Download Receipt',()=>{},'CTA URL button');aRB('What next?',[{label:'📋 Directorship',v:'flow_dir'},{label:'🔍 Audit Trail',v:'flow_audit'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},800);break;
-    case 'grant_no':aT('out','No thanks');await say(()=>{aT('in','No problem! The grant is available until 31 Dec 2026.','text message');aRB('No problem, the grant stays open.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},800);break;
-    case 'grant_more':aT('out','Tell me more');await say(()=>{aT('in','*AI Software Grant — S$5,000*\n\n✅ Subsidises up to 70% of qualifying software costs\n✅ One-time grant per company','text message');aRB('Ready to apply for this grant?',[{label:'Yes, apply',v:'grant_apply'},{label:'Not now',v:'welcome'}],'reply buttons');},1000);break;
-    case 'grant_other':aT('out','Other grant');await say(()=>{aCTA('Apply on GoBusiness portal.','Apply on GoBusiness',()=>{},'CTA URL button');},900);break;
-    case 'dir_add':aT('out','➕ Add New Director');await say(()=>{aT('in',`I'll send them a *secure Singpass invite link*.\n\nPlease type the new director's *email address*.`,'text message');},1100);convState='email';break;
-    case 'dir_send':await say(()=>{aT('in',`Got it! Sending invite to *${_email}*\n\n1&#8364; Invite sent → 2&#8364; Director authenticates → 3&#8364; ACRA filed`,'text message');aRB('Confirm sending the invite?',[{label:'✅ Send invite',v:'dir_sent'},{label:'✏️ Change email',v:'dir_add'}],'reply buttons');},1100);break;
-    case 'dir_sent':aT('out','✅ Send invite');await say(()=>{aCTA(`📨 *Invite sent* to ${_email}\n\nValid: 48 hours · Auth: Singpass required`,'View invite status',()=>{},'CTA URL button');aRB('Track your invite progress here.',[{label:'⏳ Check status',v:'dir_status'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},1400);break;
-    case 'dir_status':aT('out','⏳ Check status');await say(()=>{aT('in','✅ *Ms Lee Mei Ling* has completed Singpass verification. ACRA filing *approved*.\n\nRef: ACRA-DIR-20260414','text message');aCTA(`*Audit receipt* · ACRA-DIR-20260414 · ${ts()} SGT`,'Download Receipt',()=>{},'CTA URL button');aRB('What would you like to do next?',[{label:'🏠 Main Menu',v:'welcome'},{label:'💰 Grants',v:'flow_grants'}],'reply buttons');},1500);break;
-    case 'dir_remove':aT('out','➖ Remove Director');await say(()=>{aLM('Which director?','⚠️ This will trigger an ACRA filing','Select director',[{label:'Mr Tan Ah Kow',desc:'Resigned',v:'dir_rem_confirm'}],'list message');},1000);break;
-    case 'dir_rem_confirm':aT('out','Mr Tan Ah Kow');await say(()=>{aT('in','⚠️ *Confirm removal of Mr Tan Ah Kow*\n\nThis will be filed with ACRA. Cannot be undone.','text message');aRB('Are you sure you want to proceed?',[{label:'✅ Confirm removal',v:'dir_removed'},{label:'❌ Cancel',v:'dir_authed'}],'reply buttons');},1100);break;
-    case 'dir_removed':aT('out','✅ Confirm removal');await say(()=>{aT('in','✅ *ACRA filing submitted.* Mr Tan Ah Kow removed.','text message');aCTA('*Audit receipt* for director removal.','Download Receipt',()=>{},'CTA URL button');aRB('Removal has been filed with ACRA.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},1500);break;
-    case 'dir_update':aT('out','🔄 Update Details');await say(()=>{aCTA('Update via MyInfo Business on Singpass.','Update on Singpass',()=>{},'CTA URL button');},900);break;
-    case 'a_grant':aT('out','Grant Application');await say(()=>{aT('in',`*Grant Application — Audit*\n\nRef: GRT-2026-084521\nBy: Alan Tan (Entity Admin) · ${ts()} SGT`,'text message');aCTA('Download receipt.','Download Receipt',()=>{},'CTA URL button');aRB('View or manage this transaction.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},900);break;
-    case 'a_dir':aT('out','Director Change');await say(()=>{aT('in',`*Director Change — Audit*\n\nRef: ACRA-DIR-20260414 · ${ts()} SGT`,'text message');aCTA('Download receipt.','Download Receipt',()=>{},'CTA URL button');aRB('View or manage this transaction.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},900);break;
-    case 'a_login':aT('out','Corppass Login');await say(()=>{aT('in','✅ Corppass login verified at '+ts()+' SGT.','text message');aRB('Return to the main menu anytime.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},800);break;
-    case 'flow_human':aT('out','📞 Speak to an agent');await say(()=>{aT('in','Connecting you to a BusinessSG officer. Mon–Fri, 8:30am–6pm SGT.','text message');aCTA('Reach us via the portal.','Open Support Portal',()=>{},'CTA URL button');},900);break;
+
+    case 'update_choice':
+      await say(()=>{aT('in','I\'ve retrieved your current CPF records for *Chocoero Pte Ltd* (UEN 202500298W, CSN S20250001B).\n\nWhat would you like to update?','text message');},800);
+      await say(()=>{aLM('Select the field to update:','','Choose field',[
+        {label:'🏠 Principal place of business',desc:'Current: 100 High St #04-01 S179209',v:'update_address'},
+        {label:'📧 Contact details',desc:'Current: admin@chocoero.sg',v:'update_contact'},
+        {label:'🏭 Business activity (SSIC)',desc:'Current: 56101 — Restaurants',v:'update_ssic'},
+        {label:'🏦 DDA/GIRO bank account',desc:'Current: DBS ···· 1234',v:'update_dda'}
+      ],'list message');},500);
+      break;
+
+    case 'update_address':
+      aT('out','🏠 Update registered address');
+      await say(()=>{aT('in','*Address update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\n🟢 *Proposed*\n200 Victoria Street #08-02\nSingapore 188025\n━━━━━━━━━━━━━\n\n_Address from Corppass. Edit if different._','text message');aRB('Confirm or edit this address?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'✏️ Edit address',v:'update_address_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
+      break;
+
+    case 'update_address_edit':
+      aT('out','✏️ Edit address');
+      await say(()=>{aT('in','Type the new address (e.g. _200 Victoria Street #08-02 Singapore 188025_):','text message');},800);
+      convState='edit_address';
+      break;
+
+    case 'update_contact':
+      aT('out','📧 Update contact details');
+      await say(()=>{aT('in','*Contact details — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\n🟢 *Proposed*\ncontact@chocoero.sg\n+65 9876 5432\n━━━━━━━━━━━━━\n\n_From Corppass. Edit if different._','text message');aRB('Confirm or edit?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'✏️ Edit',v:'update_contact_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
+      break;
+
+    case 'update_contact_edit':
+      aT('out','✏️ Edit contact');
+      await say(()=>{aT('in','Type the new email address:','text message');},800);
+      convState='edit_contact';
+      break;
+
+    case 'update_ssic':
+      aT('out','🏭 Update business activity (SSIC)');
+      await say(()=>{aT('in','*Current SSIC:* 56101 — Full-service restaurants\n\nType keywords to search for your new SSIC code.\n(e.g. _food_, _retail_, _IT_, _construction_)','text message');},1000);
+      convState='ssic_search';
+      break;
+
+    case 'update_ssic_confirm':
+      await say(()=>{aT('in',`*SSIC update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current:* 56101 — Full-service restaurants\n🟢 *New:* ${_newSsic}\n━━━━━━━━━━━━━`,'text message');aRB('Confirm SSIC change?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'🔍 Search again',v:'update_ssic'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
+      break;
+
+    case 'update_dda':
+      aT('out','🏦 Update DDA/GIRO');
+      await say(()=>{aT('in','*Current DDA/GIRO:* DBS ···· 1234\n\nWhat is the new *bank account type?*','text message');aRB('Select account type:',[{label:'🏢 Corporate account',v:'update_dda_corp'},{label:'👤 Personal account',v:'update_dda_personal'}],'reply buttons');},1000);
+      break;
+
+    case 'update_dda_corp':
+      aT('out','🏢 Corporate account');
+      _ddaType='Corporate';
+      await say(()=>{aLM('Select your bank:','','Choose bank',[
+        {label:'Bank of China Limited',v:'dda_bank_0'},
+        {label:'CIMB Bank Berhad',v:'dda_bank_1'},
+        {label:'DBS Bank Ltd',v:'dda_bank_2'},
+        {label:'Industrial & Commercial Bank of China',v:'dda_bank_3'},
+        {label:'MariBank Singapore Pte Ltd',v:'dda_bank_4'},
+        {label:'Maybank Singapore Limited',v:'dda_bank_5'},
+        {label:'Oversea-Chinese Banking Corp Ltd',v:'dda_bank_6'},
+        {label:'United Overseas Bank Ltd',v:'dda_bank_7'}
+      ],'list message');},900);
+      break;
+
+    case 'update_dda_personal':
+      aT('out','👤 Personal account');
+      _ddaType='Personal';
+      await say(()=>{aLM('Select your bank:','','Choose bank',[
+        {label:'Bank of China Limited',v:'dda_bank_0'},
+        {label:'CIMB Bank Berhad',v:'dda_bank_1'},
+        {label:'DBS Bank Ltd',v:'dda_bank_2'},
+        {label:'Industrial & Commercial Bank of China',v:'dda_bank_3'},
+        {label:'MariBank Singapore Pte Ltd',v:'dda_bank_4'},
+        {label:'Maybank Singapore Limited',v:'dda_bank_5'},
+        {label:'Oversea-Chinese Banking Corp Ltd',v:'dda_bank_6'},
+        {label:'United Overseas Bank Ltd',v:'dda_bank_7'}
+      ],'list message');},900);
+      break;
+
+    case 'dda_bank_0':_ddaBank='Bank of China Limited';go('update_dda_acct');break;
+    case 'dda_bank_1':_ddaBank='CIMB Bank Berhad';go('update_dda_acct');break;
+    case 'dda_bank_2':_ddaBank='DBS Bank Ltd';go('update_dda_acct');break;
+    case 'dda_bank_3':_ddaBank='Industrial & Commercial Bank of China';go('update_dda_acct');break;
+    case 'dda_bank_4':_ddaBank='MariBank Singapore Pte Ltd';go('update_dda_acct');break;
+    case 'dda_bank_5':_ddaBank='Maybank Singapore Limited';go('update_dda_acct');break;
+    case 'dda_bank_6':_ddaBank='Oversea-Chinese Banking Corp Ltd';go('update_dda_acct');break;
+    case 'dda_bank_7':_ddaBank='United Overseas Bank Ltd';go('update_dda_acct');break;
+
+    case 'update_dda_acct':
+      await say(()=>{aT('in',`*${_ddaBank}* selected.\n\nEnter the new *bank account number:*`,'text message');},800);
+      convState='dda_acct';
+      break;
+
+    case 'update_dda_confirm':
+      await say(()=>{aT('in',`*DDA/GIRO update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current:* DBS ···· 1234\n🟢 *New:* ${_ddaBank}\n${_ddaAcct} (${_ddaType})\n━━━━━━━━━━━━━\n\n_New account takes effect next contribution month._`,'text message');aRB('Confirm bank account change?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'✏️ Change bank',v:'update_dda'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
+      break;
+
+    case 'diff_confirm':
+      aT('out','✅ Confirm');
+      await say(()=>{aT('in','*Declaration*\n\nI confirm that the information submitted is true and accurate, and I am authorised to make this update on behalf of Chocoero Pte Ltd.\n\n_CPF Act S.74 — False declarations are an offence._','text message');aRB('Accept declaration and submit?',[{label:'✅ I declare & submit',v:'update_submitted'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1100);
+      break;
+
+    case 'update_submitted':
+      aT('out','✅ I declare & submit');
+      await say(()=>{aT('in','⏳ Submitting update to CPF…','text message');},900);
+      await say(()=>{aT('in','✅ *Update submitted.*\n\nRef: CPF-UPD-2026-038291\nProcessing time: 3 business days\nConfirmation will be sent to contact@chocoero.sg','text message');aCTA('*Submission receipt* · CPF-UPD-2026-038291','Download Receipt',()=>{},'CTA URL button');aRB('What next?',[{label:'📝 More updates',v:'update_choice'},{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1500);
+      break;
+
+    /* ── T3: NOTIFY NO CPF CONTRIBUTIONS ── */
+    case 'flow_notify':
+      await say(()=>{aT('in','I\'ll help you submit a request to CPF — *No CPF contributions payable*.\n\nFirst, what is the *name* of your employee or platform worker?','text message');},1000);
+      convState='notify_emp_name';
+      break;
+
+    case 'notify_get_nric':
+      await say(()=>{aT('in','What is the *NRIC / FIN* of your employee or platform worker?','text message');},800);
+      convState='notify_emp_nric';
+      break;
+
+    case 'notify_get_message':
+      await say(()=>{aT('in','Type your *message* to CPF — describe why no contributions are payable for this employee.\n\n_e.g. Employee was on no-pay leave from 1 Aug to 31 Aug 2026._','text message');},900);
+      convState='notify_message';
+      break;
+
+    case 'notify_auth':
+      pendingFlow='notify';
+      await say(()=>{aT('in','To submit the request, I need to verify your Corppass authority for *Chocoero Pte Ltd*.','text message');},800);
+      await say(()=>{aCTA('🔐 *Corppass verification required*','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);
+      break;
+
+    case 'notify_review':
+      await say(()=>{aT('in',`*No CPF contributions payable — request summary*\n\n━━━━━━━━━━━━━\n*I am:* An Employer or Platform operator\n*I want to submit:* Request\n*For whom:* My Employee or Platform worker\n*Employee name:* ${_notifyEmpName||'—'}\n*Employee NRIC/FIN:* ${_notifyEmpNric||'—'}\n*Subject:* Making CPF contributions\n*Category:* No CPF contributions payable\n*Sub-category:* For employers\n*Message:* ${_notifyMessage||'—'}\n━━━━━━━━━━━━━\n*My contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n*Identification:* CSN S20250001B\n━━━━━━━━━━━━━\n\nReview and confirm to submit to CPF.`,'text message');aRB('Submit request?',[{label:'✅ Confirm & submit',v:'notify_submitted'},{label:'✏️ Edit',v:'flow_notify'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
+      break;
+
+    case 'notify_submitted':
+      aT('out','✅ Confirm & submit');
+      await say(()=>{aT('in','⏳ Submitting request to CPF…','text message');},900);
+      await say(()=>{aT('in','✅ *Request submitted.*\n\nRef: NOTIF-NCP-2026-00412\nCPF will respond via email to contact@chocoero.sg within 3–5 business days.','text message');aCTA('*Submission receipt* · NOTIF-NCP-2026-00412','Download Receipt',()=>{},'CTA URL button');aRB('All done!',[{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1500);
+      break;
+
+    /* ── T4: REFUND / ADJUSTMENT ── */
+    case 'flow_refund':
+      if(!authed){pendingFlow='refund';await say(()=>{aT('in','I need to verify your Corppass authority before we proceed.','text message');},800);await say(()=>{aCTA('🔐 *Corppass verification required*','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);break;}
+      await say(()=>{aT('in','I can help you apply for a *CPF refund or adjustment*.\n\nWhich type of application?','text message');aRB('Select application type:',[{label:'↩️ Refund',v:'refund_sel_refund'},{label:'🔄 Adjust',v:'refund_sel_adjust'}],'reply buttons');},1200);
+      break;
+
+    case 'refund_sel_refund':
+      aT('out','↩️ Refund');
+      await say(()=>{aRB('Refund applies to:',[{label:'👤 1 employee',v:'refund_1emp_start'},{label:'📋 Entire submission',v:'refund_entire_start'}],'reply buttons');},900);
+      break;
+
+    case 'refund_sel_adjust':
+      aT('out','🔄 Adjust');
+      await say(()=>{aLM('What needs to be adjusted?','','Adjustment type',[
+        {label:'Change contributions month/year',desc:'Wrong period submitted',v:'refund_adjust_month'},
+        {label:'Change CPF Submission No. (CSN)',desc:'Submitted under wrong CSN',v:'refund_adjust_csn'},
+        {label:'Change payment recipient',desc:'Wrong NRIC or CPF account number',v:'refund_adjust_recip'}
+      ],'list message');},900);
+      break;
+
+    case 'refund_adjust_month':
+    case 'refund_adjust_csn':
+    case 'refund_adjust_recip':
+      await say(()=>{aT('in','Adjustments to contribution details are processed via the CPF employer portal.\n\n_This transaction is outside the current prototype scope._','text message');aCTA('🔗 *Open CPF Employer Portal*\n\nLog in to e-Submit@CPF to submit your adjustment.','Open CPF Portal',()=>{},'CTA URL button');aRB('Need anything else?',[{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1000);
+      break;
+
+    case 'refund_1emp_start':
+      aT('out','👤 1 employee');
+      await say(()=>{aT('in','*Refund of contributions — 1 employee*\n\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n\nEnter the *employee\'s NRIC / FIN or CPF account number:*','text message');},1000);
+      convState='refund_nric';
+      break;
+
+    case 'refund_get_reason':
+      await say(()=>{aLM('Select refund reason:','','Refund reason',[
+        {label:'Employee on no-pay leave',desc:'CPF paid during unpaid leave period',v:'refund_reason_nopay'},
+        {label:'Duplicate payment',desc:'Same contribution paid more than once',v:'refund_reason_dup'},
+        {label:'CPF not applicable',desc:'Foreigner, contractor, or non-employee',v:'refund_reason_notappl'},
+        {label:'Incorrect wages used',desc:'Wrong ordinary or additional wages submitted',v:'refund_reason_wages'},
+        {label:'Other',desc:'I\'ll provide details in the application',v:'refund_reason_other'}
+      ],'list message');},900);
+      break;
+
+    case 'refund_reason_nopay':
+      _refundReason='No-pay leave — CPF not due for that period';go('refund_get_month');break;
+    case 'refund_reason_dup':
+      _refundReason='Duplicate payment';go('refund_get_month');break;
+    case 'refund_reason_notappl':
+      _refundReason='CPF not applicable (foreigner or non-employee)';go('refund_get_month');break;
+    case 'refund_reason_wages':
+      _refundReason='Incorrect wages used in calculation';go('refund_get_month');break;
+    case 'refund_reason_other':
+      _refundReason='Other';go('refund_get_month');break;
+
+    case 'refund_get_month':
+      await say(()=>{aT('in',`*Reason:* ${_refundReason}\n\nEnter the *contribution month and year* (MM/YYYY):`,'text message');},700);
+      convState='refund_month';
+      break;
+
+    case 'refund_get_stmt':
+      await say(()=>{aT('in','Enter the *Statement Number / Submission ID* (from your CPF submission record):','text message');},700);
+      convState='refund_stmt';
+      break;
+
+    case 'refund_get_amount':
+      await say(()=>{aT('in','Enter the *refund amount requested* (S$):','text message');},700);
+      convState='refund_amount';
+      break;
+
+    case 'refund_1emp_summary':
+      await say(()=>{aT('in',`*Refund application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Refund of contributions paid\n*Scope:* 1 employee / platform worker\n━━━━━━━━━━━━━\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n*Employee NRIC/FIN:* ${_refundNric}\n*Refund reason:* ${_refundReason}\n*Contribution month/year:* ${_refundMonth}\n*Statement No / Submission ID:* ${_refundStmtId}\n*Refund amount requested:* S$${_refundAmount}\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'refund_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
+      break;
+
+    case 'refund_submitted':
+      aT('out','✅ Submit');
+      await say(()=>{aT('in','⏳ Submitting refund application…','text message');},900);
+      await say(()=>{aT('in','✅ *Application submitted.*\n\nRef: REFUND-2026-00287\nCPF will process within 7–14 business days. Confirmation sent to contact@chocoero.sg.','text message');aCTA('*Refund receipt* · REFUND-2026-00287','Download Receipt',()=>{},'CTA URL button');aRB('All done!',[{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1500);
+      break;
+
+    case 'refund_entire_start':
+      aT('out','📋 Entire submission');
+      await say(()=>{aT('in','*Refund of contributions — entire submission*\n\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n\nEnter the *Statement Number / Submission ID:*','text message');},1000);
+      convState='refund_entire_stmt';
+      break;
+
+    case 'refund_entire_get_paydate':
+      await say(()=>{aT('in','Enter the *date payment was received* by CPF (DD/MM/YYYY):','text message');},700);
+      convState='refund_entire_paydate';
+      break;
+
+    case 'refund_entire_get_amount':
+      await say(()=>{aT('in','Enter the *total refund amount requested* for this submission (S$):','text message');},700);
+      convState='refund_entire_amount';
+      break;
+
+    case 'refund_entire_wage_opt':
+      await say(()=>{aT('in','How should wages / net income be updated for this submission?','text message');aRB('Wage update:',[{label:'📤 Upload revised wages',v:'refund_entire_upload'},{label:'Set all wages to $0',v:'refund_entire_zero'}],'reply buttons');},800);
+      break;
+
+    case 'refund_entire_upload':
+      aT('out','📤 Upload revised wages');
+      await say(()=>{aT('in','Upload of revised wage information is handled via the CPF employer portal.\n\n_Returning to the portal for this step._','text message');aCTA('🔗 *Open CPF Employer Portal*','Open CPF Portal',()=>{},'CTA URL button');aRB('Need anything else?',[{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},800);
+      break;
+
+    case 'refund_entire_zero':
+      aT('out','Set all wages to $0');
+      go('refund_entire_summary');
+      break;
+
+    case 'refund_entire_summary':
+      await say(()=>{aT('in',`*Refund application — review*\n\n━━━━━━━━━━━━━\n*Application type:* Refund of contributions paid\n*Scope:* Entire submission\n━━━━━━━━━━━━━\n*Company:* Chocoero Pte Ltd\n*CSN:* S20250001B\n*Statement No / Submission ID:* ${_refundStmtId}\n*Payment received on:* ${_refundPayDate}\n*Total refund amount:* S$${_refundAmount}\n*Wage update:* Change all wages / net income to S$0\n━━━━━━━━━━━━━\n*Contact details (from Corppass)*\n*Name:* David Lim\n*Email:* contact@chocoero.sg\n*Contact:* +65 9876 5432\n━━━━━━━━━━━━━\n\n⬜ I declare that the information provided is accurate and I am authorised to make this application on behalf of Chocoero Pte Ltd.\n\nConfirm and submit?`,'text message');aRB('Submit application?',[{label:'✅ Submit',v:'refund_submitted'},{label:'❌ Cancel',v:'welcome'}],'reply buttons');},1400);
+      break;
+
+    /* ── OTHER ── */
+    case 'flow_other':
+      await say(()=>{aT('in','What\'s your CPF question? Type it and I\'ll help explain the requirement or point you to the right service.','text message');},900);
+      convState='free_qa';
+      break;
   }
 }
 window.go=go;
+
 function afterAuth(){
   authed=true;const f=pendingFlow;pendingFlow=null;
-  say(()=>{aT('in',`✅ *Corppass verification complete.*\n\nHi Alan, I've confirmed your identity via Singpass.\n\n*Name:* Alan Tan · *Role:* Entity Admin\n*Company:* Tech Horizons Pte Ltd\n*UEN:* 202312345A\n*Session valid:* 60 minutes`,'text message');},1400).then(()=>{
+  say(()=>{aT('in','✅ *Corppass verification complete.*\n\nHi David, identity confirmed via Singpass.\n\n*Name:* David Lim · *Role:* Entity Admin\n*Company:* Chocoero Pte Ltd\n*UEN:* 202500298W\n*Session valid:* 60 minutes','text message');},1400).then(()=>{
     setTimeout(()=>{
-      if(f==='tariff')go('tariff_ans');
-      else if(f==='director')go('dir_authed');
-      else if(f==='grants')go('grants_ok');
-      else if(f==='audit')go('audit_ok');
-      else aRB('What would you like to do?',[{label:'📋 Directorship',v:'flow_dir'},{label:'💰 Grants',v:'flow_grants'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');
+      if(f==='update')go('update_choice');
+      else if(f==='notify')go('notify_review');
+      else if(f==='refund')go('flow_refund');
+      else aRB('What would you like to do?',[{label:'📝 Update details',v:'flow_update'},{label:'🚫 No contributions',v:'flow_notify'},{label:'↩️ Refund',v:'flow_refund'}],'reply buttons');
     },400);
   });
 }
+
 function handleTxt(t){
   const l=t.toLowerCase();
-  if(convState==='email'){const m=t.match(/[\w.+-]+@[\w-]+\.[\w.]+/);_email=m?m[0]:t;convState=null;go('dir_send');return;}
-  if(l.includes('tariff')||l.includes('tungsten')||l.includes('import')||l.includes('tax'))go('flow_tariff');
-  else if(l.includes('director')||l.includes('directorship'))go('flow_dir');
-  else if(l.includes('grant')||l.includes('licen'))go('flow_grants');
-  else if(l.includes('audit')||l.includes('receipt')||l.includes('history'))go('flow_audit');
-  else if(l.includes('hi')||l.includes('hello')||l.includes('help')||l.includes('start'))go('welcome');
-  else say(()=>{aT('in','I can help with trade queries, grants, directorships, and compliance. Type _help_ to see all options.','text message');aRB('What would you like to do next?',[{label:'📋 Directorship',v:'flow_dir'},{label:'💰 Grants',v:'flow_grants'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},900);
+  if(convState==='notify_emp_name'){_notifyEmpName=t;convState=null;go('notify_get_nric');return;}
+  if(convState==='notify_emp_nric'){_notifyEmpNric=t;convState=null;go('notify_get_message');return;}
+  if(convState==='notify_message'){_notifyMessage=t;convState=null;if(authed)go('notify_review');else go('notify_auth');return;}
+  if(convState==='ssic_search'){
+    convState=null;
+    const kw=t.toLowerCase();
+    _ssicMatches=SSIC_STUB.filter(s=>s.desc.toLowerCase().includes(kw)||s.code.includes(kw));
+    if(!_ssicMatches.length){say(()=>{aT('in','No matches found. Try different keywords (e.g. _restaurant_, _retail_, _IT_).','text message');},700);convState='ssic_search';}
+    else{say(()=>{aLM(`${_ssicMatches.length} SSIC code${_ssicMatches.length>1?'s':''} found — select your new code:`,'','Choose SSIC',_ssicMatches.slice(0,10).map((s,i)=>({label:`${s.code} — ${s.desc}`,v:'ssic_pick_'+i})),'list message');},800);}
+    return;
+  }
+  if(convState==='dda_acct'){_ddaAcct=t;convState=null;go('update_dda_confirm');return;}
+  if(convState==='edit_address'){convState=null;go('diff_confirm');return;}
+  if(convState==='edit_contact'){convState=null;go('diff_confirm');return;}
+  if(convState==='refund_nric'){_refundNric=t;convState=null;go('refund_get_reason');return;}
+  if(convState==='refund_month'){_refundMonth=t;convState=null;go('refund_get_stmt');return;}
+  if(convState==='refund_stmt'){_refundStmtId=t;convState=null;go('refund_get_amount');return;}
+  if(convState==='refund_amount'){_refundAmount=t;convState=null;go('refund_1emp_summary');return;}
+  if(convState==='refund_entire_stmt'){_refundStmtId=t;convState=null;go('refund_entire_get_paydate');return;}
+  if(convState==='refund_entire_paydate'){_refundPayDate=t;convState=null;go('refund_entire_get_amount');return;}
+  if(convState==='refund_entire_amount'){_refundAmount=t;convState=null;go('refund_entire_wage_opt');return;}
+  if(convState==='free_qa'){say(()=>{aT('in','_This prototype covers 3 CPF transactions. For detailed policy questions, visit cpf.gov.sg or call the CPF hotline._','text message');aRB('Browse transactions:',[{label:'📝 Update details',v:'flow_update'},{label:'🚫 No contributions',v:'flow_notify'},{label:'↩️ Refund',v:'flow_refund'}],'reply buttons');},900);convState=null;return;}
+  if(l.match(/update|change|address|contact|ssic|dda|giro|particular|registered/))go('flow_update');
+  else if(l.match(/no.?cpf|no contrib|no.?pay|sabbatical|renovat|clos|cessation/))go('flow_notify');
+  else if(l.match(/refund|adjust|error|wrong|overpaid|excess|correction|mistake/))go('flow_refund');
+  else if(l.match(/hi|hello|help|start|menu/))go('welcome');
+  else say(()=>{aT('in','I can help with:\n\n&#8226; *Update particulars* — address, contact, SSIC, DDA\n&#8226; *No contributions* — notify CPF when nothing is due\n&#8226; *Refund/adjustment* — correct a contribution error\n\nType any of these or use the menu below.','text message');aRB('Browse:',[{label:'📝 Update details',v:'flow_update'},{label:'🚫 No contributions',v:'flow_notify'},{label:'↩️ Refund',v:'flow_refund'}],'reply buttons');},900);
 }
 snd.addEventListener('click',()=>{const t=inp.value.trim();if(!t)return;inp.value='';inp.style.height='auto';aT('out',t);handleTxt(t);});
 inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();snd.click();}});
