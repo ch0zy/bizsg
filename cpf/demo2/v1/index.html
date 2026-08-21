@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BusinessSG AI Agent — WhatsApp Prototype</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --wa-hdr:#075E54;--wa-teal:#128C7E;--wa-green:#25D366;
+  --wa-in:#fff;--wa-out:#DCF8C6;--wa-bg:#ECE5DD;--wa-fbg:#F0F2F5;
+  --wa-text:#111;--wa-sub:#667781;--wa-meta:#999;--wa-bdr:rgba(0,0,0,.10);
+  --sg-red:#ED2939;--sp-red:#E8002D;--sp-blue:#3B5BDB;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:20px 16px 40px;}
+.page-hdr{text-align:center;margin-bottom:18px;}
+.page-hdr h1{font-size:17px;font-weight:700;color:#1a1a1a;}
+.page-hdr p{font-size:13px;color:#667781;margin-top:3px;}
+.badge{display:inline-flex;align-items:center;gap:5px;background:#E3F2FD;border:1px solid #90CAF9;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;color:#1565C0;margin-top:7px;}
+#app{display:flex;flex-direction:column;height:680px;width:100%;max-width:400px;background:var(--wa-bg);border-radius:16px;overflow:hidden;border:1px solid var(--wa-bdr);box-shadow:0 8px 32px rgba(0,0,0,.16);position:relative;}
+@media(max-width:480px){body{padding:0;background:var(--wa-bg);}.page-hdr,.badge{display:none;}#app{height:100dvh;max-width:100%;border-radius:0;border:none;box-shadow:none;}}
+.wa-hdr{background:var(--wa-hdr);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.wa-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--sg-red),var(--wa-teal));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.wa-oba{width:16px;height:16px;border-radius:50%;background:#1DA1F2;display:inline-flex;align-items:center;justify-content:center;}
+.wa-oba svg{width:10px;height:10px;}
+.wa-hn{font-size:15px;font-weight:600;display:flex;align-items:center;gap:5px;}
+.wa-hs{font-size:11px;opacity:.8;display:flex;align-items:center;gap:4px;margin-top:1px;}
+.wa-sdot{width:6px;height:6px;border-radius:50%;background:var(--wa-green);}
+.wa-msgs{flex:1;min-height:0;overflow-y:auto;padding:10px 10px 6px 10px;display:flex;flex-direction:column;}
+/* Arrow sits inside the bubble, not outside - avoids overflow clip */
+.wa-mi{display:flex;flex-direction:column;gap:3px;flex:1;justify-content:flex-end;}
+.wa-row{display:flex;margin:1px 0;overflow:visible;}.wa-row.out{justify-content:flex-end;}.wa-row.in{justify-content:flex-start;}.wa-row.in.no-pad{padding-left:0;}
+.bub{max-width:82%;border-radius:8px;padding:7px 10px 18px;font-size:14.5px;line-height:1.5;position:relative;word-wrap:break-word;}
+.bub.in{background:var(--wa-in);}
+.bub.out{background:var(--wa-out);}
+/* Tail only on first bubble of a group — applied via JS class .tail */
+.bub.in.tail{border-top-left-radius:0;}
+.bub.in.tail::before{content:'';position:absolute;top:0;left:-7px;width:0;height:0;border-style:solid;border-width:0 8px 8px 0;border-color:transparent var(--wa-in) transparent transparent;}
+.bub.out.tail{border-top-right-radius:0;}
+.bub.out.tail::before{content:'';position:absolute;top:0;right:-7px;width:0;height:0;border-style:solid;border-width:0 0 8px 8px;border-color:transparent transparent transparent var(--wa-out);}
+.bub strong{font-weight:700;}.bub em{font-style:italic;color:#555;}
+.bmeta{position:absolute;bottom:4px;right:8px;font-size:11px;color:var(--wa-meta);display:flex;align-items:center;gap:3px;}
+.btick{color:#4FC3F7;}
+.rbtns{display:flex;flex-direction:column;background:var(--wa-in);border-radius:8px;overflow:hidden;margin-top:1px;max-width:82%;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+.rbtn{border:none;border-top:1px solid rgba(0,0,0,.08);background:var(--wa-in);color:#0088CC;font-size:14px;font-weight:500;padding:10px 14px;cursor:pointer;text-align:center;}
+.rbtn:first-child{border-top:none;}
+.rbtn:hover{background:#f0f0f0;}.rbtn.used{color:#aaa;cursor:default;pointer-events:none;background:#fafafa;}
+.cta-w{max-width:82%;background:var(--wa-in);border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+.cta-w.tail{border-top-left-radius:0;}
+.cta-b{padding:7px 10px 18px;font-size:14.5px;line-height:1.5;position:relative;}
+.cta-btn{border:none;border-top:1px solid rgba(0,0,0,.08);background:var(--wa-in);width:100%;color:#0088CC;font-size:14px;font-weight:500;padding:10px 14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+.cta-btn:hover{background:#f0f0f0;}.cta-btn:disabled{color:#aaa;}
+.lm-w{max-width:82%;background:var(--wa-in);border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.1);margin:1px 0;}
+.lm-w.tail{border-top-left-radius:0;}
+.lm-b{padding:7px 10px 4px;font-size:14.5px;line-height:1.45;}.lm-f{padding:0 10px 4px;font-size:12px;color:var(--wa-sub);}
+.lm-btn{border-top:1px solid rgba(0,0,0,.08);padding:10px 14px;color:#0088CC;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+.lm-btn:hover{background:#f0f0f0;}
+.drw-ov{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;z-index:50;}
+.drw{background:#fff;width:100%;border-radius:16px 16px 0 0;max-height:70%;overflow-y:auto;padding-bottom:16px;}
+.drw-h{width:36px;height:4px;background:#ddd;border-radius:2px;margin:10px auto 8px;}
+.drw-t{font-size:13px;font-weight:600;color:var(--wa-sub);padding:4px 16px 8px;text-transform:uppercase;letter-spacing:.4px;}
+.drw-i{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-top:1px solid #f0f0f0;}
+.drw-i:hover{background:#f9f9f9;}
+.drw-il{font-size:15px;color:#111;}.drw-id{font-size:12px;color:var(--wa-sub);margin-top:2px;}
+.drw-ck{color:var(--wa-teal);font-size:18px;}
+.wa-day{display:flex;align-items:center;justify-content:center;margin:6px 0;}
+.wa-dl{background:rgba(255,255,255,.85);border-radius:6px;padding:3px 10px;font-size:12px;color:var(--wa-sub);}
+.trow{display:flex;margin:1px 0;}
+.tbub{background:var(--wa-in);border-radius:8px;border-top-left-radius:0;padding:10px 14px;display:flex;gap:4px;align-items:center;}
+.td{width:7px;height:7px;border-radius:50%;background:#bbb;animation:bce 1.2s infinite ease-in-out;}
+.td:nth-child(2){animation-delay:.2s;}.td:nth-child(3){animation-delay:.4s;}
+@keyframes bce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.wa-ir{display:flex;align-items:flex-end;gap:8px;padding:8px 10px;background:var(--wa-fbg);flex-shrink:0;}
+.wa-inp{flex:1;background:#fff;border:none;border-radius:20px;padding:9px 14px;font-size:14.5px;outline:none;resize:none;max-height:80px;min-height:38px;font-family:inherit;color:var(--wa-text);}
+.wa-snd{width:42px;height:42px;border-radius:50%;background:var(--wa-teal);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.wa-snd:hover{background:#0a7a6e;}
+/* WA message type labels — hidden in prototype UI, retained in DOM for reference */
+.tbadge{display:none;font-size:9px;font-family:monospace;background:rgba(0,136,204,.08);color:#0088CC;border-radius:3px;padding:1px 4px;margin-top:4px;}
+/* WEBVIEW */
+#spOv{position:absolute;inset:0;z-index:100;display:flex;flex-direction:column;background:#fff;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);}
+#spOv.open{transform:translateY(0);}
+.sp-chrome{background:#f2f2f7;border-bottom:1px solid #c8c8cc;padding:7px 12px;flex-shrink:0;}
+.sp-chrome-row{display:flex;align-items:center;gap:8px;}
+.sp-urlbar{flex:1;background:#e5e5ea;border-radius:8px;padding:5px 10px;font-size:11px;color:#444;display:flex;align-items:center;gap:5px;font-family:monospace;}
+.sp-lock{color:#34c759;font-size:10px;}
+.sp-urltxt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sp-done{background:none;border:none;color:#007AFF;font-size:15px;font-weight:500;cursor:pointer;padding:0 2px;}
+.sp-pg{flex:1;overflow-y:auto;background:#fff;}
+.sp-mast{display:flex;align-items:center;gap:8px;padding:7px 14px;background:#fff;border-bottom:1px solid #e8e8e8;}
+.sp-mast-txt{font-size:12px;color:#333;flex:1;}
+.sp-mast-lnk{font-size:12px;color:#0066CC;text-decoration:underline;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:2px;}
+.sp-logo-bar{padding:16px 18px 14px;background:#fff;border-bottom:1px solid #e8e8e8;}
+.sp-scam{background:#fff;border-bottom:1px solid #e0e0e0;padding:14px 18px;}
+.sp-scam-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.sp-scam-title{font-size:15px;font-weight:700;color:#1a1a1a;}
+.sp-scam-body{font-size:14px;color:#222;line-height:1.6;}
+.sp-login-bg{background:linear-gradient(180deg,#efefef 0%,#f5f5f5 40%,#fff 80%);padding:28px 20px 0;}
+.sp-login-h1{font-size:26px;font-weight:700;color:#1a1a1a;text-align:center;letter-spacing:-.3px;margin-bottom:10px;}
+.sp-login-sub{font-size:16px;color:#333;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:0;flex-wrap:wrap;}
+.sp-tabs{display:flex;border-bottom:1px solid #e0e0e0;margin-top:20px;background:#fff;}
+.sp-tab{flex:1;text-align:center;padding:13px 8px;font-size:15px;font-weight:400;color:#999;cursor:pointer;background:none;border:none;position:relative;}
+.sp-tab.active{color:var(--sp-red);font-weight:600;}
+.sp-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--sp-red);}
+.sp-tc{display:none;background:#fff;}.sp-tc.active{display:block;}
+.sp-qr-sec{padding:22px 20px 0;}
+.sp-qr-lbl-h{font-size:18px;font-weight:700;color:#1a1a1a;text-align:center;margin-bottom:5px;}
+.sp-qr-lbl-s{font-size:14px;color:#333;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.sp-qr-box{border:2.5px solid var(--sp-red);border-radius:14px;padding:14px;background:#fff;width:220px;margin:0 auto;}
+.sp-qr-wrap{position:relative;width:100%;aspect-ratio:1;}
+.sp-qr-svg{width:100%;height:100%;display:block;}
+.sp-qr-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:10px;background:var(--sp-red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px #fff;}
+.sp-qr-i{color:#fff;font-size:24px;font-weight:700;font-style:italic;font-family:Georgia,serif;line-height:1;padding-right:2px;}
+.sp-qr-brand{display:flex;align-items:center;margin-top:12px;}
+.sp-qr-line{flex:1;height:1.5px;background:var(--sp-red);}
+.sp-qr-txt{font-size:14px;font-weight:800;color:var(--sp-red);padding:0 10px;letter-spacing:-.5px;}
+.sp-qr-timer{text-align:center;margin-top:12px;font-size:13px;color:#888;}
+.sp-sim{padding:16px;}
+.sp-sim-btn{width:100%;background:var(--sp-red);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;}
+.sp-sim-btn:hover{background:#c0001f;}
+.sp-links{background:#f2f2f7;padding:20px 16px;}
+.sp-lnk{display:block;text-align:center;color:#1a3bb3;text-decoration:underline;font-size:16px;margin-bottom:16px;cursor:pointer;}
+.sp-lnk:last-child{margin-bottom:0;}
+.sp-pw{padding:20px 16px;}
+.sp-pw-in{width:100%;border:1px solid #d1d1d6;border-radius:10px;padding:13px 14px;font-size:16px;outline:none;margin-bottom:12px;font-family:inherit;}
+.sp-pw-in:focus{border-color:var(--sp-red);}
+.sp-pw-btn{width:100%;background:var(--sp-red);color:#fff;border:none;border-radius:10px;padding:14px;font-size:16px;font-weight:600;cursor:pointer;}
+.sp-footer{background:#3a3a3a;padding:28px 18px 24px;}
+.sp-ft-lnk{display:block;color:#fff;font-size:15px;margin-bottom:15px;}
+.sp-ft-copy{color:#888;font-size:12px;margin-top:8px;line-height:1.6;}
+#spLoad{position:absolute;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:10;}
+.sp-spin{width:36px;height:36px;border:3px solid #f0f0f0;border-top-color:var(--sp-red);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:14px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+#spSucc{position:absolute;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;z-index:10;}
+.sp-chk{width:64px;height:64px;border-radius:50%;background:#30d158;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.sp-chk svg{width:32px;height:32px;}
+.sp-sh{font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:8px;}
+.sp-ss{font-size:14px;color:#666;line-height:1.55;margin-bottom:20px;}
+.sp-card{font-size:15px;font-weight:600;color:#1a1a1a;background:#f8f8f8;border-radius:10px;padding:14px 20px;margin-bottom:20px;width:100%;text-align:center;}
+.sp-ret{background:var(--wa-teal);color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;}
+.sp-ret:hover{background:#0a7a6e;}
+.sp-rn{font-size:11px;color:#aaa;margin-top:14px;line-height:1.6;}
+/* Corppass logo inline — white bg for dark footer */
+.cp-logo-white{filter:brightness(0) invert(1);}
+</style>
+</head>
+<body>
+
+<div class="page-hdr">
+  <h1>BusinessSG AI Agent</h1>
+  <p>WhatsApp Prototype · Phase 1 MVP 2026</p>
+  <div class="badge">🔒 Design Prototype · Not for public use</div>
+</div>
+
+<div id="app">
+  <div class="wa-hdr">
+    <div class="wa-av">BG</div>
+    <div style="flex:1">
+      <div class="wa-hn">BusinessSG <span class="wa-oba"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.5L4 7.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="wa-hs"><span class="wa-sdot"></span><span>online</span></div>
+    </div>
+  </div>
+
+  <div class="wa-msgs" id="waO">
+    <div class="wa-mi" id="waI">
+      <div class="wa-day"><span class="wa-dl">Today</span></div>
+    </div>
+  </div>
+
+  <div class="wa-ir">
+    <textarea class="wa-inp" id="inp" placeholder="Message" rows="1"></textarea>
+    <button class="wa-snd" id="snd"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+
+  <div id="drwOv" class="drw-ov" style="display:none">
+    <div class="drw"><div class="drw-h"></div><div class="drw-t">Select an option</div><div id="drwIt"></div></div>
+  </div>
+
+  <div id="spOv">
+    <div class="sp-chrome">
+      <div class="sp-chrome-row">
+        <div class="sp-urlbar"><span class="sp-lock">🔒</span><span class="sp-urltxt" id="spUrl">login.id.singpass.gov.sg</span></div>
+        <button class="sp-done" onclick="closeWv()">Done</button>
+      </div>
+    </div>
+
+    <div class="sp-pg" id="spPg">
+      <!-- Masthead -->
+      <div class="sp-mast">
+        <svg width="18" height="18" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" fill="#C8102E"/><text x="50" y="68" text-anchor="middle" font-size="52" fill="white">🦁</text></svg>
+        <span class="sp-mast-txt">A Singapore Government Agency Website</span>
+        <span class="sp-mast-lnk">How to identify <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1.5L5 5.5L9 1.5" stroke="#0066CC" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </div>
+
+      <!-- Singpass logo — real uploaded PNG, transparent bg -->
+      <div class="sp-logo-bar">
+        <img src="data:image/svg+xml,%3Csvg%20width%3D%22467%22%20height%3D%2281%22%20viewBox%3D%220%200%20467%2081%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M25.9588%2059.7857C13.092%2059.7857%203.9869%2055.4493%200%2051.8007L8.53943%2039.2537C13.8883%2043.8158%2020.4946%2046.0995%2025.9588%2046.0995C30.6266%2046.0995%2032.675%2044.7293%2032.675%2042.2199C32.675%2040.2828%2031.0824%2038.7969%2026.0741%2037.6578L15.9421%2035.264C6.03527%2032.9747%201.36741%2026.9268%201.36741%2018.6006C1.36741%207.19269%2010.4725%200.462402%2024.0202%200.462402C34.4927%200.462402%2042.9168%203.6542%2047.0191%207.30825L38.4796%2019.8553C34.7234%2016.4324%2029.2592%2013.923%2024.0202%2013.923C19.6929%2013.923%2017.7598%2015.4088%2017.7598%2017.6871C17.7598%2019.9654%2019.8082%2021.2256%2023.6798%2022.1336L33.8118%2024.4174C44.1689%2026.7011%2049.1827%2032.2868%2049.1827%2040.5029C49.1827%2052.252%2040.4127%2059.7857%2025.9588%2059.7857ZM86.7508%2058.6411H103.83V27.9559C103.83%2020.4276%20107.471%2015.75%20114.533%2015.75C121.249%2015.75%20124.78%2019.6297%20124.78%2027.9559V58.6466H141.859V23.6194C141.859%208.33182%20134.231%200.462402%20121.139%200.462402C113.627%200.462402%20107.932%203.42857%20103.835%209.24534V5.59679C103.835%203.08738%20102.358%201.60154%2099.8482%201.60154H86.7563V58.6411H86.7508ZM211.075%201.60154V50.9973C211.075%2072.4428%20197.187%2081.0001%20180.108%2081.0001C168.724%2081.0001%20159.273%2078.034%20153.584%2072.8996L162.463%2059.6647C166.22%2063.3132%20172.255%2066.6261%20180.108%2066.6261C188.873%2066.6261%20193.996%2061.0349%20193.996%2053.2811V49.6325C189.899%2054.7669%20183.98%2057.0452%20176.692%2057.0452C162.919%2057.0452%20150.964%2044.9549%20150.964%2028.7538C150.964%2012.5527%20162.919%200.462402%20176.692%200.462402C183.98%200.462402%20190.125%203.20294%20193.996%209.01971V5.59679C193.996%203.08738%20195.479%201.60154%20197.983%201.60154H211.075ZM194.567%2028.7538C194.567%2021.3411%20188.988%2015.5189%20181.25%2015.5189C174.078%2015.5189%20168.274%2021.3356%20168.274%2028.7538C168.274%2036.1665%20174.078%2041.9887%20181.25%2041.9887C188.988%2041.9887%20194.567%2036.1665%20194.567%2028.7538ZM285.755%2030.1241C285.755%2047.6954%20273.8%2059.7857%20259%2059.7857C251.257%2059.7857%20245.112%2057.5019%20240.669%2052.3731V79.6409H223.59V1.60154H236.688C239.192%201.60154%20240.675%203.08738%20240.675%205.59679V9.01971C244.887%203.20294%20251.263%200.462402%20259.006%200.462402C273.806%200.462402%20285.755%2012.5527%20285.755%2030.1241ZM268.451%2030.1241C268.451%2021.5668%20262.416%2015.5189%20254.448%2015.5189C246.364%2015.5189%20240.104%2021.5668%20240.104%2030.1241C240.104%2038.6814%20246.364%2044.7293%20254.448%2044.7293C262.421%2044.7238%20268.451%2038.6759%20268.451%2030.1241ZM355.202%201.60154V58.6411H338.123V51.2284C333.911%2057.0452%20327.535%2059.7857%20319.792%2059.7857C304.992%2059.7857%20293.037%2047.6954%20293.037%2030.1241C293.037%2012.5527%20304.992%200.462402%20319.792%200.462402C327.535%200.462402%20333.911%203.20294%20338.123%209.01971V5.59679C338.123%203.08738%20339.606%201.60154%20342.11%201.60154H355.202ZM338.694%2030.1241C338.694%2021.5668%20332.434%2015.5189%20324.35%2015.5189C316.382%2015.5189%20310.347%2021.5668%20310.347%2030.1241C310.347%2038.6814%20316.382%2044.7293%20324.35%2044.7293C332.434%2044.7238%20338.694%2038.6759%20338.694%2030.1241ZM389.816%2059.7857C404.275%2059.7857%20413.04%2052.2575%20413.04%2040.5084C413.04%2032.2923%20408.031%2026.7066%20397.669%2024.4229L387.537%2022.1391C383.665%2021.2256%20381.617%2019.9709%20381.617%2017.6926C381.617%2015.4143%20383.55%2013.9285%20387.877%2013.9285C393.116%2013.9285%20398.58%2016.4379%20402.336%2019.8608L410.876%207.31375C406.779%203.6652%20398.355%200.467905%20387.877%200.467905C374.329%200.467905%20365.224%207.19819%20365.224%2018.6061C365.224%2026.9323%20369.892%2032.9802%20379.799%2035.264L389.931%2037.6578C394.939%2038.7969%20396.532%2040.2828%20396.532%2042.2199C396.532%2044.7293%20394.483%2046.0995%20389.816%2046.0995C384.351%2046.0995%20377.751%2043.8158%20372.396%2039.2537L363.857%2051.8007C367.844%2055.4493%20376.949%2059.7857%20389.816%2059.7857ZM443.776%2059.7857C458.235%2059.7857%20467%2052.2575%20467%2040.5084C467%2032.2923%20461.992%2026.7066%20451.629%2024.4229L441.497%2022.1391C437.625%2021.2256%20435.577%2019.9709%20435.577%2017.6926C435.577%2015.4143%20437.51%2013.9285%20441.837%2013.9285C447.076%2013.9285%20452.541%2016.4379%20456.297%2019.8608L464.836%207.31375C460.74%203.6652%20452.315%200.467905%20441.837%200.467905C428.29%200.467905%20419.185%207.19819%20419.185%2018.6061C419.185%2026.9323%20423.852%2032.9802%20433.759%2035.264L443.891%2037.6578C448.9%2038.7969%20450.492%2040.2828%20450.492%2042.2199C450.492%2044.7293%20448.444%2046.0995%20443.776%2046.0995C438.312%2046.0995%20431.711%2043.8158%20426.357%2039.2537L417.817%2051.8007C421.804%2055.4493%20430.915%2059.7857%20443.776%2059.7857Z%22%20fill%3D%22%23F4333D%22/%3E%0A%3Cpath%20d%3D%22M66.031%2019.8552C71.6105%2019.8552%2075.9378%2015.5187%2075.9378%209.92758C75.9378%204.33644%2071.6105%200%2066.031%200C60.4515%200%2056.1242%204.33644%2056.1242%209.92758C56.1297%2015.5187%2060.4515%2019.8552%2066.031%2019.8552ZM55.3279%2058.641H76.7286L72.1761%2023.1625C68.7603%2024.1916%2063.2962%2024.1916%2059.8804%2023.1625L55.3279%2058.641Z%22%20fill%3D%22black%22/%3E%0A%3C/svg%3E" alt="Singpass" style="height:32px;display:block;"/>
+      </div>
+
+      <!-- Scam banner -->
+      <div class="sp-scam">
+        <div class="sp-scam-hdr">
+          <span class="sp-scam-title">Beware of impersonation scams</span>
+          <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M2 13L11 3L20 13" stroke="#E8002D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="sp-scam-body">Government officials will NEVER ask you to transfer money or disclose bank log-in details over a phone call. Call the 24/7 ScamShield Helpline at <strong>1799</strong> if you are unsure if something is a scam.</div>
+      </div>
+
+      <!-- Login heading -->
+      <div class="sp-login-bg">
+        <div class="sp-login-h1">Log in with Singpass</div>
+        <div class="sp-login-sub">
+          <span>as</span>
+          <!-- Corppass logo — real uploaded PNG, transparent bg -->
+          <img src="data:image/svg+xml,%3Csvg%20width%3D%22500%22%20height%3D%22129%22%20viewBox%3D%220%200%20500%20129%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M283.841%2031.5918C275.794%2031.5918%20269.168%2034.5848%20264.79%2040.9374V37.1991C264.79%2034.4586%20263.249%2032.8359%20260.647%2032.8359H247.041V118.058H264.79V88.2782C269.402%2093.8855%20275.794%2096.3736%20283.841%2096.3736C299.222%2096.3736%20311.646%2083.1697%20311.646%2063.9797C311.646%2044.7898%20299.222%2031.5918%20283.841%2031.5918V31.5918ZM279.104%2079.9303C270.703%2079.9303%20264.197%2073.3253%20264.197%2063.9797C264.197%2054.6342%20270.703%2048.0292%20279.104%2048.0292C287.385%2048.0292%20293.657%2054.6342%20293.657%2063.9797C293.657%2073.3313%20287.391%2079.9303%20279.104%2079.9303ZM210.623%2031.5918C202.576%2031.5918%20195.95%2034.5848%20191.573%2040.9374V37.1991C191.573%2034.4586%20190.032%2032.8359%20187.429%2032.8359H173.823V118.058H191.573V88.2782C196.184%2093.8855%20202.576%2096.3736%20210.623%2096.3736C226.004%2096.3736%20238.429%2083.1697%20238.429%2063.9797C238.429%2044.7898%20226.004%2031.5918%20210.623%2031.5918V31.5918ZM205.892%2079.9303C197.491%2079.9303%20190.985%2073.3253%20190.985%2063.9797C190.985%2054.6342%20197.491%2048.0292%20205.892%2048.0292C214.173%2048.0292%20220.445%2054.6342%20220.445%2063.9797C220.445%2073.3313%20214.173%2079.9303%20205.892%2079.9303ZM370.207%2032.8359C367.605%2032.8359%20366.064%2034.4586%20366.064%2037.1991V40.9374C361.692%2034.5848%20355.066%2031.5918%20347.019%2031.5918C331.638%2031.5918%20319.214%2044.7958%20319.214%2063.9857C319.214%2083.1757%20331.638%2096.3797%20347.019%2096.3797C355.066%2096.3797%20361.692%2093.3867%20366.07%2087.0341V95.1296H383.819V32.8359H370.207ZM351.75%2079.9303C343.469%2079.9303%20337.197%2073.3253%20337.197%2063.9797C337.197%2054.6342%20343.469%2048.0292%20351.75%2048.0292C360.151%2048.0292%20366.658%2054.6342%20366.658%2063.9797C366.658%2073.3313%20360.151%2079.9303%20351.75%2079.9303ZM419.786%2096.3797C406.414%2096.3797%20396.951%2091.6438%20392.808%2087.6591L401.682%2073.9563C407.241%2078.9386%20414.107%2081.4328%20419.786%2081.4328C424.637%2081.4328%20426.766%2079.9363%20426.766%2077.1957C426.766%2075.0802%20425.11%2073.4575%20419.905%2072.2134L409.376%2069.5991C399.08%2067.1049%20394.229%2060.5059%20394.229%2051.4068C394.229%2038.942%20403.691%2031.5918%20417.771%2031.5918C428.655%2031.5918%20437.409%2035.0776%20441.673%2039.0682L432.798%2052.7711C428.894%2049.0328%20423.216%2046.2923%20417.771%2046.2923C413.274%2046.2923%20411.265%2047.915%20411.265%2050.4031C411.265%2052.8913%20413.394%2054.2675%20417.417%2055.2592L427.947%2057.7534C438.711%2060.2475%20443.921%2066.3477%20443.921%2075.3206C443.921%2088.158%20434.807%2096.3797%20419.786%2096.3797ZM475.864%2096.3797C462.492%2096.3797%20453.03%2091.6438%20448.887%2087.6591L457.761%2073.9563C463.32%2078.9386%20470.186%2081.4328%20475.864%2081.4328C480.715%2081.4328%20482.844%2079.9363%20482.844%2077.1957C482.844%2075.0802%20481.189%2073.4575%20475.984%2072.2134L465.454%2069.5991C455.159%2067.1049%20450.308%2060.5059%20450.308%2051.4068C450.313%2038.942%20459.776%2031.5918%20473.855%2031.5918C484.739%2031.5918%20493.494%2035.0776%20497.757%2039.0682L488.882%2052.7711C484.979%2049.0328%20479.3%2046.2923%20473.855%2046.2923C469.358%2046.2923%20467.349%2047.915%20467.349%2050.4031C467.349%2052.8913%20469.478%2054.2675%20473.502%2055.2592L484.031%2057.7534C494.795%2060.2475%20500.006%2066.3477%20500.006%2075.3206C500%2088.158%20490.891%2096.3797%20475.864%2096.3797ZM164.053%2051.0161C163.1%2050.5173%20161.633%2050.2649%20159.647%2050.2649C154.807%2050.2649%20151.035%2052.0198%20148.341%2055.5297C145.641%2059.0395%20144.295%2063.8415%20144.295%2069.9416V95.1296H127.036V33.2205H140.031C142.32%2033.2205%20144.175%2035.1738%20144.175%2037.5838V43.3774C145.761%2039.7834%20148.021%2036.9647%20150.961%2034.9153C153.894%2032.8719%20157.267%2031.8442%20161.079%2031.8442C161.713%2031.8442%20162.329%2031.8863%20162.923%2031.9704C163.516%2032.0546%20163.893%2032.1387%20164.053%2032.2228V51.0161ZM0%2064.2081C0%2059.5263%200.776176%2055.1991%202.32282%2051.2265C3.86947%2047.2539%206.03249%2043.8041%208.81188%2040.8773C11.5913%2037.9504%2014.9071%2035.6726%2018.7595%2034.0379C22.6118%2032.4092%2026.8409%2031.5918%2031.4465%2031.5918C33.9862%2031.5918%2036.5488%2031.9043%2039.1284%2032.5354C41.708%2033.1604%2044.0708%2034.146%2046.2167%2035.4863V52.6749C42.1646%2049.6639%2037.9185%2048.1614%2033.4726%2048.1614C31.1669%2048.1614%2029.0438%2048.558%2027.0977%2049.3514C25.1515%2050.1447%2023.4622%2051.2565%2022.0354%2052.6749C20.6086%2054.0993%2019.4957%2055.7941%2018.7024%2057.7534C17.9091%2059.7186%2017.5096%2061.8762%2017.5096%2064.2141C17.5096%2066.558%2017.9034%2068.7096%2018.7024%2070.6749C19.4957%2072.6401%2020.6086%2074.335%2022.0354%2075.7533C23.4622%2077.1777%2025.1515%2078.2835%2027.0977%2079.0769C29.0438%2079.8702%2031.1669%2080.2668%2033.4726%2080.2668C35.7726%2080.2668%2038.0383%2079.8281%2040.2641%2078.9506C42.4842%2078.0732%2044.5103%2076.9253%2046.3366%2075.5009V92.8097C43.9567%2094.2341%2041.4741%2095.2558%2038.8887%2095.8808C36.3091%2096.5059%2033.7465%2096.8244%2031.2068%2096.8244C26.6811%2096.8244%2022.5091%2096.0311%2018.6967%2094.4384C14.8843%2092.8458%2011.5856%2090.6341%208.81188%2087.7914C6.03249%2084.9486%203.86947%2081.5169%202.32282%2077.5022C0.776176%2073.4875%200%2069.0582%200%2064.2081H0Z%22%20fill%3D%22%233346F4%22/%3E%0A%3Cpath%20d%3D%22M118.862%2064.2081C118.862%2068.8058%20118.046%2073.0969%20116.419%2077.0635C114.792%2081.0361%20112.55%2084.4859%20109.69%2087.4127C106.831%2090.3396%20103.452%2092.6414%2099.5657%2094.3122C98.8409%2094.6247%2098.1047%2094.8952%2097.357%2095.1476L93.4191%2078.4879C94.9143%2077.7006%2096.2384%2076.7149%2097.357%2075.4949C98.6697%2074.0765%2099.7198%2072.3997%20100.513%2070.4765C101.306%2068.5533%20101.706%2066.4618%20101.706%2064.2021C101.706%2061.9423%20101.306%2059.8569%20100.513%2057.9276C99.7198%2056.0044%2098.664%2054.3337%2097.357%2052.9093C96.0444%2051.4909%2094.4806%2050.361%2092.6543%2049.5196C90.828%2048.6843%2088.9218%2048.2636%2086.9357%2048.2636C84.8697%2048.2636%2082.9464%2048.6843%2081.1601%2049.5196C79.3737%2050.355%2077.8271%2051.4849%2076.5144%2052.9093C75.2018%2054.3337%2074.1516%2056.0044%2073.3583%2057.9276C72.565%2059.8508%2072.1655%2061.9423%2072.1655%2064.2021C72.1655%2066.4618%2072.5593%2068.5533%2073.3583%2070.4765C74.1516%2072.3997%2075.2075%2074.0705%2076.5144%2075.4949C77.6444%2076.7209%2078.9628%2077.7186%2080.4467%2078.5059L76.5144%2095.1476C75.7668%2094.8952%2075.0305%2094.6247%2074.3057%2094.3122C70.4134%2092.6414%2067.0405%2090.3396%2064.1812%2087.4127C61.3219%2084.4859%2059.079%2081.0361%2057.4524%2077.0635C55.8259%2073.0909%2055.0098%2068.8058%2055.0098%2064.2081C55.0098%2059.6104%2055.8202%2055.3253%2057.4524%2051.3527C59.079%2047.3801%2061.3219%2043.9303%2064.1812%2041.0035C67.0405%2038.0766%2070.4134%2035.7808%2074.3057%2034.104C78.198%2032.4272%2082.4099%2031.5918%2086.9357%2031.5918C91.4615%2031.5918%2095.6734%2032.4272%2099.56%2034.098C103.452%2035.7748%20106.825%2038.0706%20109.685%2040.9975C112.544%2043.9243%20114.787%2047.3741%20116.413%2051.3467C118.046%2055.3193%20118.862%2059.6104%20118.862%2064.2081Z%22%20fill%3D%22black%22/%3E%0A%3C/svg%3E" alt="Corppass" style="height:20px;display:inline-block;vertical-align:middle;"/>
+          <span>user</span>
+        </div>
+        <div class="sp-tabs">
+          <button class="sp-tab active" id="tApp" onclick="swTab('app')">Singpass app</button>
+          <button class="sp-tab" id="tPw" onclick="swTab('pw')">Password login</button>
+        </div>
+      </div>
+
+      <!-- App tab -->
+      <div class="sp-tc active" id="tcApp">
+        <div class="sp-qr-sec">
+          <div class="sp-qr-lbl-h">Scan with Singpass app</div>
+          <div class="sp-qr-lbl-s">
+            Logging in as
+            <!-- Corppass logo inline, smaller -->
+            <img src="data:image/svg+xml,%3Csvg%20width%3D%22500%22%20height%3D%22129%22%20viewBox%3D%220%200%20500%20129%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M283.841%2031.5918C275.794%2031.5918%20269.168%2034.5848%20264.79%2040.9374V37.1991C264.79%2034.4586%20263.249%2032.8359%20260.647%2032.8359H247.041V118.058H264.79V88.2782C269.402%2093.8855%20275.794%2096.3736%20283.841%2096.3736C299.222%2096.3736%20311.646%2083.1697%20311.646%2063.9797C311.646%2044.7898%20299.222%2031.5918%20283.841%2031.5918V31.5918ZM279.104%2079.9303C270.703%2079.9303%20264.197%2073.3253%20264.197%2063.9797C264.197%2054.6342%20270.703%2048.0292%20279.104%2048.0292C287.385%2048.0292%20293.657%2054.6342%20293.657%2063.9797C293.657%2073.3313%20287.391%2079.9303%20279.104%2079.9303ZM210.623%2031.5918C202.576%2031.5918%20195.95%2034.5848%20191.573%2040.9374V37.1991C191.573%2034.4586%20190.032%2032.8359%20187.429%2032.8359H173.823V118.058H191.573V88.2782C196.184%2093.8855%20202.576%2096.3736%20210.623%2096.3736C226.004%2096.3736%20238.429%2083.1697%20238.429%2063.9797C238.429%2044.7898%20226.004%2031.5918%20210.623%2031.5918V31.5918ZM205.892%2079.9303C197.491%2079.9303%20190.985%2073.3253%20190.985%2063.9797C190.985%2054.6342%20197.491%2048.0292%20205.892%2048.0292C214.173%2048.0292%20220.445%2054.6342%20220.445%2063.9797C220.445%2073.3313%20214.173%2079.9303%20205.892%2079.9303ZM370.207%2032.8359C367.605%2032.8359%20366.064%2034.4586%20366.064%2037.1991V40.9374C361.692%2034.5848%20355.066%2031.5918%20347.019%2031.5918C331.638%2031.5918%20319.214%2044.7958%20319.214%2063.9857C319.214%2083.1757%20331.638%2096.3797%20347.019%2096.3797C355.066%2096.3797%20361.692%2093.3867%20366.07%2087.0341V95.1296H383.819V32.8359H370.207ZM351.75%2079.9303C343.469%2079.9303%20337.197%2073.3253%20337.197%2063.9797C337.197%2054.6342%20343.469%2048.0292%20351.75%2048.0292C360.151%2048.0292%20366.658%2054.6342%20366.658%2063.9797C366.658%2073.3313%20360.151%2079.9303%20351.75%2079.9303ZM419.786%2096.3797C406.414%2096.3797%20396.951%2091.6438%20392.808%2087.6591L401.682%2073.9563C407.241%2078.9386%20414.107%2081.4328%20419.786%2081.4328C424.637%2081.4328%20426.766%2079.9363%20426.766%2077.1957C426.766%2075.0802%20425.11%2073.4575%20419.905%2072.2134L409.376%2069.5991C399.08%2067.1049%20394.229%2060.5059%20394.229%2051.4068C394.229%2038.942%20403.691%2031.5918%20417.771%2031.5918C428.655%2031.5918%20437.409%2035.0776%20441.673%2039.0682L432.798%2052.7711C428.894%2049.0328%20423.216%2046.2923%20417.771%2046.2923C413.274%2046.2923%20411.265%2047.915%20411.265%2050.4031C411.265%2052.8913%20413.394%2054.2675%20417.417%2055.2592L427.947%2057.7534C438.711%2060.2475%20443.921%2066.3477%20443.921%2075.3206C443.921%2088.158%20434.807%2096.3797%20419.786%2096.3797ZM475.864%2096.3797C462.492%2096.3797%20453.03%2091.6438%20448.887%2087.6591L457.761%2073.9563C463.32%2078.9386%20470.186%2081.4328%20475.864%2081.4328C480.715%2081.4328%20482.844%2079.9363%20482.844%2077.1957C482.844%2075.0802%20481.189%2073.4575%20475.984%2072.2134L465.454%2069.5991C455.159%2067.1049%20450.308%2060.5059%20450.308%2051.4068C450.313%2038.942%20459.776%2031.5918%20473.855%2031.5918C484.739%2031.5918%20493.494%2035.0776%20497.757%2039.0682L488.882%2052.7711C484.979%2049.0328%20479.3%2046.2923%20473.855%2046.2923C469.358%2046.2923%20467.349%2047.915%20467.349%2050.4031C467.349%2052.8913%20469.478%2054.2675%20473.502%2055.2592L484.031%2057.7534C494.795%2060.2475%20500.006%2066.3477%20500.006%2075.3206C500%2088.158%20490.891%2096.3797%20475.864%2096.3797ZM164.053%2051.0161C163.1%2050.5173%20161.633%2050.2649%20159.647%2050.2649C154.807%2050.2649%20151.035%2052.0198%20148.341%2055.5297C145.641%2059.0395%20144.295%2063.8415%20144.295%2069.9416V95.1296H127.036V33.2205H140.031C142.32%2033.2205%20144.175%2035.1738%20144.175%2037.5838V43.3774C145.761%2039.7834%20148.021%2036.9647%20150.961%2034.9153C153.894%2032.8719%20157.267%2031.8442%20161.079%2031.8442C161.713%2031.8442%20162.329%2031.8863%20162.923%2031.9704C163.516%2032.0546%20163.893%2032.1387%20164.053%2032.2228V51.0161ZM0%2064.2081C0%2059.5263%200.776176%2055.1991%202.32282%2051.2265C3.86947%2047.2539%206.03249%2043.8041%208.81188%2040.8773C11.5913%2037.9504%2014.9071%2035.6726%2018.7595%2034.0379C22.6118%2032.4092%2026.8409%2031.5918%2031.4465%2031.5918C33.9862%2031.5918%2036.5488%2031.9043%2039.1284%2032.5354C41.708%2033.1604%2044.0708%2034.146%2046.2167%2035.4863V52.6749C42.1646%2049.6639%2037.9185%2048.1614%2033.4726%2048.1614C31.1669%2048.1614%2029.0438%2048.558%2027.0977%2049.3514C25.1515%2050.1447%2023.4622%2051.2565%2022.0354%2052.6749C20.6086%2054.0993%2019.4957%2055.7941%2018.7024%2057.7534C17.9091%2059.7186%2017.5096%2061.8762%2017.5096%2064.2141C17.5096%2066.558%2017.9034%2068.7096%2018.7024%2070.6749C19.4957%2072.6401%2020.6086%2074.335%2022.0354%2075.7533C23.4622%2077.1777%2025.1515%2078.2835%2027.0977%2079.0769C29.0438%2079.8702%2031.1669%2080.2668%2033.4726%2080.2668C35.7726%2080.2668%2038.0383%2079.8281%2040.2641%2078.9506C42.4842%2078.0732%2044.5103%2076.9253%2046.3366%2075.5009V92.8097C43.9567%2094.2341%2041.4741%2095.2558%2038.8887%2095.8808C36.3091%2096.5059%2033.7465%2096.8244%2031.2068%2096.8244C26.6811%2096.8244%2022.5091%2096.0311%2018.6967%2094.4384C14.8843%2092.8458%2011.5856%2090.6341%208.81188%2087.7914C6.03249%2084.9486%203.86947%2081.5169%202.32282%2077.5022C0.776176%2073.4875%200%2069.0582%200%2064.2081H0Z%22%20fill%3D%22%233346F4%22/%3E%0A%3Cpath%20d%3D%22M118.862%2064.2081C118.862%2068.8058%20118.046%2073.0969%20116.419%2077.0635C114.792%2081.0361%20112.55%2084.4859%20109.69%2087.4127C106.831%2090.3396%20103.452%2092.6414%2099.5657%2094.3122C98.8409%2094.6247%2098.1047%2094.8952%2097.357%2095.1476L93.4191%2078.4879C94.9143%2077.7006%2096.2384%2076.7149%2097.357%2075.4949C98.6697%2074.0765%2099.7198%2072.3997%20100.513%2070.4765C101.306%2068.5533%20101.706%2066.4618%20101.706%2064.2021C101.706%2061.9423%20101.306%2059.8569%20100.513%2057.9276C99.7198%2056.0044%2098.664%2054.3337%2097.357%2052.9093C96.0444%2051.4909%2094.4806%2050.361%2092.6543%2049.5196C90.828%2048.6843%2088.9218%2048.2636%2086.9357%2048.2636C84.8697%2048.2636%2082.9464%2048.6843%2081.1601%2049.5196C79.3737%2050.355%2077.8271%2051.4849%2076.5144%2052.9093C75.2018%2054.3337%2074.1516%2056.0044%2073.3583%2057.9276C72.565%2059.8508%2072.1655%2061.9423%2072.1655%2064.2021C72.1655%2066.4618%2072.5593%2068.5533%2073.3583%2070.4765C74.1516%2072.3997%2075.2075%2074.0705%2076.5144%2075.4949C77.6444%2076.7209%2078.9628%2077.7186%2080.4467%2078.5059L76.5144%2095.1476C75.7668%2094.8952%2075.0305%2094.6247%2074.3057%2094.3122C70.4134%2092.6414%2067.0405%2090.3396%2064.1812%2087.4127C61.3219%2084.4859%2059.079%2081.0361%2057.4524%2077.0635C55.8259%2073.0909%2055.0098%2068.8058%2055.0098%2064.2081C55.0098%2059.6104%2055.8202%2055.3253%2057.4524%2051.3527C59.079%2047.3801%2061.3219%2043.9303%2064.1812%2041.0035C67.0405%2038.0766%2070.4134%2035.7808%2074.3057%2034.104C78.198%2032.4272%2082.4099%2031.5918%2086.9357%2031.5918C91.4615%2031.5918%2095.6734%2032.4272%2099.56%2034.098C103.452%2035.7748%20106.825%2038.0706%20109.685%2040.9975C112.544%2043.9243%20114.787%2047.3741%20116.413%2051.3467C118.046%2055.3193%20118.862%2059.6104%20118.862%2064.2081Z%22%20fill%3D%22black%22/%3E%0A%3C/svg%3E" alt="Corppass" style="height:16px;display:inline-block;vertical-align:middle;"/>
+            user
+          </div>
+          <div class="sp-qr-box">
+            <div class="sp-qr-wrap">
+              <svg class="sp-qr-svg" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+                <rect width="37" height="37" fill="white"/>
+                <rect x="0" y="0" width="7" height="7" fill="black"/><rect x="1" y="1" width="5" height="5" fill="white"/><rect x="2" y="2" width="3" height="3" fill="black"/>
+                <rect x="30" y="0" width="7" height="7" fill="black"/><rect x="31" y="1" width="5" height="5" fill="white"/><rect x="32" y="2" width="3" height="3" fill="black"/>
+                <rect x="0" y="30" width="7" height="7" fill="black"/><rect x="1" y="31" width="5" height="5" fill="white"/><rect x="2" y="32" width="3" height="3" fill="black"/>
+                <rect x="8" y="6" width="1" height="1" fill="black"/><rect x="10" y="6" width="1" height="1" fill="black"/><rect x="12" y="6" width="1" height="1" fill="black"/><rect x="14" y="6" width="1" height="1" fill="black"/><rect x="16" y="6" width="1" height="1" fill="black"/><rect x="18" y="6" width="1" height="1" fill="black"/><rect x="20" y="6" width="1" height="1" fill="black"/><rect x="22" y="6" width="1" height="1" fill="black"/>
+                <rect x="6" y="8" width="1" height="1" fill="black"/><rect x="6" y="10" width="1" height="1" fill="black"/><rect x="6" y="12" width="1" height="1" fill="black"/><rect x="6" y="14" width="1" height="1" fill="black"/><rect x="6" y="16" width="1" height="1" fill="black"/><rect x="6" y="18" width="1" height="1" fill="black"/><rect x="6" y="20" width="1" height="1" fill="black"/><rect x="6" y="22" width="1" height="1" fill="black"/>
+                <rect x="8" y="8" width="2" height="1" fill="black"/><rect x="11" y="8" width="3" height="1" fill="black"/><rect x="15" y="8" width="1" height="2" fill="black"/><rect x="17" y="8" width="2" height="1" fill="black"/>
+                <rect x="24" y="8" width="3" height="1" fill="black"/><rect x="29" y="8" width="2" height="1" fill="black"/><rect x="32" y="8" width="2" height="1" fill="black"/><rect x="35" y="8" width="1" height="1" fill="black"/>
+                <rect x="8" y="10" width="1" height="1" fill="black"/><rect x="10" y="10" width="3" height="1" fill="black"/><rect x="14" y="10" width="1" height="1" fill="black"/>
+                <rect x="24" y="10" width="1" height="1" fill="black"/><rect x="27" y="10" width="2" height="1" fill="black"/><rect x="31" y="10" width="1" height="2" fill="black"/><rect x="34" y="10" width="2" height="1" fill="black"/>
+                <rect x="8" y="12" width="3" height="1" fill="black"/><rect x="13" y="12" width="2" height="2" fill="black"/>
+                <rect x="24" y="12" width="3" height="1" fill="black"/><rect x="29" y="12" width="1" height="1" fill="black"/><rect x="32" y="12" width="3" height="1" fill="black"/>
+                <rect x="9" y="14" width="2" height="1" fill="black"/><rect x="13" y="14" width="2" height="1" fill="black"/><rect x="17" y="14" width="2" height="1" fill="black"/>
+                <rect x="24" y="14" width="1" height="2" fill="black"/><rect x="27" y="14" width="3" height="1" fill="black"/><rect x="32" y="14" width="1" height="2" fill="black"/>
+                <rect x="8" y="16" width="1" height="3" fill="black"/><rect x="10" y="16" width="2" height="1" fill="black"/><rect x="14" y="16" width="3" height="1" fill="black"/>
+                <rect x="25" y="16" width="2" height="1" fill="black"/><rect x="29" y="16" width="2" height="1" fill="black"/><rect x="33" y="16" width="2" height="1" fill="black"/>
+                <rect x="10" y="18" width="3" height="1" fill="black"/><rect x="15" y="18" width="1" height="2" fill="black"/><rect x="17" y="18" width="2" height="1" fill="black"/>
+                <rect x="24" y="18" width="3" height="1" fill="black"/><rect x="29" y="18" width="1" height="2" fill="black"/><rect x="32" y="18" width="2" height="1" fill="black"/>
+                <rect x="8" y="20" width="2" height="1" fill="black"/><rect x="12" y="20" width="1" height="2" fill="black"/><rect x="15" y="20" width="2" height="1" fill="black"/>
+                <rect x="24" y="20" width="2" height="1" fill="black"/><rect x="28" y="20" width="3" height="1" fill="black"/><rect x="33" y="20" width="2" height="1" fill="black"/>
+                <rect x="8" y="22" width="3" height="1" fill="black"/><rect x="13" y="22" width="2" height="1" fill="black"/><rect x="17" y="22" width="1" height="1" fill="black"/>
+                <rect x="24" y="24" width="5" height="5" fill="black"/><rect x="25" y="25" width="3" height="3" fill="white"/><rect x="26" y="26" width="1" height="1" fill="black"/>
+                <rect x="8" y="24" width="1" height="3" fill="black"/><rect x="10" y="24" width="3" height="1" fill="black"/><rect x="14" y="24" width="1" height="1" fill="black"/>
+                <rect x="30" y="24" width="2" height="1" fill="black"/><rect x="34" y="24" width="2" height="1" fill="black"/>
+                <rect x="10" y="26" width="1" height="2" fill="black"/><rect x="13" y="26" width="3" height="1" fill="black"/>
+                <rect x="30" y="26" width="3" height="1" fill="black"/>
+                <rect x="8" y="28" width="2" height="1" fill="black"/><rect x="12" y="28" width="2" height="1" fill="black"/><rect x="15" y="28" width="2" height="1" fill="black"/>
+                <rect x="8" y="30" width="3" height="1" fill="black"/><rect x="13" y="30" width="2" height="1" fill="black"/>
+                <rect x="22" y="30" width="1" height="1" fill="black"/><rect x="25" y="30" width="3" height="1" fill="black"/><rect x="30" y="30" width="2" height="1" fill="black"/>
+                <rect x="8" y="32" width="1" height="2" fill="black"/><rect x="11" y="32" width="2" height="1" fill="black"/><rect x="15" y="32" width="1" height="2" fill="black"/>
+                <rect x="22" y="32" width="3" height="1" fill="black"/><rect x="27" y="32" width="2" height="1" fill="black"/><rect x="35" y="32" width="1" height="1" fill="black"/>
+                <rect x="10" y="34" width="3" height="1" fill="black"/><rect x="14" y="34" width="2" height="1" fill="black"/>
+                <rect x="22" y="34" width="1" height="2" fill="black"/><rect x="24" y="34" width="2" height="1" fill="black"/><rect x="28" y="34" width="3" height="1" fill="black"/>
+                <rect x="8" y="36" width="2" height="1" fill="black"/><rect x="12" y="36" width="1" height="1" fill="black"/><rect x="15" y="36" width="3" height="1" fill="black"/>
+                <rect x="23" y="36" width="2" height="1" fill="black"/><rect x="30" y="36" width="2" height="1" fill="black"/>
+              </svg>
+              <div class="sp-qr-icon"><span class="sp-qr-i">i</span></div>
+            </div>
+            <div class="sp-qr-brand"><div class="sp-qr-line"></div><div class="sp-qr-txt">singpass</div><div class="sp-qr-line"></div></div>
+          </div>
+          <div class="sp-qr-timer">QR expires in <span id="spTimer">01:57</span></div>
+        </div>
+        <div class="sp-sim"><button class="sp-sim-btn" onclick="simLogin()">&#9654;&nbsp; Simulate: Scan with Singpass app</button></div>
+        <div class="sp-links">
+          <span class="sp-lnk" onclick="simLogin()">Register for Singpass</span>
+          <span class="sp-lnk" onclick="simLogin()">Download Singpass app</span>
+        </div>
+      </div>
+
+      <!-- Password tab -->
+      <div class="sp-tc" id="tcPw">
+        <div class="sp-pw">
+          <input class="sp-pw-in" placeholder="NRIC / FIN" type="text"/>
+          <input class="sp-pw-in" placeholder="Password" type="password"/>
+          <button class="sp-pw-btn" onclick="simLogin()">Log in</button>
+        </div>
+        <div class="sp-links"><span class="sp-lnk">Register for Singpass</span><span class="sp-lnk">Need help?</span></div>
+      </div>
+
+      <!-- Footer with white Singpass logo -->
+      <div class="sp-footer">
+        <img src="data:image/svg+xml,%3Csvg%20width%3D%22467%22%20height%3D%2281%22%20viewBox%3D%220%200%20467%2081%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M25.9588%2059.7857C13.092%2059.7857%203.9869%2055.4493%200%2051.8007L8.53943%2039.2537C13.8883%2043.8158%2020.4946%2046.0995%2025.9588%2046.0995C30.6266%2046.0995%2032.675%2044.7293%2032.675%2042.2199C32.675%2040.2828%2031.0824%2038.7969%2026.0741%2037.6578L15.9421%2035.264C6.03527%2032.9747%201.36741%2026.9268%201.36741%2018.6006C1.36741%207.19269%2010.4725%200.462402%2024.0202%200.462402C34.4927%200.462402%2042.9168%203.6542%2047.0191%207.30825L38.4796%2019.8553C34.7234%2016.4324%2029.2592%2013.923%2024.0202%2013.923C19.6929%2013.923%2017.7598%2015.4088%2017.7598%2017.6871C17.7598%2019.9654%2019.8082%2021.2256%2023.6798%2022.1336L33.8118%2024.4174C44.1689%2026.7011%2049.1827%2032.2868%2049.1827%2040.5029C49.1827%2052.252%2040.4127%2059.7857%2025.9588%2059.7857ZM86.7508%2058.6411H103.83V27.9559C103.83%2020.4276%20107.471%2015.75%20114.533%2015.75C121.249%2015.75%20124.78%2019.6297%20124.78%2027.9559V58.6466H141.859V23.6194C141.859%208.33182%20134.231%200.462402%20121.139%200.462402C113.627%200.462402%20107.932%203.42857%20103.835%209.24534V5.59679C103.835%203.08738%20102.358%201.60154%2099.8482%201.60154H86.7563V58.6411H86.7508ZM211.075%201.60154V50.9973C211.075%2072.4428%20197.187%2081.0001%20180.108%2081.0001C168.724%2081.0001%20159.273%2078.034%20153.584%2072.8996L162.463%2059.6647C166.22%2063.3132%20172.255%2066.6261%20180.108%2066.6261C188.873%2066.6261%20193.996%2061.0349%20193.996%2053.2811V49.6325C189.899%2054.7669%20183.98%2057.0452%20176.692%2057.0452C162.919%2057.0452%20150.964%2044.9549%20150.964%2028.7538C150.964%2012.5527%20162.919%200.462402%20176.692%200.462402C183.98%200.462402%20190.125%203.20294%20193.996%209.01971V5.59679C193.996%203.08738%20195.479%201.60154%20197.983%201.60154H211.075ZM194.567%2028.7538C194.567%2021.3411%20188.988%2015.5189%20181.25%2015.5189C174.078%2015.5189%20168.274%2021.3356%20168.274%2028.7538C168.274%2036.1665%20174.078%2041.9887%20181.25%2041.9887C188.988%2041.9887%20194.567%2036.1665%20194.567%2028.7538ZM285.755%2030.1241C285.755%2047.6954%20273.8%2059.7857%20259%2059.7857C251.257%2059.7857%20245.112%2057.5019%20240.669%2052.3731V79.6409H223.59V1.60154H236.688C239.192%201.60154%20240.675%203.08738%20240.675%205.59679V9.01971C244.887%203.20294%20251.263%200.462402%20259.006%200.462402C273.806%200.462402%20285.755%2012.5527%20285.755%2030.1241ZM268.451%2030.1241C268.451%2021.5668%20262.416%2015.5189%20254.448%2015.5189C246.364%2015.5189%20240.104%2021.5668%20240.104%2030.1241C240.104%2038.6814%20246.364%2044.7293%20254.448%2044.7293C262.421%2044.7238%20268.451%2038.6759%20268.451%2030.1241ZM355.202%201.60154V58.6411H338.123V51.2284C333.911%2057.0452%20327.535%2059.7857%20319.792%2059.7857C304.992%2059.7857%20293.037%2047.6954%20293.037%2030.1241C293.037%2012.5527%20304.992%200.462402%20319.792%200.462402C327.535%200.462402%20333.911%203.20294%20338.123%209.01971V5.59679C338.123%203.08738%20339.606%201.60154%20342.11%201.60154H355.202ZM338.694%2030.1241C338.694%2021.5668%20332.434%2015.5189%20324.35%2015.5189C316.382%2015.5189%20310.347%2021.5668%20310.347%2030.1241C310.347%2038.6814%20316.382%2044.7293%20324.35%2044.7293C332.434%2044.7238%20338.694%2038.6759%20338.694%2030.1241ZM389.816%2059.7857C404.275%2059.7857%20413.04%2052.2575%20413.04%2040.5084C413.04%2032.2923%20408.031%2026.7066%20397.669%2024.4229L387.537%2022.1391C383.665%2021.2256%20381.617%2019.9709%20381.617%2017.6926C381.617%2015.4143%20383.55%2013.9285%20387.877%2013.9285C393.116%2013.9285%20398.58%2016.4379%20402.336%2019.8608L410.876%207.31375C406.779%203.6652%20398.355%200.467905%20387.877%200.467905C374.329%200.467905%20365.224%207.19819%20365.224%2018.6061C365.224%2026.9323%20369.892%2032.9802%20379.799%2035.264L389.931%2037.6578C394.939%2038.7969%20396.532%2040.2828%20396.532%2042.2199C396.532%2044.7293%20394.483%2046.0995%20389.816%2046.0995C384.351%2046.0995%20377.751%2043.8158%20372.396%2039.2537L363.857%2051.8007C367.844%2055.4493%20376.949%2059.7857%20389.816%2059.7857ZM443.776%2059.7857C458.235%2059.7857%20467%2052.2575%20467%2040.5084C467%2032.2923%20461.992%2026.7066%20451.629%2024.4229L441.497%2022.1391C437.625%2021.2256%20435.577%2019.9709%20435.577%2017.6926C435.577%2015.4143%20437.51%2013.9285%20441.837%2013.9285C447.076%2013.9285%20452.541%2016.4379%20456.297%2019.8608L464.836%207.31375C460.74%203.6652%20452.315%200.467905%20441.837%200.467905C428.29%200.467905%20419.185%207.19819%20419.185%2018.6061C419.185%2026.9323%20423.852%2032.9802%20433.759%2035.264L443.891%2037.6578C448.9%2038.7969%20450.492%2040.2828%20450.492%2042.2199C450.492%2044.7293%20448.444%2046.0995%20443.776%2046.0995C438.312%2046.0995%20431.711%2043.8158%20426.357%2039.2537L417.817%2051.8007C421.804%2055.4493%20430.915%2059.7857%20443.776%2059.7857Z%22%20fill%3D%22%23F4333D%22/%3E%0A%3Cpath%20d%3D%22M66.031%2019.8552C71.6105%2019.8552%2075.9378%2015.5187%2075.9378%209.92758C75.9378%204.33644%2071.6105%200%2066.031%200C60.4515%200%2056.1242%204.33644%2056.1242%209.92758C56.1297%2015.5187%2060.4515%2019.8552%2066.031%2019.8552ZM55.3279%2058.641H76.7286L72.1761%2023.1625C68.7603%2024.1916%2063.2962%2024.1916%2059.8804%2023.1625L55.3279%2058.641Z%22%20fill%3D%22black%22/%3E%0A%3C/svg%3E" alt="Singpass" style="height:26px;display:block;margin-bottom:22px;filter:brightness(0) invert(1);"/>
+        <span class="sp-ft-lnk">Contact us</span>
+        <span class="sp-ft-lnk">Share feedback</span>
+        <span class="sp-ft-lnk">Read FAQs</span>
+        <span class="sp-ft-lnk">Report vulnerability</span>
+        <span class="sp-ft-lnk">Privacy statement</span>
+        <span class="sp-ft-lnk">Terms of use</span>
+        <span class="sp-ft-lnk">Sitemap</span>
+        <div class="sp-ft-copy">&#169; Government of Singapore &#8226; Last updated 24 July 2025</div>
+      </div>
+    </div>
+
+    <div id="spLoad">
+      <div class="sp-spin"></div>
+      <div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:6px">Verifying your identity&#8230;</div>
+      <div style="font-size:13px;color:#888;text-align:center;padding:0 24px;line-height:1.5">Please wait while Singpass confirms your Corppass authority</div>
+    </div>
+
+    <div id="spSucc">
+      <div class="sp-chk"><svg viewBox="0 0 32 32" fill="none"><path d="M6 16L13 23L26 9" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="sp-sh">Verification successful</div>
+      <div class="sp-ss">You have been verified as a Corppass user.</div>
+      <div class="sp-card">Alan Tan &#183; Entity Admin<br><span style="font-size:13px;color:#888;font-weight:400">Tech Horizons Pte Ltd &#183; UEN 202312345A</span></div>
+      <button class="sp-ret" onclick="retWA()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.847L0 24l6.313-1.498A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        Return to WhatsApp
+      </button>
+      <div class="sp-rn">Redirecting via secure deep link<br>businesssg.gov.sg/callback?state=wa_return</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const waO=document.getElementById('waO'),waI=document.getElementById('waI');
+const inp=document.getElementById('inp'),snd=document.getElementById('snd');
+const drwOv=document.getElementById('drwOv'),drwIt=document.getElementById('drwIt');
+const spOv=document.getElementById('spOv'),spUrl=document.getElementById('spUrl');
+const spPg=document.getElementById('spPg'),spLoad=document.getElementById('spLoad'),spSucc=document.getElementById('spSucc');
+let authed=false,pendingFlow=null,convState=null,_email='',_ctaBtn=null,_timer=null;
+function ts(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');}
+function sb(){setTimeout(()=>{waO.scrollTop=waO.scrollHeight;},50);}
+function fmt(s){return s.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<strong>$1</strong>').replace(/_(.*?)_/g,'<em>$1</em>');}
+function aT(dir,txt,note){const r=document.createElement('div');r.className='wa-row '+dir;const b=document.createElement('div');b.className='bub '+dir;
+// Add tail if this is the first bubble from this sender in a consecutive group
+const rows=waI.querySelectorAll('.wa-row');const lastRow=rows.length?rows[rows.length-1]:null;const lastDir=lastRow?( lastRow.classList.contains('out')?'out':'in'):null;if(!lastRow||lastDir!==dir){b.classList.add('tail');}
+b.innerHTML=fmt(txt);if(note){const n=document.createElement('div');n.className='tbadge';n.textContent=note;b.appendChild(n);}const m=document.createElement('div');m.className='bmeta';m.innerHTML=ts()+(dir==='out'?' <span class="btick">✓✓</span>':'');b.appendChild(m);r.appendChild(b);waI.appendChild(r);sb();}
+function isTail(){const rows=waI.querySelectorAll('.wa-row');const last=rows.length?rows[rows.length-1]:null;return !last||last.classList.contains('out');}
+function aRB(body,btns,note){const r=document.createElement('div');r.className='wa-row in';const b=document.createElement('div');b.className='bub in'+(isTail()?' tail':'');if(body)b.innerHTML=fmt(body);if(note){const n=document.createElement('div');n.className='tbadge';n.textContent=note;b.appendChild(n);}const m=document.createElement('div');m.className='bmeta';m.textContent=ts();b.appendChild(m);r.appendChild(b);waI.appendChild(r);const w=document.createElement('div');w.className='wa-row in no-pad';const bl=document.createElement('div');bl.className='rbtns';btns.slice(0,3).forEach(x=>{const btn=document.createElement('button');btn.className='rbtn';btn.textContent=x.label.slice(0,20);btn.onclick=()=>{bl.querySelectorAll('.rbtn').forEach(z=>z.classList.add('used'));setTimeout(()=>go(x.v),300);};bl.appendChild(btn);});w.appendChild(bl);waI.appendChild(w);sb();}
+function aCTA(body,lbl,cb,note){const r=document.createElement('div');r.className='wa-row in';const w=document.createElement('div');w.className='cta-w'+(isTail()?' tail':'');const b=document.createElement('div');b.className='cta-b';b.innerHTML=fmt(body);if(note){const n=document.createElement('div');n.className='tbadge';n.textContent=note;b.appendChild(n);}const m=document.createElement('div');m.className='bmeta';m.textContent=ts();b.appendChild(m);w.appendChild(b);const btn=document.createElement('button');btn.className='cta-btn';btn.innerHTML='🔗 '+lbl;btn.onclick=()=>{if(cb)cb(btn);};_ctaBtn=btn;w.appendChild(btn);r.appendChild(w);waI.appendChild(r);sb();return btn;}
+function aLM(body,foot,lbl,items,note){const r=document.createElement('div');r.className='wa-row in';const w=document.createElement('div');w.className='lm-w'+(isTail()?' tail':'');const b=document.createElement('div');b.className='lm-b';b.innerHTML=fmt(body);if(note){const n=document.createElement('div');n.className='tbadge';n.textContent=note;b.appendChild(n);}w.appendChild(b);if(foot){const f=document.createElement('div');f.className='lm-f';f.textContent=foot;w.appendChild(f);}const lb=document.createElement('div');lb.className='lm-btn';lb.innerHTML='☰ '+(lbl||'View options');lb.onclick=()=>openDrw(items);w.appendChild(lb);r.appendChild(w);waI.appendChild(r);sb();}
+function typing(ms){return new Promise(res=>{const r=document.createElement('div');r.className='trow';r.id='wati';r.innerHTML='<div class="tbub"><div class="td"></div><div class="td"></div><div class="td"></div></div>';waI.appendChild(r);sb();setTimeout(()=>{document.getElementById('wati')?.remove();res();},ms||1200);});}
+async function say(fn,ms){await typing(ms);fn();sb();}
+function openDrw(items){drwIt.innerHTML='';items.slice(0,10).forEach(x=>{const el=document.createElement('div');el.className='drw-i';el.innerHTML=`<div><div class="drw-il">${x.label}</div>${x.desc?`<div class="drw-id">${x.desc}</div>`:''}</div><div class="drw-ck"></div>`;el.onclick=()=>{drwIt.querySelectorAll('.drw-ck').forEach(c=>c.textContent='');el.querySelector('.drw-ck').textContent='✓';setTimeout(()=>{drwOv.style.display='none';setTimeout(()=>go(x.v),300);},200);};drwIt.appendChild(el);});drwOv.style.display='flex';}
+drwOv.addEventListener('click',e=>{if(e.target===drwOv)drwOv.style.display='none';});
+function openWv(cb){window._cb=cb;spPg.style.display='block';spLoad.style.display='none';spSucc.style.display='none';spUrl.textContent='login.id.singpass.gov.sg';swTab('app');startTimer();spOv.classList.add('open');spPg.scrollTop=0;}
+function closeWv(){spOv.classList.remove('open');clearInterval(_timer);}
+function startTimer(){clearInterval(_timer);let s=117;const el=document.getElementById('spTimer');_timer=setInterval(()=>{if(!el){clearInterval(_timer);return;}s--;if(s<=0){clearInterval(_timer);el.textContent='00:00';return;}el.textContent=Math.floor(s/60).toString().padStart(2,'0')+':'+(s%60).toString().padStart(2,'0');},1000);}
+function swTab(t){document.getElementById('tApp').classList.toggle('active',t==='app');document.getElementById('tPw').classList.toggle('active',t==='pw');document.getElementById('tcApp').classList.toggle('active',t==='app');document.getElementById('tcPw').classList.toggle('active',t==='pw');}
+function simLogin(){clearInterval(_timer);spPg.style.display='none';spLoad.style.display='flex';spUrl.textContent='login.id.singpass.gov.sg/auth/verify…';setTimeout(()=>{spLoad.style.display='none';spSucc.style.display='flex';spUrl.textContent='businesssg.gov.sg/callback?state=wa_return&token=eyJ…';},2200);}
+function retWA(){spOv.classList.remove('open');clearInterval(_timer);if(_ctaBtn){_ctaBtn.innerHTML='✅ Verified with Singpass';_ctaBtn.disabled=true;_ctaBtn.style.color='#888';}if(window._cb){setTimeout(window._cb,700);window._cb=null;}}
+async function go(v){
+  switch(v){
+    case 'welcome':
+      await say(()=>{aT('in',`👋 *Welcome to BusinessSG*\n\nThis is an official Singapore Government service. I can help you with:\n&#8226; Company directorships\n&#8226; Grants & licensing\n&#8226; Trade & tariff queries\n&#8226; Compliance records`,'text message');},800);
+      await say(()=>{aLM('How can I help you today?','Select a service to get started','View services',[{label:'📋 Directorship',desc:'Add or remove company directors',v:'flow_dir'},{label:'💰 Grants & Licensing',desc:'Check eligibility and apply',v:'flow_grants'},{label:'💬 Trade/Tariff Query',desc:'Check import/export policies',v:'flow_tariff'},{label:'🔍 Audit Trail',desc:'View transaction history',v:'flow_audit'},{label:'📞 Speak to an agent',desc:'Connect to human support',v:'flow_human'}],'list message');},600);
+      break;
+    case 'flow_tariff':
+      aT('out','💬 Trade/Tariff Query');pendingFlow='tariff';
+      await say(()=>{aT('in',`Hello Mr Alan, let me check the details on your imports and current trade policies.\n\nFirst, I need to verify your identity via *Corppass*. Tap below — you'll be taken to the Singpass login page, then redirected back here automatically.`,'text message');},1300);
+      await say(()=>{aCTA(`🔐 *Corppass verification required*\n\nThis takes about 20 seconds. Your session will be valid for 60 minutes.`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button → Singpass webview');},600);
+      break;
+    case 'flow_dir':
+      aT('out','📋 Change Directorship');
+      if(!authed){pendingFlow='director';await say(()=>{aT('in','To make directorship changes, I need to verify your identity first.','text message');},900);await say(()=>{aCTA(`🔐 *Corppass verification required*`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);}
+      else go('dir_authed');break;
+    case 'flow_grants':
+      aT('out','💰 Grants & Licensing');
+      if(!authed){pendingFlow='grants';await say(()=>{aT('in','To check your grant eligibility, I need to verify your identity first.','text message');},900);await say(()=>{aCTA(`🔐 *Corppass verification required*`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);}
+      else go('grants_ok');break;
+    case 'flow_audit':
+      aT('out','🔍 Audit Trail');
+      if(!authed){pendingFlow='audit';await say(()=>{aT('in','Your audit trail contains sensitive records. Please verify your identity first.','text message');},900);await say(()=>{aCTA(`🔐 *Corppass verification required*`,'Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);}
+      else go('audit_ok');break;
+    case 'tariff_ans':
+      await say(()=>{aT('in',`I've checked — I understand you sell *tungsten carbide C&C tips*. The recent trade summit has removed tungsten carbide C&C tips from the tariff list. Your exports to the US will *not* be affected.\n\n_⚠️ AI-generated — please verify at customs.gov.sg_`,'text message');},1000);
+      await say(()=>{aT('in',`Mr Alan, my records note you have yet to apply for a *S$5,000 AI Software Grant*.`,'text message');aRB('Would you like to apply?',[{label:'Yes, apply',v:'grant_apply'},{label:'No thanks',v:'grant_no'},{label:'Tell me more',v:'grant_more'}],'reply buttons (3 of max 3)');},800);break;
+    case 'dir_authed':
+      authed=true;await say(()=>{aT('in','✅ *Entity Admin* confirmed for Tech Horizons Pte Ltd (UEN: 202312345A).','text message');aLM('What directorship change?','','Select action',[{label:'➕ Add New Director',desc:'Send secure Singpass invite',v:'dir_add'},{label:'➖ Remove Director',desc:'File removal with ACRA',v:'dir_remove'},{label:'🔄 Update Details',desc:'Change address, ID etc.',v:'dir_update'}],'list message');},1000);break;
+    case 'grants_ok':
+      authed=true;await say(()=>{aT('in','Based on your profile for *Tech Horizons Pte Ltd*, I found grants you qualify for:','text message');aLM('🌟 *Available Grants*','Tap to view and apply','View grants',[{label:'AI Grant — S$5,000',desc:'Automate business processes · EnterpriseSG',v:'grant_apply'},{label:'Productivity Grant',desc:'Tech adoption subsidy · IMDA',v:'grant_other'},{label:'Market Readiness',desc:'Internationalisation · EnterpriseSG',v:'grant_other'}],'list message');},1000);break;
+    case 'audit_ok':
+      authed=true;await say(()=>{aT('in','*Recent transactions* for Tech Horizons Pte Ltd:','text message');aLM('','Tap to view details','View transactions',[{label:'Grant Application',desc:'GRT-2026-084521 · Today',v:'a_grant'},{label:'Director Change',desc:'ACRA-DIR-20260414 · Today',v:'a_dir'},{label:'Corppass Login',desc:'✅ Verified · Today',v:'a_login'}],'list message');aCTA('Download full audit log.','Export Audit Log',()=>{},'CTA URL button');},1100);break;
+    case 'grant_apply':aT('out','AI Software Grant — S$5,000');await say(()=>{aT('in',`*AI Software Grant — S$5,000*\n\nAgency: EnterpriseSG · Eligibility: ✅\n\nPre-filled from Corppass:\n• Company: Tech Horizons Pte Ltd\n• UEN: 202312345A\n• Bank: DBS ···· 4821`,'text message');aRB('Submit the application?',[{label:'✅ Confirm & Submit',v:'grant_submit'},{label:'❌ Cancel',v:'grant_no'}],'reply buttons');},1200);break;
+    case 'grant_submit':aT('out','✅ Confirm & Submit');await say(()=>{aT('in','🎉 *Application submitted!*\n\nRef: GRT-2026-084521\nStatus: Under review · 5–7 business days','text message');},1600);await say(()=>{aCTA(`*Audit receipt* · GRT-2026-084521 · ${ts()} SGT`,'Download Receipt',()=>{},'CTA URL button');aRB('What next?',[{label:'📋 Directorship',v:'flow_dir'},{label:'🔍 Audit Trail',v:'flow_audit'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},800);break;
+    case 'grant_no':aT('out','No thanks');await say(()=>{aT('in','No problem! The grant is available until 31 Dec 2026.','text message');aRB('No problem, the grant stays open.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},800);break;
+    case 'grant_more':aT('out','Tell me more');await say(()=>{aT('in','*AI Software Grant — S$5,000*\n\n✅ Subsidises up to 70% of qualifying software costs\n✅ One-time grant per company','text message');aRB('Ready to apply for this grant?',[{label:'Yes, apply',v:'grant_apply'},{label:'Not now',v:'welcome'}],'reply buttons');},1000);break;
+    case 'grant_other':aT('out','Other grant');await say(()=>{aCTA('Apply on GoBusiness portal.','Apply on GoBusiness',()=>{},'CTA URL button');},900);break;
+    case 'dir_add':aT('out','➕ Add New Director');await say(()=>{aT('in',`I'll send them a *secure Singpass invite link*.\n\nPlease type the new director's *email address*.`,'text message');},1100);convState='email';break;
+    case 'dir_send':await say(()=>{aT('in',`Got it! Sending invite to *${_email}*\n\n1&#8364; Invite sent → 2&#8364; Director authenticates → 3&#8364; ACRA filed`,'text message');aRB('Confirm sending the invite?',[{label:'✅ Send invite',v:'dir_sent'},{label:'✏️ Change email',v:'dir_add'}],'reply buttons');},1100);break;
+    case 'dir_sent':aT('out','✅ Send invite');await say(()=>{aCTA(`📨 *Invite sent* to ${_email}\n\nValid: 48 hours · Auth: Singpass required`,'View invite status',()=>{},'CTA URL button');aRB('Track your invite progress here.',[{label:'⏳ Check status',v:'dir_status'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},1400);break;
+    case 'dir_status':aT('out','⏳ Check status');await say(()=>{aT('in','✅ *Ms Lee Mei Ling* has completed Singpass verification. ACRA filing *approved*.\n\nRef: ACRA-DIR-20260414','text message');aCTA(`*Audit receipt* · ACRA-DIR-20260414 · ${ts()} SGT`,'Download Receipt',()=>{},'CTA URL button');aRB('What would you like to do next?',[{label:'🏠 Main Menu',v:'welcome'},{label:'💰 Grants',v:'flow_grants'}],'reply buttons');},1500);break;
+    case 'dir_remove':aT('out','➖ Remove Director');await say(()=>{aLM('Which director?','⚠️ This will trigger an ACRA filing','Select director',[{label:'Mr Tan Ah Kow',desc:'Resigned',v:'dir_rem_confirm'}],'list message');},1000);break;
+    case 'dir_rem_confirm':aT('out','Mr Tan Ah Kow');await say(()=>{aT('in','⚠️ *Confirm removal of Mr Tan Ah Kow*\n\nThis will be filed with ACRA. Cannot be undone.','text message');aRB('Are you sure you want to proceed?',[{label:'✅ Confirm removal',v:'dir_removed'},{label:'❌ Cancel',v:'dir_authed'}],'reply buttons');},1100);break;
+    case 'dir_removed':aT('out','✅ Confirm removal');await say(()=>{aT('in','✅ *ACRA filing submitted.* Mr Tan Ah Kow removed.','text message');aCTA('*Audit receipt* for director removal.','Download Receipt',()=>{},'CTA URL button');aRB('Removal has been filed with ACRA.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},1500);break;
+    case 'dir_update':aT('out','🔄 Update Details');await say(()=>{aCTA('Update via MyInfo Business on Singpass.','Update on Singpass',()=>{},'CTA URL button');},900);break;
+    case 'a_grant':aT('out','Grant Application');await say(()=>{aT('in',`*Grant Application — Audit*\n\nRef: GRT-2026-084521\nBy: Alan Tan (Entity Admin) · ${ts()} SGT`,'text message');aCTA('Download receipt.','Download Receipt',()=>{},'CTA URL button');aRB('View or manage this transaction.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},900);break;
+    case 'a_dir':aT('out','Director Change');await say(()=>{aT('in',`*Director Change — Audit*\n\nRef: ACRA-DIR-20260414 · ${ts()} SGT`,'text message');aCTA('Download receipt.','Download Receipt',()=>{},'CTA URL button');aRB('View or manage this transaction.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},900);break;
+    case 'a_login':aT('out','Corppass Login');await say(()=>{aT('in','✅ Corppass login verified at '+ts()+' SGT.','text message');aRB('Return to the main menu anytime.',[{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},800);break;
+    case 'flow_human':aT('out','📞 Speak to an agent');await say(()=>{aT('in','Connecting you to a BusinessSG officer. Mon–Fri, 8:30am–6pm SGT.','text message');aCTA('Reach us via the portal.','Open Support Portal',()=>{},'CTA URL button');},900);break;
+  }
+}
+window.go=go;
+function afterAuth(){
+  authed=true;const f=pendingFlow;pendingFlow=null;
+  say(()=>{aT('in',`✅ *Corppass verification complete.*\n\nHi Alan, I've confirmed your identity via Singpass.\n\n*Name:* Alan Tan · *Role:* Entity Admin\n*Company:* Tech Horizons Pte Ltd\n*UEN:* 202312345A\n*Session valid:* 60 minutes`,'text message');},1400).then(()=>{
+    setTimeout(()=>{
+      if(f==='tariff')go('tariff_ans');
+      else if(f==='director')go('dir_authed');
+      else if(f==='grants')go('grants_ok');
+      else if(f==='audit')go('audit_ok');
+      else aRB('What would you like to do?',[{label:'📋 Directorship',v:'flow_dir'},{label:'💰 Grants',v:'flow_grants'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');
+    },400);
+  });
+}
+function handleTxt(t){
+  const l=t.toLowerCase();
+  if(convState==='email'){const m=t.match(/[\w.+-]+@[\w-]+\.[\w.]+/);_email=m?m[0]:t;convState=null;go('dir_send');return;}
+  if(l.includes('tariff')||l.includes('tungsten')||l.includes('import')||l.includes('tax'))go('flow_tariff');
+  else if(l.includes('director')||l.includes('directorship'))go('flow_dir');
+  else if(l.includes('grant')||l.includes('licen'))go('flow_grants');
+  else if(l.includes('audit')||l.includes('receipt')||l.includes('history'))go('flow_audit');
+  else if(l.includes('hi')||l.includes('hello')||l.includes('help')||l.includes('start'))go('welcome');
+  else say(()=>{aT('in','I can help with trade queries, grants, directorships, and compliance. Type _help_ to see all options.','text message');aRB('What would you like to do next?',[{label:'📋 Directorship',v:'flow_dir'},{label:'💰 Grants',v:'flow_grants'},{label:'🏠 Main Menu',v:'welcome'}],'reply buttons');},900);
+}
+snd.addEventListener('click',()=>{const t=inp.value.trim();if(!t)return;inp.value='';inp.style.height='auto';aT('out',t);handleTxt(t);});
+inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();snd.click();}});
+inp.addEventListener('input',()=>{inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,80)+'px';});
+setTimeout(()=>go('welcome'),300);
+</script>
+</body>
+</html>
