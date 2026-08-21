@@ -546,7 +546,7 @@ async function go(v){
     /* ── T4: REFUND / ADJUSTMENT ── */
     case 'flow_refund':
       aT('out','↩️ Refund or adjustment');
-      if(!authed){pendingFlow='refund';await say(()=>{aT('in','I need to verify your Corppass authority before we proceed.','text message');},800);await say(()=>{aCTA('🔐 *Corppass verification required*','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);break;}
+      if(!authed){pendingFlow='refund';await say(()=>{aT('in','I\'ll help you apply for a *CPF refund or adjustment*.\n\nFirst, I need to verify your Corppass authority for *Chocoero Pte Ltd*.','text message');},1000);await say(()=>{aCTA('🔐 *Corppass verification required*','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},600);break;}
       await say(()=>{aT('in','I can help you apply for a *CPF refund or adjustment*.\n\nWhich type of application?','text message');aRB('Select application type:',[{label:'↩️ Refund',v:'refund_sel_refund'},{label:'🔄 Adjust',v:'refund_sel_adjust'}],'reply buttons');},1200);
       break;
 
