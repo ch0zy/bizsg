@@ -397,6 +397,7 @@ async function go(v){
 
     /* ── T2: UPDATE EMPLOYER PARTICULARS ── */
     case 'flow_update':
+      aT('out','📝 Update company details');
       if(authed){go('update_choice');break;}
       pendingFlow='update';
       await say(()=>{aT('in','I can help update your employer particulars with CPF.\n\nFirst, I need to verify your Corppass authority for *Chocoero Pte Ltd*.','text message');},1200);
@@ -511,6 +512,7 @@ async function go(v){
 
     /* ── T3: NOTIFY NO CPF CONTRIBUTIONS ── */
     case 'flow_notify':
+      aT('out','🚫 No CPF contributions');
       await say(()=>{aT('in','I\'ll help you submit a request to CPF — *No CPF contributions payable*.\n\nFirst, what is the *name* of your employee or platform worker?','text message');},1000);
       convState='notify_emp_name';
       break;
@@ -543,6 +545,7 @@ async function go(v){
 
     /* ── T4: REFUND / ADJUSTMENT ── */
     case 'flow_refund':
+      aT('out','↩️ Refund or adjustment');
       if(!authed){pendingFlow='refund';await say(()=>{aT('in','I need to verify your Corppass authority before we proceed.','text message');},800);await say(()=>{aCTA('🔐 *Corppass verification required*','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);break;}
       await say(()=>{aT('in','I can help you apply for a *CPF refund or adjustment*.\n\nWhich type of application?','text message');aRB('Select application type:',[{label:'↩️ Refund',v:'refund_sel_refund'},{label:'🔄 Adjust',v:'refund_sel_adjust'}],'reply buttons');},1200);
       break;
@@ -730,6 +733,7 @@ async function go(v){
 
     /* ── OTHER ── */
     case 'flow_other':
+      aT('out','💬 Other CPF question');
       await say(()=>{aT('in','What\'s your CPF question? Type it and I\'ll help explain the requirement or point you to the right service.','text message');},900);
       convState='free_qa';
       break;
