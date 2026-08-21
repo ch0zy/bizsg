@@ -12,7 +12,7 @@ export function FormSuccess({
   title,
   description,
   details,
-  ctaLabel = "Return to BizSG Assistant",
+  ctaLabel = "Return to BusinessSG Assistant",
   onContinue,
 }: FormSuccessProps) {
   return (

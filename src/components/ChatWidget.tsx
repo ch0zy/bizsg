@@ -157,7 +157,7 @@ export function ChatWidget({ onAction, externalSignal, onSignalHandled, onNodeCh
                 </svg>
               </div>
               <div>
-                <p className="widget-header-name">BizSG Assistant</p>
+                <p className="widget-header-name">BusinessSG Assistant</p>
                 <p className="widget-header-status">
                   <span className="widget-status-dot" aria-hidden="true" />
                   Online
@@ -209,7 +209,7 @@ export function ChatWidget({ onAction, externalSignal, onSignalHandled, onNodeCh
       <button
         className={`widget-fab ${isOpen ? "widget-fab--open" : ""}`}
         onClick={() => setIsOpen((v) => !v)}
-        aria-label={isOpen ? "Close chat assistant" : "Open BizSG chat assistant"}
+        aria-label={isOpen ? "Close chat assistant" : "Open BusinessSG chat assistant"}
         aria-expanded={isOpen}
       >
         {isOpen ? (

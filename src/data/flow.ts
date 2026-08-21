@@ -27,7 +27,7 @@ export const flow: FlowNode[] = [
     id: "greeting",
     background: "acra-inbox-reg-approved.jpeg",
     botMessages: [
-      "Hi! I'm the BizSG Assistant.",
+      "Hi! I'm the BusinessSG Assistant.",
       "To set up CPF contributions, you'll need three things:",
       "1. Corppass — corporate digital identity for government portals\n2. CPF Submission Number (CSN) — your CPF employer reference\n3. CPF EZPay — the portal for filing and paying contributions",
       "I can begin by applying for Corppass on your behalf. Want to get started?",

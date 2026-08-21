@@ -72,7 +72,7 @@ export function SingpassModal({ onSuccess, onClose }: SingpassModalProps) {
         <div className="sp2-success-overlay">
           <div className="sp2-success-icon">✓</div>
           <p className="sp2-success-text">Login successful</p>
-          <p className="sp2-success-sub">Returning to BizSG…</p>
+          <p className="sp2-success-sub">Returning to BusinessSG…</p>
         </div>
       )}
       </div>

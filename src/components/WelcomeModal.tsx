@@ -13,7 +13,7 @@ export function WelcomeModal({ onStart, onDismiss }: WelcomeModalProps) {
       title="Congratulations on registering your business with ACRA!"
       bodyContent={
         <p style={{ margin: 0, lineHeight: 1.6 }}>
-          Are you planning to hire local employees? The BizSG Assistant can guide you through — and automate — the steps needed to set up CPF contributions, starting with your Corppass admin account.
+          Are you planning to hire local employees? The BusinessSG Assistant can guide you through — and automate — the steps needed to set up CPF contributions, starting with your Corppass admin account.
         </p>
       }
       primaryBtnText="Get started"
