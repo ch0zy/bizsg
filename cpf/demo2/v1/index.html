@@ -359,9 +359,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="sp-rn">Redirecting via secure deep link<br>businesssg.gov.sg/callback?state=wa_return</div>
     </div>
   </div>
-</div>
 
-<div id="bankOv">
+  <div id="bankOv">
   <div class="bk-chrome">
     <div class="bk-chrome-row">
       <div class="bk-urlbar">🔒 <span id="bkUrl">www.dbs.com.sg/personal/egiro</span></div>
@@ -383,7 +382,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="bk-panel">
         <h3>Setup Arrangement</h3>
         <label class="bk-lbl">My Account</label>
-        <select class="bk-sel"><option>— Select an account —</option><option selected>DBS Current Account ···9100</option><option>DBS Savings Account ···4412</option></select>
+        <select class="bk-sel"><option>— Select an account —</option><option selected>DBS Current Account •••0001</option><option>DBS Savings Account •••0002</option></select>
         <div class="bk-tog-row"><label class="bk-lbl" style="margin:0">Payment Limit</label><div class="bk-tog"></div></div>
         <input class="bk-inp" type="number" placeholder="SGD — Enter an amount" style="margin-bottom:12px"/>
         <div class="bk-tog-row"><label class="bk-lbl" style="margin:0">Billing End Date</label><div class="bk-tog"></div></div>
@@ -406,6 +405,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="bk-succ-h">eGIRO arrangement set up</div>
     <div class="bk-succ-s">Your Direct Debit Authorisation has been approved. You will be redirected to the CPF acknowledgment page.</div>
     <button class="bk-ret" onclick="retBank()">Return to CPF</button>
+  </div>
   </div>
 </div>
 
@@ -495,10 +495,10 @@ async function go(v){
     case 'update_choice':
       await say(()=>{aT('in','I\'ve retrieved your current CPF records for *Chocoero Pte Ltd* (UEN 202500298W, CSN S20250001B).\n\nWhat would you like to update?','text message');},800);
       await say(()=>{aLM('Select the field to update:','','Choose field',[
-        {label:'🏠 Principal place of business',desc:'Current: 100 High St #04-01 S179209',v:'update_address'},
-        {label:'📧 Contact details',desc:'Current: admin@chocoero.sg',v:'update_contact'},
-        {label:'🏭 Business activity (SSIC)',desc:'Current: 56101 — Restaurants',v:'update_ssic'},
-        {label:'🏦 DDA/GIRO bank account',desc:'Direct Debit Authorisation',v:'update_dda'}
+        {label:'🏠 Principal place of business',v:'update_address'},
+        {label:'📧 Contact details',v:'update_contact'},
+        {label:'🏭 Business activity (SSIC)',v:'update_ssic'},
+        {label:'🏦 DDA/GIRO bank account',v:'update_dda'}
       ],'list message');},500);
       break;
 
