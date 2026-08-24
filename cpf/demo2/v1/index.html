@@ -337,7 +337,7 @@ let _notifyEmpName='',_notifyEmpNric='',_notifyMessage='';
 let _refundNric='',_refundReason='',_refundMonth='',_refundStmtId='',_refundAmount='',_refundPayDate='',_refundWageRepayDate='';
 let _adjustType='',_adjustStmtId='',_adjustPayDate='',_adjustScope='';
 let _newSsic='',_ssicMatches=[];
-let _ddaType='',_ddaBank='',_ddaAcct='';
+let _ddaType='',_ddaBank='',_ddaEmail='',_ddaMobile='';
 const SSIC_STUB=[
   {code:'56101',desc:'Full-service restaurants'},
   {code:'56102',desc:'Fast food restaurants'},
@@ -448,13 +448,23 @@ async function go(v){
 
     case 'update_dda':
       aT('out','🏦 Update DDA/GIRO');
-      await say(()=>{aT('in','*Current DDA/GIRO:* DBS ···· 1234\n\nWhat is the new *bank account type?*','text message');aRB('Select account type:',[{label:'🏢 Corporate account',v:'update_dda_corp'},{label:'👤 Personal account',v:'update_dda_personal'}],'reply buttons');},1000);
+      await say(()=>{aT('in','I\'ll help you set up a new *Direct Debit Authorisation* for CPF contributions.\n\n*Current account:* DBS/POSB BANK · ···9100\n\n⚠️ *Note:* Change your bank only after your latest CPF submission payment has been successfully deducted, to avoid failed deductions.\n\n*You will need:*\n• Bank account with an eGIRO participating bank\n• Internet banking credentials\n\nYou\'ll be redirected to your bank\'s website to complete the eGIRO setup.','text message');aRB('Proceed?',[{label:'▶️ Continue',v:'update_dda_email'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1200);
+      break;
+
+    case 'update_dda_email':
+      aT('out','▶️ Continue');
+      await say(()=>{aT('in','What is your *contact email address* for this application?','text message');},800);
+      convState='dda_email';
+      break;
+
+    case 'update_dda_type':
+      await say(()=>{aT('in','⚠️ Continuing will *terminate your current DDA arrangement* with DBS/POSB BANK. Any pending deductions may be affected.\n\nSelect the *bank account type* for the new Direct Debit:','text message');aRB('Bank account type:',[{label:'🏢 Corporate account',v:'update_dda_corp'},{label:'👤 Personal account',v:'update_dda_personal'}],'reply buttons');},900);
       break;
 
     case 'update_dda_corp':
       aT('out','🏢 Corporate account');
       _ddaType='Corporate';
-      await say(()=>{aLM('Select your bank:','','Choose bank',[
+      await say(()=>{aLM('Select your bank:','eGIRO participating banks','Choose bank',[
         {label:'Bank of China Limited',v:'dda_bank_0'},
         {label:'CIMB Bank Berhad',v:'dda_bank_1'},
         {label:'DBS Bank Ltd',v:'dda_bank_2'},
@@ -469,7 +479,7 @@ async function go(v){
     case 'update_dda_personal':
       aT('out','👤 Personal account');
       _ddaType='Personal';
-      await say(()=>{aLM('Select your bank:','','Choose bank',[
+      await say(()=>{aLM('Select your bank:','eGIRO participating banks','Choose bank',[
         {label:'Bank of China Limited',v:'dda_bank_0'},
         {label:'CIMB Bank Berhad',v:'dda_bank_1'},
         {label:'DBS Bank Ltd',v:'dda_bank_2'},
@@ -481,33 +491,27 @@ async function go(v){
       ],'list message');},900);
       break;
 
-    case 'dda_bank_0':_ddaBank='Bank of China Limited';go('update_dda_acct');break;
-    case 'dda_bank_1':_ddaBank='CIMB Bank Berhad';go('update_dda_acct');break;
-    case 'dda_bank_2':_ddaBank='DBS Bank Ltd';go('update_dda_acct');break;
-    case 'dda_bank_3':_ddaBank='Industrial & Commercial Bank of China';go('update_dda_acct');break;
-    case 'dda_bank_4':_ddaBank='MariBank Singapore Pte Ltd';go('update_dda_acct');break;
-    case 'dda_bank_5':_ddaBank='Maybank Singapore Limited';go('update_dda_acct');break;
-    case 'dda_bank_6':_ddaBank='Oversea-Chinese Banking Corp Ltd';go('update_dda_acct');break;
-    case 'dda_bank_7':_ddaBank='United Overseas Bank Ltd';go('update_dda_acct');break;
+    case 'dda_bank_0':_ddaBank='Bank of China Limited';go('update_dda_review');break;
+    case 'dda_bank_1':_ddaBank='CIMB Bank Berhad';go('update_dda_review');break;
+    case 'dda_bank_2':_ddaBank='DBS Bank Ltd';go('update_dda_review');break;
+    case 'dda_bank_3':_ddaBank='Industrial & Commercial Bank of China';go('update_dda_review');break;
+    case 'dda_bank_4':_ddaBank='MariBank Singapore Pte Ltd';go('update_dda_review');break;
+    case 'dda_bank_5':_ddaBank='Maybank Singapore Limited';go('update_dda_review');break;
+    case 'dda_bank_6':_ddaBank='Oversea-Chinese Banking Corp Ltd';go('update_dda_review');break;
+    case 'dda_bank_7':_ddaBank='United Overseas Bank Ltd';go('update_dda_review');break;
 
-    case 'update_dda_acct':
-      await say(()=>{aT('in',`*${_ddaBank}* selected.\n\nEnter the new *bank account number:*`,'text message');},800);
-      convState='dda_acct';
-      break;
-
-    case 'update_dda_confirm':
-      await say(()=>{aT('in',`*DDA/GIRO update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current:* DBS ···· 1234\n🟢 *New:* ${_ddaBank}\n${_ddaAcct} (${_ddaType})\n━━━━━━━━━━━━━\n\n_New account takes effect next contribution month._`,'text message');aRB('Confirm bank account change?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'✏️ Change bank',v:'update_dda'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
+    case 'update_dda_review':
+      await say(()=>{aT('in',`*Review your application*\n\n━━━━━━━━━━━━━\n*Application details*\n*CPF Submission No.:* 53414602C-PTE-01\n\n*Contact details*\n*Requestor name:* CHO ZHI YING\n*Email:* ${_ddaEmail||'—'}\n*Mobile:* ${_ddaMobile||'—'}\n\n*Bank details*\n*Account type:* ${_ddaType}\n*Bank name:* ${_ddaBank}\n━━━━━━━━━━━━━\n\n*Declarations*\n1. I declare that the information given is correct and complete.\n2. I understand that the existing DDA (if any) will be terminated. Pending deductions may be affected and may incur late payment interest.\n3. I understand this application is subject to CPF legislation and policies.`,'text message');aRB('Submit application?',[{label:'✅ Confirm & submit',v:'diff_confirm'},{label:'✏️ Change bank',v:'update_dda_type'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1200);
       break;
 
     case 'diff_confirm':
-      aT('out','✅ Confirm');
-      await say(()=>{aT('in','*Declaration*\n\nI confirm that the information submitted is true and accurate, and I am authorised to make this update on behalf of Chocoero Pte Ltd.\n\n_CPF Act S.74 — False declarations are an offence._','text message');aRB('Accept declaration and submit?',[{label:'✅ I declare & submit',v:'update_submitted'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1100);
+      aT('out','✅ Confirm & submit');
+      await say(()=>{aT('in','Application submitted to CPF. You\'ll now be redirected to your bank\'s website to complete the *eGIRO arrangement*.\n\nOnce done, you\'ll be directed back to the CPF acknowledgment page.','text message');},900);
+      await say(()=>{aCTA(`🏦 *${_ddaBank}* eGIRO setup\nBilling Org: CENTRAL PROVIDENT FUND BOARD\nBill Ref: BIZ53414602C-PTE-01`,`Open ${_ddaBank} website`,(btn)=>{btn.innerHTML='⏳ Redirecting…';btn.disabled=true;setTimeout(()=>go('update_submitted'),1800);},'CTA URL button');},600);
       break;
 
     case 'update_submitted':
-      aT('out','✅ I declare & submit');
-      await say(()=>{aT('in','⏳ Submitting update to CPF…','text message');},900);
-      await say(()=>{aT('in','✅ *Update submitted.*\n\nRef: CPF-UPD-2026-038291\nProcessing time: 3 business days\nConfirmation will be sent to contact@chocoero.sg','text message');aCTA('*Submission receipt* · CPF-UPD-2026-038291','Download Receipt',()=>{},'CTA URL button');aRB('What next?',[{label:'📝 More updates',v:'update_choice'},{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1500);
+      await say(()=>{aT('in',`✅ *eGIRO arrangement set up successfully.*\n\n*Direct Debit Authorisation confirmed*\n*CPF Submission No.:* 53414602C-PTE-01\n*Bank:* ${_ddaBank}\n*Account type:* ${_ddaType}\n\nCPF will debit your account automatically after each monthly submission. Confirmation sent to ${_ddaEmail||'contact@chocoero.sg'}.`,'text message');aRB('What next?',[{label:'📝 More updates',v:'update_choice'},{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1200);
       break;
 
     /* ── T3: NOTIFY NO CPF CONTRIBUTIONS ── */
@@ -772,7 +776,8 @@ function handleTxt(t){
     else{say(()=>{aLM(`${_ssicMatches.length} SSIC code${_ssicMatches.length>1?'s':''} found — select your new code:`,'','Choose SSIC',_ssicMatches.slice(0,10).map((s,i)=>({label:`${s.code} — ${s.desc}`,v:'ssic_pick_'+i})),'list message');},800);}
     return;
   }
-  if(convState==='dda_acct'){_ddaAcct=t;convState=null;go('update_dda_confirm');return;}
+  if(convState==='dda_email'){_ddaEmail=t;convState=null;await say(()=>{aT('in','What is your *contact mobile number*?','text message');},700);convState='dda_mobile';return;}
+  if(convState==='dda_mobile'){_ddaMobile=t;convState=null;go('update_dda_type');return;}
   if(convState==='edit_address'){convState=null;go('diff_confirm');return;}
   if(convState==='edit_contact'){convState=null;go('diff_confirm');return;}
   if(convState==='refund_nric'){_refundNric=t;convState=null;go('refund_get_reason');return;}
