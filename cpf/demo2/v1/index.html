@@ -478,8 +478,7 @@ async function go(v){
       await say(()=>{aLM('Common CPF tasks:','Tap to see options','Browse tasks',[
         {label:'📝 Update company details',desc:'Address, contact, SSIC or DDA',v:'flow_update'},
         {label:'🚫 No CPF contributions',desc:'Notify CPF when nothing is due',v:'flow_notify'},
-        {label:'↩️ Refund or adjustment',desc:'Correct a CPF contribution error',v:'flow_refund'},
-        {label:'💬 Other CPF question',desc:'Rules, eligibility, processes',v:'flow_other'}
+        {label:'↩️ Refund or adjustment',desc:'Correct a CPF contribution error',v:'flow_refund'}
       ],'list message');},600);
       break;
 
