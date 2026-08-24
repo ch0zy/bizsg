@@ -141,6 +141,41 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sp-rn{font-size:11px;color:#aaa;margin-top:14px;line-height:1.6;}
 /* Corppass logo inline — white bg for dark footer */
 .cp-logo-white{filter:brightness(0) invert(1);}
+/* ── Bank eGIRO overlay ── */
+#bankOv{position:absolute;inset:0;z-index:110;display:flex;flex-direction:column;background:#f5f5f5;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);}
+#bankOv.open{transform:translateY(0);}
+.bk-chrome{background:#1a1a1a;padding:10px 14px;}
+.bk-chrome-row{display:flex;align-items:center;gap:8px;}
+.bk-urlbar{flex:1;background:#333;border-radius:6px;padding:5px 10px;font-size:11px;color:#ccc;display:flex;align-items:center;gap:4px;overflow:hidden;white-space:nowrap;}
+.bk-done{background:none;border:none;color:#4af;font-size:14px;font-weight:600;cursor:pointer;padding:4px 8px;}
+.bk-pg{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+#bkLoad{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#f5f5f5;}
+#bkSucc{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#fff;padding:32px 24px;text-align:center;}
+.bk-hdr{background:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8e8e8;}
+.bk-brand{font-size:18px;font-weight:700;letter-spacing:-0.5px;color:#e30613;}
+.bk-brand span{color:#e30613;} .bk-brand em{color:#007db8;font-style:normal;}
+.bk-logout{background:none;border:1px solid #ccc;border-radius:4px;padding:5px 12px;font-size:12px;cursor:pointer;color:#333;}
+.bk-body{padding:16px;display:flex;flex-direction:column;gap:12px;}
+.bk-panel{background:#fff;border-radius:8px;padding:16px;border:1px solid #e0e0e0;}
+.bk-panel h3{font-size:14px;font-weight:700;color:#1a1a1a;margin:0 0 12px;}
+.bk-field{margin-bottom:10px;font-size:12px;color:#666;line-height:1.4;}
+.bk-field strong{display:block;color:#1a1a1a;font-size:13px;margin-top:2px;}
+.bk-lbl{font-size:12px;color:#333;font-weight:600;display:block;margin-bottom:4px;}
+.bk-sel{width:100%;padding:8px 10px;border:1px solid #ccc;border-radius:4px;font-size:13px;background:#fff;margin-bottom:10px;}
+.bk-inp{width:100%;padding:8px 10px;border:1px solid #ccc;border-radius:4px;font-size:13px;box-sizing:border-box;margin-bottom:10px;}
+.bk-tog-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.bk-tog{width:38px;height:22px;background:#007db8;border-radius:11px;position:relative;cursor:pointer;}
+.bk-tog::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;right:3px;transition:.2s;}
+.bk-auth{font-size:11px;color:#666;line-height:1.5;padding:10px 0;border-top:1px solid #f0f0f0;margin-top:4px;}
+.bk-auth ul{margin:6px 0 0;padding-left:16px;}
+.bk-auth li{margin-bottom:4px;}
+.bk-btns{display:flex;gap:10px;padding-top:4px;}
+.bk-btn-c{flex:1;padding:11px;border:1px solid #ccc;border-radius:4px;font-size:14px;background:#fff;cursor:pointer;color:#333;}
+.bk-btn-n{flex:2;padding:11px;border:none;border-radius:4px;font-size:14px;font-weight:600;background:#e30613;color:#fff;cursor:pointer;}
+.bk-succ-ico{width:56px;height:56px;background:#00a651;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.bk-succ-h{font-size:18px;font-weight:700;color:#1a1a1a;}
+.bk-succ-s{font-size:13px;color:#666;line-height:1.5;}
+.bk-ret{background:#e30613;color:#fff;border:none;border-radius:6px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;}
 </style>
 </head>
 <body>
@@ -326,12 +361,61 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<div id="bankOv">
+  <div class="bk-chrome">
+    <div class="bk-chrome-row">
+      <div class="bk-urlbar">🔒 <span id="bkUrl">www.dbs.com.sg/personal/egiro</span></div>
+      <button class="bk-done" onclick="closeBankOv()">Done</button>
+    </div>
+  </div>
+  <div class="bk-pg" id="bkPg">
+    <div class="bk-hdr">
+      <div class="bk-brand" id="bkBrand"><span>DBS</span> <em>POSB</em> <span style="font-size:13px;color:#007db8;font-weight:700">eGIRO</span></div>
+      <button class="bk-logout" onclick="closeBankOv()">Log Out</button>
+    </div>
+    <div class="bk-body">
+      <div class="bk-panel">
+        <h3>Billing Details</h3>
+        <div class="bk-field">Billing Organisation<strong>CENTRAL PROVIDENT FUND BOARD</strong></div>
+        <div class="bk-field">Bill Reference Number<strong id="bkRef">BIZ53414602C-PTE-01</strong></div>
+        <div class="bk-field">Billing Purpose<strong>COLLECTION</strong></div>
+      </div>
+      <div class="bk-panel">
+        <h3>Setup Arrangement</h3>
+        <label class="bk-lbl">My Account</label>
+        <select class="bk-sel"><option>— Select an account —</option><option selected>DBS Current Account ···9100</option><option>DBS Savings Account ···4412</option></select>
+        <div class="bk-tog-row"><label class="bk-lbl" style="margin:0">Payment Limit</label><div class="bk-tog"></div></div>
+        <input class="bk-inp" type="number" placeholder="SGD — Enter an amount" style="margin-bottom:12px"/>
+        <div class="bk-tog-row"><label class="bk-lbl" style="margin:0">Billing End Date</label><div class="bk-tog"></div></div>
+        <input class="bk-inp" type="date" style="margin-bottom:12px"/>
+        <div class="bk-auth">By clicking "Next", I hereby instruct and authorise DBS Bank to process the instructions of the Billing Organisation (BO) to debit my account. I consent to DBS Bank's collection and use of my personal data.<ul><li>inform the BO of this application.</li><li>reject the BO's debit instruction if account has insufficient funds.</li><li>terminate this service upon receipt of my termination notice.</li></ul>By tapping "Next", you agree to our Terms &amp; Conditions for eGIRO Arrangements.</div>
+        <div class="bk-btns">
+          <button class="bk-btn-c" onclick="closeBankOv()">Cancel</button>
+          <button class="bk-btn-n" id="bkNext" onclick="simBankNext()">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="bkLoad">
+    <div class="sp-spin"></div>
+    <div style="font-size:15px;font-weight:600;color:#1a1a1a">Setting up eGIRO&#8230;</div>
+    <div style="font-size:13px;color:#888">Please wait while your bank processes the arrangement</div>
+  </div>
+  <div id="bkSucc">
+    <div class="bk-succ-ico"><svg viewBox="0 0 32 32" fill="none"><path d="M6 16L13 23L26 9" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="bk-succ-h">eGIRO arrangement set up</div>
+    <div class="bk-succ-s">Your Direct Debit Authorisation has been approved. You will be redirected to the CPF acknowledgment page.</div>
+    <button class="bk-ret" onclick="retBank()">Return to CPF</button>
+  </div>
+</div>
+
 <script>
 const waO=document.getElementById('waO'),waI=document.getElementById('waI');
 const inp=document.getElementById('inp'),snd=document.getElementById('snd');
 const drwOv=document.getElementById('drwOv'),drwIt=document.getElementById('drwIt');
 const spOv=document.getElementById('spOv'),spUrl=document.getElementById('spUrl');
 const spPg=document.getElementById('spPg'),spLoad=document.getElementById('spLoad'),spSucc=document.getElementById('spSucc');
+const bankOv=document.getElementById('bankOv'),bkPg=document.getElementById('bkPg'),bkLoad=document.getElementById('bkLoad'),bkSucc=document.getElementById('bkSucc');
 let authed=false,pendingFlow=null,convState=null,_ctaBtn=null,_timer=null;
 let _notifyEmpName='',_notifyEmpNric='',_notifyMessage='';
 let _refundNric='',_refundReason='',_refundMonth='',_refundStmtId='',_refundAmount='',_refundPayDate='',_refundWageRepayDate='';
@@ -376,6 +460,10 @@ function startTimer(){clearInterval(_timer);let s=117;const el=document.getEleme
 function swTab(t){document.getElementById('tApp').classList.toggle('active',t==='app');document.getElementById('tPw').classList.toggle('active',t==='pw');document.getElementById('tcApp').classList.toggle('active',t==='app');document.getElementById('tcPw').classList.toggle('active',t==='pw');}
 function simLogin(){clearInterval(_timer);spPg.style.display='none';spLoad.style.display='flex';spUrl.textContent='login.id.singpass.gov.sg/auth/verify…';setTimeout(()=>{spLoad.style.display='none';spSucc.style.display='flex';spUrl.textContent='businesssg.gov.sg/callback?state=wa_return&token=eyJ…';},2200);}
 function retWA(){spOv.classList.remove('open');clearInterval(_timer);if(_ctaBtn){_ctaBtn.innerHTML='✅ Verified with Singpass';_ctaBtn.disabled=true;_ctaBtn.style.color='#888';}if(window._cb){setTimeout(window._cb,700);window._cb=null;}}
+function openBankOv(cb){window._bankCb=cb;bkPg.style.display='flex';bkLoad.style.display='none';bkSucc.style.display='none';document.getElementById('bkUrl').textContent=(_ddaBank.includes('DBS')||_ddaBank.includes('POSB'))?'www.dbs.com.sg/personal/egiro':_ddaBank.includes('UOB')?'www.uob.com.sg/egiro':_ddaBank.includes('OCBC')?'www.ocbc.com/egiro':'www.bank.sg/egiro';document.getElementById('bkBrand').innerHTML=(_ddaBank.includes('DBS')||_ddaBank.includes('POSB'))?'<span style="color:#e30613;font-weight:700">DBS</span> <em style="color:#007db8;font-style:normal">POSB</em> <span style="font-size:13px;color:#007db8;font-weight:700">eGIRO</span>':'<span style="font-weight:700">'+_ddaBank+'</span> <span style="font-size:13px;font-weight:600">eGIRO</span>';bankOv.classList.add('open');}
+function closeBankOv(){bankOv.classList.remove('open');}
+function simBankNext(){const btn=document.getElementById('bkNext');btn.textContent='Processing…';btn.disabled=true;bkPg.style.display='none';bkLoad.style.display='flex';setTimeout(()=>{bkLoad.style.display='none';bkSucc.style.display='flex';},1800);}
+function retBank(){bankOv.classList.remove('open');if(_ctaBtn){_ctaBtn.innerHTML='✅ eGIRO set up';_ctaBtn.disabled=true;_ctaBtn.style.color='#888';}if(window._bankCb){setTimeout(window._bankCb,600);window._bankCb=null;}}
 async function go(v){
   if(v.startsWith('ssic_pick_')){
     const s=_ssicMatches[parseInt(v.replace('ssic_pick_',''))];
@@ -410,7 +498,7 @@ async function go(v){
         {label:'🏠 Principal place of business',desc:'Current: 100 High St #04-01 S179209',v:'update_address'},
         {label:'📧 Contact details',desc:'Current: admin@chocoero.sg',v:'update_contact'},
         {label:'🏭 Business activity (SSIC)',desc:'Current: 56101 — Restaurants',v:'update_ssic'},
-        {label:'🏦 DDA/GIRO bank account',desc:'Current: DBS ···· 1234',v:'update_dda'}
+        {label:'🏦 DDA/GIRO bank account',desc:'Direct Debit Authorisation',v:'update_dda'}
       ],'list message');},500);
       break;
 
@@ -448,13 +536,8 @@ async function go(v){
 
     case 'update_dda':
       aT('out','🏦 Update DDA/GIRO');
-      await say(()=>{aT('in','I\'ll help you set up a new *Direct Debit Authorisation* for CPF contributions.\n\n*Current account:* DBS/POSB BANK · ···9100\n\n⚠️ *Note:* Change your bank only after your latest CPF submission payment has been successfully deducted, to avoid failed deductions.\n\n*You will need:*\n• Bank account with an eGIRO participating bank\n• Internet banking credentials\n\nYou\'ll be redirected to your bank\'s website to complete the eGIRO setup.','text message');aRB('Proceed?',[{label:'▶️ Continue',v:'update_dda_email'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1200);
-      break;
-
-    case 'update_dda_email':
-      aT('out','▶️ Continue');
-      await say(()=>{aT('in','What is your *contact email address* for this application?','text message');},800);
-      convState='dda_email';
+      _ddaEmail='contact@chocoero.sg';_ddaMobile='+65 9876 5432';
+      await say(()=>{aT('in','I\'ll help you set up a new *Direct Debit Authorisation* for CPF contributions.\n\n⚠️ *Note:* Change your bank only after your latest CPF submission payment has been successfully deducted, to avoid failed deductions.\n\n*You will need:*\n• Bank account with an eGIRO participating bank\n• Internet banking credentials\n\nYou\'ll be redirected to your bank\'s website to complete the eGIRO setup.','text message');aRB('Proceed?',[{label:'▶️ Continue',v:'update_dda_type'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1200);
       break;
 
     case 'update_dda_type':
@@ -501,13 +584,30 @@ async function go(v){
     case 'dda_bank_7':_ddaBank='United Overseas Bank Ltd';go('update_dda_review');break;
 
     case 'update_dda_review':
-      await say(()=>{aT('in',`*Review your application*\n\n━━━━━━━━━━━━━\n*Application details*\n*CPF Submission No.:* 53414602C-PTE-01\n\n*Contact details*\n*Requestor name:* CHO ZHI YING\n*Email:* ${_ddaEmail||'—'}\n*Mobile:* ${_ddaMobile||'—'}\n\n*Bank details*\n*Account type:* ${_ddaType}\n*Bank name:* ${_ddaBank}\n━━━━━━━━━━━━━\n\n*Declarations*\n1. I declare that the information given is correct and complete.\n2. I understand that the existing DDA (if any) will be terminated. Pending deductions may be affected and may incur late payment interest.\n3. I understand this application is subject to CPF legislation and policies.`,'text message');aRB('Submit application?',[{label:'✅ Confirm & submit',v:'diff_confirm'},{label:'✏️ Change bank',v:'update_dda_type'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1200);
+      await say(()=>{aT('in',`*Review your application*\n\n━━━━━━━━━━━━━\n*Application details*\n*CPF Submission No.:* 53414602C-PTE-01\n\n*Contact details*\n*Requestor name:* CHO ZHI YING\n*Email:* ${_ddaEmail}\n*Mobile:* ${_ddaMobile}\n\n*Bank details*\n*Account type:* ${_ddaType}\n*Bank name:* ${_ddaBank}\n━━━━━━━━━━━━━\n\n*Declarations*\n1. I declare that the information given is correct and complete.\n2. I understand that the existing DDA (if any) will be terminated. Pending deductions may be affected and may incur late payment interest.\n3. I understand this application is subject to CPF legislation and policies.`,'text message');aRB('Submit application?',[{label:'✅ Confirm & submit',v:'diff_confirm'},{label:'✏️ Edit contacts',v:'update_dda_edit_contact'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1200);
+      break;
+
+    case 'update_dda_edit_contact':
+      aT('out','✏️ Edit contacts');
+      await say(()=>{aRB('Edit which field?',[{label:'✉️ Edit email',v:'update_dda_edit_email'},{label:'📱 Edit mobile',v:'update_dda_edit_mobile'},{label:'↩️ Back to review',v:'update_dda_review'}],'reply buttons');},700);
+      break;
+
+    case 'update_dda_edit_email':
+      aT('out','✉️ Edit email');
+      await say(()=>{aT('in',`Current: *${_ddaEmail}*\n\nEnter new email address:`,'text message');},700);
+      convState='dda_edit_email';
+      break;
+
+    case 'update_dda_edit_mobile':
+      aT('out','📱 Edit mobile');
+      await say(()=>{aT('in',`Current: *${_ddaMobile}*\n\nEnter new mobile number:`,'text message');},700);
+      convState='dda_edit_mobile';
       break;
 
     case 'diff_confirm':
       aT('out','✅ Confirm & submit');
       await say(()=>{aT('in','Application submitted to CPF. You\'ll now be redirected to your bank\'s website to complete the *eGIRO arrangement*.\n\nOnce done, you\'ll be directed back to the CPF acknowledgment page.','text message');},900);
-      await say(()=>{aCTA(`🏦 *${_ddaBank}* eGIRO setup\nBilling Org: CENTRAL PROVIDENT FUND BOARD\nBill Ref: BIZ53414602C-PTE-01`,`Open ${_ddaBank} website`,(btn)=>{btn.innerHTML='⏳ Redirecting…';btn.disabled=true;setTimeout(()=>go('update_submitted'),1800);},'CTA URL button');},600);
+      await say(()=>{aCTA(`🏦 *${_ddaBank}* — eGIRO setup\nBilling Org: CENTRAL PROVIDENT FUND BOARD\nBill Ref: BIZ53414602C-PTE-01`,`Open ${_ddaBank} website`,(btn)=>{btn.innerHTML='⏳ Redirecting…';btn.disabled=true;setTimeout(()=>openBankOv(()=>go('update_submitted')),400);},'CTA URL button');},600);
       break;
 
     case 'update_submitted':
@@ -776,8 +876,8 @@ async function handleTxt(t){
     else{say(()=>{aLM(`${_ssicMatches.length} SSIC code${_ssicMatches.length>1?'s':''} found — select your new code:`,'','Choose SSIC',_ssicMatches.slice(0,10).map((s,i)=>({label:`${s.code} — ${s.desc}`,v:'ssic_pick_'+i})),'list message');},800);}
     return;
   }
-  if(convState==='dda_email'){_ddaEmail=t;convState=null;await say(()=>{aT('in','What is your *contact mobile number*?','text message');},700);convState='dda_mobile';return;}
-  if(convState==='dda_mobile'){_ddaMobile=t;convState=null;go('update_dda_type');return;}
+  if(convState==='dda_edit_email'){_ddaEmail=t;convState=null;go('update_dda_review');return;}
+  if(convState==='dda_edit_mobile'){_ddaMobile=t;convState=null;go('update_dda_review');return;}
   if(convState==='edit_address'){convState=null;go('diff_confirm');return;}
   if(convState==='edit_contact'){convState=null;go('diff_confirm');return;}
   if(convState==='refund_nric'){_refundNric=t;convState=null;go('refund_get_reason');return;}
