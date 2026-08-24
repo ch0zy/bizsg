@@ -477,7 +477,7 @@ async function go(v){
       await say(()=>{aT('in','👋 *Hi! I\'m the BusinessSG Assistant.*\n\nI can help you with CPF employer transactions. What do you need to do today?\n\n_Type your situation or browse common tasks below._','text message');},800);
       await say(()=>{aLM('Common CPF tasks:','Tap to see options','Browse tasks',[
         {label:'📝 Update company details',desc:'Address, contact, SSIC or DDA',v:'flow_update'},
-        {label:'🚫 No CPF contributions',desc:'Notify CPF when nothing is due',v:'flow_notify'},
+        {label:'🚫 No CPF contributions payable',desc:'Notify CPF when nothing is due',v:'flow_notify'},
         {label:'↩️ Refund or adjustment',desc:'Correct a CPF contribution error',v:'flow_refund'}
       ],'list message');},600);
       break;
@@ -615,8 +615,14 @@ async function go(v){
 
     /* ── T3: NOTIFY NO CPF CONTRIBUTIONS ── */
     case 'flow_notify':
-      aT('out','🚫 No CPF contributions');
+      aT('out','🚫 No CPF contributions payable');
+      if(!authed){pendingFlow='notify';await say(()=>{aT('in','I\'ll help you submit a request to CPF — *No CPF contributions payable*.\n\nFirst, I need to verify your Corppass authority for *Chocoero Pte Ltd*.','text message');},1000);await say(()=>{aCTA('🔐 *Corppass verification required*','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},600);break;}
       await say(()=>{aT('in','I\'ll help you submit a request to CPF — *No CPF contributions payable*.\n\nFirst, what is the *name* of your employee or platform worker?','text message');},1000);
+      convState='notify_emp_name';
+      break;
+
+    case 'notify_collect':
+      await say(()=>{aT('in','I\'ll help you submit a request to CPF — *No CPF contributions payable*.\n\nFirst, what is the *name* of your employee or platform worker?','text message');},800);
       convState='notify_emp_name';
       break;
 
@@ -628,12 +634,6 @@ async function go(v){
     case 'notify_get_message':
       await say(()=>{aT('in','Type your *message* to CPF — describe why no contributions are payable for this employee.\n\n_e.g. Employee was on no-pay leave from 1 Aug to 31 Aug 2026._','text message');},900);
       convState='notify_message';
-      break;
-
-    case 'notify_auth':
-      pendingFlow='notify';
-      await say(()=>{aT('in','To submit the request, I need to verify your Corppass authority for *Chocoero Pte Ltd*.','text message');},800);
-      await say(()=>{aCTA('🔐 *Corppass verification required*','Log in with Singpass',(btn)=>{btn.innerHTML='⏳ Opening Singpass…';btn.disabled=true;setTimeout(()=>openWv(afterAuth),400);},'CTA URL button');},500);
       break;
 
     case 'notify_review':
@@ -855,7 +855,7 @@ function afterAuth(){
   say(()=>{aT('in','✅ *Corppass verification complete.*\n\nHi David, identity confirmed via Singpass.\n\n*Name:* David Lim · *Role:* Entity Admin\n*Company:* Chocoero Pte Ltd\n*UEN:* 202500298W\n*Session valid:* 60 minutes','text message');},1400).then(()=>{
     setTimeout(()=>{
       if(f==='update')go('update_choice');
-      else if(f==='notify')go('notify_review');
+      else if(f==='notify')go('notify_collect');
       else if(f==='refund')go('refund_pick');
       else aRB('What would you like to do?',[{label:'📝 Update details',v:'flow_update'},{label:'🚫 No contributions',v:'flow_notify'},{label:'↩️ Refund',v:'flow_refund'}],'reply buttons');
     },400);
@@ -866,7 +866,7 @@ async function handleTxt(t){
   const l=t.toLowerCase();
   if(convState==='notify_emp_name'){_notifyEmpName=t;convState=null;go('notify_get_nric');return;}
   if(convState==='notify_emp_nric'){_notifyEmpNric=t;convState=null;go('notify_get_message');return;}
-  if(convState==='notify_message'){_notifyMessage=t;convState=null;if(authed)go('notify_review');else go('notify_auth');return;}
+  if(convState==='notify_message'){_notifyMessage=t;convState=null;go('notify_review');return;}
   if(convState==='ssic_search'){
     convState=null;
     const kw=t.toLowerCase();
