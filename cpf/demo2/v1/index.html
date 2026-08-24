@@ -763,7 +763,7 @@ function afterAuth(){
   });
 }
 
-function handleTxt(t){
+async function handleTxt(t){
   const l=t.toLowerCase();
   if(convState==='notify_emp_name'){_notifyEmpName=t;convState=null;go('notify_get_nric');return;}
   if(convState==='notify_emp_nric'){_notifyEmpNric=t;convState=null;go('notify_get_message');return;}
