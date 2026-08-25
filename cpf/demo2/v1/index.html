@@ -503,7 +503,7 @@ async function go(v){
 
     case 'update_address':
       aT('out','🏠 Update registered address');
-      await say(()=>{aT('in','*Address update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\n🟢 *Proposed*\n200 Victoria Street #08-02\nSingapore 188025\n━━━━━━━━━━━━━\n\n_Address from Corppass. Edit if different._','text message');aRB('Confirm or edit this address?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'✏️ Edit address',v:'update_address_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
+      await say(()=>{aT('in','*Address update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\n🟢 *Proposed*\n200 Victoria Street #08-02\nSingapore 188025\n━━━━━━━━━━━━━\n\n_Address from Corppass. Edit if different._','text message');aRB('Confirm or edit this address?',[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit address',v:'update_address_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
       break;
 
     case 'update_address_edit':
@@ -514,7 +514,7 @@ async function go(v){
 
     case 'update_contact':
       aT('out','📧 Update contact details');
-      await say(()=>{aT('in','*Contact details — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\n🟢 *Proposed*\ncontact@chocoero.sg\n+65 9876 5432\n━━━━━━━━━━━━━\n\n_From Corppass. Edit if different._','text message');aRB('Confirm or edit?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'✏️ Edit',v:'update_contact_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
+      await say(()=>{aT('in','*Contact details — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\n🟢 *Proposed*\ncontact@chocoero.sg\n+65 9876 5432\n━━━━━━━━━━━━━\n\n_From Corppass. Edit if different._','text message');aRB('Confirm or edit?',[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_contact_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
       break;
 
     case 'update_contact_edit':
@@ -530,7 +530,7 @@ async function go(v){
       break;
 
     case 'update_ssic_confirm':
-      await say(()=>{aT('in',`*SSIC update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current:* 56101 — Full-service restaurants\n🟢 *New:* ${_newSsic}\n━━━━━━━━━━━━━`,'text message');aRB('Confirm SSIC change?',[{label:'✅ Confirm',v:'diff_confirm'},{label:'🔍 Search again',v:'update_ssic'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
+      await say(()=>{aT('in',`*SSIC update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current:* 56101 — Full-service restaurants\n🟢 *New:* ${_newSsic}\n━━━━━━━━━━━━━`,'text message');aRB('Confirm SSIC change?',[{label:'✅ Confirm',v:'update_declaration'},{label:'🔍 Search again',v:'update_ssic'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
       break;
 
     case 'update_dda':
@@ -601,6 +601,16 @@ async function go(v){
       aT('out','📱 Edit mobile');
       await say(()=>{aT('in',`Current: *${_ddaMobile}*\n\nEnter new mobile number:`,'text message');},700);
       convState='dda_edit_mobile';
+      break;
+
+    case 'update_declaration':
+      await say(()=>{aT('in','*Declaration*\n\nI confirm that the information submitted is true and accurate, and I am authorised to make this update on behalf of Chocoero Pte Ltd.\n\n_CPF Act S.74 — False declarations are an offence._','text message');aRB('Accept declaration and submit?',[{label:'✅ I declare & submit',v:'update_submitted_gen'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
+      break;
+
+    case 'update_submitted_gen':
+      aT('out','✅ I declare & submit');
+      await say(()=>{aT('in','⏳ Submitting update to CPF…','text message');},900);
+      await say(()=>{aT('in','✅ *Update submitted.*\n\nRef: CPF-UPD-2026-038291\nProcessing time: 3 business days\nConfirmation will be sent to contact@chocoero.sg','text message');aCTA('*Submission receipt* · CPF-UPD-2026-038291','Download Receipt',()=>{},'CTA URL button');aRB('What next?',[{label:'📝 More updates',v:'update_choice'},{label:'🏠 Main menu',v:'welcome'}],'reply buttons');},1500);
       break;
 
     case 'diff_confirm':
@@ -877,8 +887,8 @@ async function handleTxt(t){
   }
   if(convState==='dda_edit_email'){_ddaEmail=t;convState=null;go('update_dda_review');return;}
   if(convState==='dda_edit_mobile'){_ddaMobile=t;convState=null;go('update_dda_review');return;}
-  if(convState==='edit_address'){convState=null;go('diff_confirm');return;}
-  if(convState==='edit_contact'){convState=null;go('diff_confirm');return;}
+  if(convState==='edit_address'){convState=null;go('update_declaration');return;}
+  if(convState==='edit_contact'){convState=null;go('update_declaration');return;}
   if(convState==='refund_nric'){_refundNric=t;convState=null;go('refund_get_reason');return;}
   if(convState==='refund_repay_date'){_refundWageRepayDate=t;convState=null;go('refund_1emp_repay_summary');return;}
   if(convState==='refund_month'){_refundMonth=t;convState=null;go('refund_get_stmt');return;}
