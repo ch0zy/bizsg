@@ -503,23 +503,13 @@ async function go(v){
 
     case 'update_address':
       aT('out','🏠 Update registered address');
-      await say(()=>{aT('in','*Address update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\n🟢 *Proposed*\n200 Victoria Street #08-02\nSingapore 188025\n━━━━━━━━━━━━━\n\n_Address from Corppass. Edit if different._','text message');aRB('Confirm or edit this address?',[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit address',v:'update_address_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
-      break;
-
-    case 'update_address_edit':
-      aT('out','✏️ Edit address');
-      await say(()=>{aT('in','Type the new address (e.g. _200 Victoria Street #08-02 Singapore 188025_):','text message');},800);
+      await say(()=>{aT('in','*Address update — 1 CSN affected*\n\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\nType the new address (e.g. _200 Victoria Street #08-02 Singapore 188025_):','text message');aRB('Cancel',[{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
       convState='edit_address';
       break;
 
     case 'update_contact':
       aT('out','📧 Update contact details');
-      await say(()=>{aT('in','*Contact details — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\n🟢 *Proposed*\ncontact@chocoero.sg\n+65 9876 5432\n━━━━━━━━━━━━━\n\n_From Corppass. Edit if different._','text message');aRB('Confirm or edit?',[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_contact_edit'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
-      break;
-
-    case 'update_contact_edit':
-      aT('out','✏️ Edit contact');
-      await say(()=>{aT('in','Type the new email address:','text message');},800);
+      await say(()=>{aT('in','*Contact details — 1 CSN affected*\n\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\nType the new email address:','text message');aRB('Cancel',[{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1300);
       convState='edit_contact';
       break;
 
