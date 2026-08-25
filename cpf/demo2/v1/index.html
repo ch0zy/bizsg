@@ -421,6 +421,7 @@ let _notifyEmpName='',_notifyEmpNric='',_notifyMessage='';
 let _refundNric='',_refundReason='',_refundMonth='',_refundStmtId='',_refundAmount='',_refundPayDate='',_refundWageRepayDate='';
 let _adjustType='',_adjustStmtId='',_adjustPayDate='',_adjustScope='';
 let _newSsic='',_ssicMatches=[];
+let _newAddress='';
 let _ddaType='',_ddaBank='',_ddaEmail='',_ddaMobile='';
 const SSIC_STUB=[
   {code:'56101',desc:'Full-service restaurants'},
@@ -505,6 +506,10 @@ async function go(v){
       aT('out','🏠 Update registered address');
       await say(()=>{aT('in','*Address update — 1 CSN affected*\n\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\nType the new address (e.g. _200 Victoria Street #08-02 Singapore 188025_):','text message');aRB(null,[{label:'❌ Cancel',v:'update_choice'}]);},1300);
       convState='edit_address';
+      break;
+
+    case 'address_review':
+      await say(()=>{aT('in',`*Address update — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\n🟢 *New*\n${_newAddress}\n━━━━━━━━━━━━━\n\nConfirm this change?`,'text message');aRB(null,[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_address'},{label:'❌ Cancel',v:'update_choice'}]);},900);
       break;
 
     case 'update_contact':
@@ -877,7 +882,7 @@ async function handleTxt(t){
   }
   if(convState==='dda_edit_email'){_ddaEmail=t;convState=null;go('update_dda_review');return;}
   if(convState==='dda_edit_mobile'){_ddaMobile=t;convState=null;go('update_dda_review');return;}
-  if(convState==='edit_address'){convState=null;go('update_declaration');return;}
+  if(convState==='edit_address'){_newAddress=t;convState=null;go('address_review');return;}
   if(convState==='edit_contact'){convState=null;go('update_declaration');return;}
   if(convState==='refund_nric'){_refundNric=t;convState=null;go('refund_get_reason');return;}
   if(convState==='refund_repay_date'){_refundWageRepayDate=t;convState=null;go('refund_1emp_repay_summary');return;}
