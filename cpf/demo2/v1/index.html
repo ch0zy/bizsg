@@ -422,6 +422,7 @@ let _refundNric='',_refundReason='',_refundMonth='',_refundStmtId='',_refundAmou
 let _adjustType='',_adjustStmtId='',_adjustPayDate='',_adjustScope='';
 let _newSsic='',_ssicMatches=[];
 let _newAddress='';
+let _newEmail='',_newPhone='';
 let _ddaType='',_ddaBank='',_ddaEmail='',_ddaMobile='';
 const SSIC_STUB=[
   {code:'56101',desc:'Full-service restaurants'},
@@ -514,8 +515,23 @@ async function go(v){
 
     case 'update_contact':
       aT('out','📧 Update contact details');
-      await say(()=>{aT('in','*Contact details — 1 CSN affected*\n\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\nType the new email address:','text message');aRB(null,[{label:'❌ Cancel',v:'update_choice'}]);},1300);
-      convState='edit_contact';
+      await say(()=>{aT('in','*Contact details — 1 CSN affected*\n\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\nWhat would you like to update?','text message');aRB(null,[{label:'📧 Email address',v:'contact_edit_email'},{label:'📱 Phone number',v:'contact_edit_phone'},{label:'❌ Cancel',v:'update_choice'}]);},1300);
+      break;
+
+    case 'contact_edit_email':
+      aT('out','📧 Email address');
+      await say(()=>{aT('in','Type the new email address:','text message');aRB(null,[{label:'❌ Cancel',v:'update_choice'}]);},800);
+      convState='edit_contact_email';
+      break;
+
+    case 'contact_edit_phone':
+      aT('out','📱 Phone number');
+      await say(()=>{aT('in','Type the new phone number (e.g. _+65 9123 4567_):','text message');aRB(null,[{label:'❌ Cancel',v:'update_choice'}]);},800);
+      convState='edit_contact_phone';
+      break;
+
+    case 'contact_review':
+      await say(()=>{aT('in',`*Contact details — 1 CSN affected*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n${_newEmail?'admin@chocoero.sg':'-'}\n${_newPhone?'+65 6123 4567':'-'}\n\n🟢 *New*\n${_newEmail||'-'}\n${_newPhone||'-'}\n━━━━━━━━━━━━━\n\nConfirm this change?`,'text message');aRB(null,[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_contact'},{label:'❌ Cancel',v:'update_choice'}]);},900);
       break;
 
     case 'update_ssic':
@@ -883,7 +899,8 @@ async function handleTxt(t){
   if(convState==='dda_edit_email'){_ddaEmail=t;convState=null;go('update_dda_review');return;}
   if(convState==='dda_edit_mobile'){_ddaMobile=t;convState=null;go('update_dda_review');return;}
   if(convState==='edit_address'){_newAddress=t;convState=null;go('address_review');return;}
-  if(convState==='edit_contact'){convState=null;go('update_declaration');return;}
+  if(convState==='edit_contact_email'){_newEmail=t;_newPhone='';convState=null;go('contact_review');return;}
+  if(convState==='edit_contact_phone'){_newPhone=t;_newEmail='';convState=null;go('contact_review');return;}
   if(convState==='refund_nric'){_refundNric=t;convState=null;go('refund_get_reason');return;}
   if(convState==='refund_repay_date'){_refundWageRepayDate=t;convState=null;go('refund_1emp_repay_summary');return;}
   if(convState==='refund_month'){_refundMonth=t;convState=null;go('refund_get_stmt');return;}
