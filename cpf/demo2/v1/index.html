@@ -505,17 +505,17 @@ async function go(v){
 
     case 'update_address':
       aT('out','🏠 Update registered address');
-      await say(()=>{aT('in','*Address update*\n\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\nType the new address (e.g. _200 Victoria Street #08-02 Singapore 188025_):','text message');aRB(null,[{label:'❌ Cancel',v:'update_choice'}]);},1300);
+      await say(()=>{aT('in','*Address update*\n\n*Current*\n100 High Street #04-01\nSingapore 179209\n\nType the new address (e.g. _200 Victoria Street #08-02 Singapore 188025_):','text message');aRB(null,[{label:'❌ Cancel',v:'update_choice'}]);},1300);
       convState='edit_address';
       break;
 
     case 'address_review':
-      await say(()=>{aT('in',`*Address update*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n100 High Street #04-01\nSingapore 179209\n\n🟢 *New*\n${_newAddress}\n━━━━━━━━━━━━━\n\nConfirm this change?`,'text message');aRB(null,[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_address'},{label:'❌ Cancel',v:'update_choice'}]);},900);
+      await say(()=>{aT('in',`*Address update*\n\n━━━━━━━━━━━━━\n*Current*\n100 High Street #04-01\nSingapore 179209\n\n*New*\n${_newAddress}\n━━━━━━━━━━━━━\n\nConfirm this change?`,'text message');aRB(null,[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_address'},{label:'❌ Cancel',v:'update_choice'}]);},900);
       break;
 
     case 'update_contact':
       aT('out','📧 Update contact details');
-      await say(()=>{aT('in','*Contact details*\n\n🔴 *Current*\nadmin@chocoero.sg\n+65 6123 4567\n\nWhat would you like to update?','text message');aRB(null,[{label:'📧 Email address',v:'contact_edit_email'},{label:'📱 Phone number',v:'contact_edit_phone'},{label:'❌ Cancel',v:'update_choice'}]);},1300);
+      await say(()=>{aT('in','*Contact details*\n\n*Current*\nadmin@chocoero.sg\n+65 6123 4567\n\nWhat would you like to update?','text message');aRB(null,[{label:'📧 Email address',v:'contact_edit_email'},{label:'📱 Phone number',v:'contact_edit_phone'},{label:'❌ Cancel',v:'update_choice'}]);},1300);
       break;
 
     case 'contact_edit_email':
@@ -531,7 +531,7 @@ async function go(v){
       break;
 
     case 'contact_review':
-      await say(()=>{aT('in',`*Contact details*\n\n━━━━━━━━━━━━━\n🔴 *Current*\n${_newEmail?'admin@chocoero.sg':'-'}\n${_newPhone?'+65 6123 4567':'-'}\n\n🟢 *New*\n${_newEmail||'-'}\n${_newPhone||'-'}\n━━━━━━━━━━━━━\n\nConfirm this change?`,'text message');aRB(null,[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_contact'},{label:'❌ Cancel',v:'update_choice'}]);},900);
+      await say(()=>{aT('in',`*Contact details*\n\n━━━━━━━━━━━━━\n*Current*\n${_newEmail?'admin@chocoero.sg':'-'}\n${_newPhone?'+65 6123 4567':'-'}\n\n*New*\n${_newEmail||'-'}\n${_newPhone||'-'}\n━━━━━━━━━━━━━\n\nConfirm this change?`,'text message');aRB(null,[{label:'✅ Confirm',v:'update_declaration'},{label:'✏️ Edit',v:'update_contact'},{label:'❌ Cancel',v:'update_choice'}]);},900);
       break;
 
     case 'update_ssic':
@@ -541,7 +541,7 @@ async function go(v){
       break;
 
     case 'update_ssic_confirm':
-      await say(()=>{aT('in',`*SSIC update*\n\n━━━━━━━━━━━━━\n🔴 *Current:* 56101 — Full-service restaurants\n🟢 *New:* ${_newSsic}\n━━━━━━━━━━━━━`,'text message');aRB('Confirm SSIC change?',[{label:'✅ Confirm',v:'update_declaration'},{label:'🔍 Search again',v:'update_ssic'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
+      await say(()=>{aT('in',`*SSIC update*\n\n━━━━━━━━━━━━━\n*Current:* 56101 — Full-service restaurants\n*New:* ${_newSsic}\n━━━━━━━━━━━━━`,'text message');aRB('Confirm SSIC change?',[{label:'✅ Confirm',v:'update_declaration'},{label:'🔍 Search again',v:'update_ssic'},{label:'❌ Cancel',v:'update_choice'}],'reply buttons');},1000);
       break;
 
     case 'update_dda':
