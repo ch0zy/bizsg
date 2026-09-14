@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "samplings": [
+    {
+      "sampling_id": "01a089e2-986a-776d-8b22-2d37bdb3e9fe",
+      "name": "Subset three-rule check (fixed image)",
+      "created_by": "Jing Wen",
+      "created_at": "2026-09-10T13:55:53+08:00",
+      "taxonomy_version": "v9",
+      "cycle": "2026Q1-subset",
+      "n_pairs": 8
+    },
+    {
+      "sampling_id": "01a0896d-160f-743b-8edc-1a05f94f5836",
+      "name": "Subset three-rule check",
+      "created_by": "Jing Wen",
+      "created_at": "2026-09-10T11:47:33+08:00",
+      "taxonomy_version": "v9",
+      "cycle": "2026Q1-subset",
+      "n_pairs": 31
+    }
+  ]
+}

@@ -1,0 +1,380 @@
+{
+  "sampling_id": "01a089e2-986a-776d-8b22-2d37bdb3e9fe",
+  "pairs": [
+    {
+      "case_id": "ESG-2512-00070",
+      "question": "A founder and CEO of Maxpiro.ai Pte Ltd is following up on their SSG Tech Grant application for CrackDetect AI. They have already submitted the application and are seeking an update on its status. They are offering to provide any additional details or documents if needed.",
+      "expected_outcome": "The user receives an update on their SSG Tech Grant application status for CrackDetect AI, or is informed of any additional documents or information required to process their application.",
+      "enquiry_text": "[WARNING: EXTERNAL EMAIL]  Exercise caution before opening attachments, clicking links or sharing information.             Good morning Jessica,    Happy New Year! I hope you had a wonderful start to 2026.     I just wanted to follow up regarding our SSG Tech Grant application for CrackDetect AI. Please let me know if any further details or documents are needed from our side.    Looking forward to your kind update. Thanks.     Best Regards and Thanks    Ganesan Muruganandam (Anand)    Founder   CEO, Maxpiro.ai Pte Ltd    HP: [PHONE]    Email:   [EMAIL]        www.maxpiro.com",
+      "answer_text": "",
+      "claims": [],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Startup SG Tech",
+        "scheme_type": "grant",
+        "stage": "none",
+        "what_l1": "my_cases",
+        "what_l2": "application_status",
+        "what_l3": "where-is-it"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Startup SG Tech"
+        },
+        {
+          "ministry": "MOM",
+          "agency": "SSG",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00008",
+      "question": "A company director is attempting to submit claims for an Overseas Market Preparation (OMP) Grant with reference ID 240799EZ. The director discovered that the claims submission closing date in the Business Grants Portal (BGP) is set to 30 December 2025 instead of 31 December 2025, which is the actual last day of the month, and the portal has closed before the director could submit the claims.",
+      "expected_outcome": "The director receives confirmation that Enterprise Singapore has received the change request to reactivate the grant in the BGP Portal and understands that the request is under review with a response to come.",
+      "enquiry_text": "Ref ID: 240799EZ Claims submission Alex Neo  [EMAIL]  Wed 31/12/2025, 20:19 ENTERPRISESG enquiries-reply (ENTERPRISESG)  Dear Mark,  I'm trying to submit the claims for the above mentioned OMP Grant but realise that the closing date is 30/12/25 instead of 31/12/25 which is the actual last day of the month. Pls help to reactivate the grant in BGP Portal so that I can process and submit the claims. Thank you and Happy New Year.  Regards Alex Neo Director",
+      "answer_text": "Enterprise Singapore acknowledged receipt of the change request submission on 2 January 2026 at 10:18 AM.\nThe change request for Grant reference ID 240799EZ is currently under review by the Enterprise Singapore team.\nEnterprise Singapore will be in touch regarding the review outcome as soon as possible.",
+      "claims": [
+        {
+          "claim": "Enterprise Singapore acknowledged receipt of the change request submission on 2 January 2026 at 10:18 AM.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The change request for Grant reference ID 240799EZ is currently under review by the Enterprise Singapore team.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Enterprise Singapore will be in touch regarding the review outcome as soon as possible.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Market Readiness Assistance",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "correct-mistake"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance"
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00047",
+      "question": "A company has submitted retrospective applications for speed limiters and is waiting for a final response from the Land Transport Authority (LTA). The case has been kept open while awaiting LTA's decision on all the retrospective applications.",
+      "expected_outcome": "The user understands the current status of their retrospective speed limiter applications with the Land Transport Authority.",
+      "enquiry_text": "Keeping the case open while pending TP's final response regarding all retro applications for Speed Limiters",
+      "answer_text": "The Land Transport Authority is reviewing the retrospective speed limiter applications",
+      "claims": [
+        {
+          "claim": "The Land Transport Authority is reviewing the retrospective speed limiter applications",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "pre_application",
+        "what_l1": "general_enquiries",
+        "what_l2": "eligibility",
+        "what_l3": "pending_decision_status"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00093",
+      "question": "A company submitted a Change Request on 25 December 2025 to extend their Claim Due Date from 29 December 2025 because they have not completed the audit for their Enterprise Development Grant claim. The caller is enquiring about the status of this Change Request with reference number 241154BK-CR01.",
+      "expected_outcome": "The caller understands that the Change Request requires time to process and knows the proper claim submission procedure, including the requirement to select an auditor from Enterprise Singapore's Pre-Qualified Panel and wait for Change Request approval before submitting the claim.",
+      "enquiry_text": "241154BK-CR01    Agency:Enterprise Singapore           Caller enquiring on the above Change Request submitted on   25 Dec 2025, to extend the Claim Due Date because they have not completed the Audit.Initial Claim Due Date: 29 Dec 2025        Caller enquiring on the status of the above Change Request.",
+      "answer_text": "The Change Request will require some time to process.\nThe company should have submitted the claim before the Claim Due Date.\nDuring final claim submission in BGP, the company must select an auditor from Enterprise Singapore's Pre-Qualified Panel to verify the claims.\nAn Enterprise Singapore officer will verify that the project deliverables have been met.\nThe Enterprise Singapore officer may contact the company for further information if required.\nA site visit or presentation meeting may be arranged for the purpose of verifying project deliverables.\nThe company may be asked to revise the Project Report if the information is incomplete.\nThe auditor that the company has appointed will verify the claim documents and issue an Audit Report upon completion of the verification.\nThe company should wait for the approval of the Change Request before submitting the claim.",
+      "claims": [
+        {
+          "claim": "The Change Request will require some time to process.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company should have submitted the claim before the Claim Due Date.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "During final claim submission in BGP, the company must select an auditor from Enterprise Singapore's Pre-Qualified Panel to verify the claims.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "An Enterprise Singapore officer will verify that the project deliverables have been met.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Enterprise Singapore officer may contact the company for further information if required.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "A site visit or presentation meeting may be arranged for the purpose of verifying project deliverables.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company may be asked to revise the Project Report if the information is incomplete.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The auditor that the company has appointed will verify the claim documents and issue an Audit Report upon completion of the verification.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company should wait for the approval of the Change Request before submitting the claim.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Enterprise Development Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "change_application",
+        "what_l3": "claim_due_date_extension"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Enterprise Development Grant"
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00145",
+      "question": "A caller is experiencing a technical issue with the Business Growth Programme (BGP) 2.0 Grant Reimbursement Tracker (GRT) system where they are unable to submit their claim because clicking the next button does not proceed. They have previously requested assistance for this issue and are now following up on their request.",
+      "expected_outcome": "The caller receives confirmation that the relevant team has been notified of their technical issue and is advised to monitor their email for updates on the resolution.",
+      "enquiry_text": "AY250529SQVSQ  Type: BGP 2.0. GRT. Claim Submission      Caller would like to request a follow up on their request for assistance on their inability to submit their claim. That when they click next it does not proceed.\n\nAY250529MGT8C  Type: BGP 2.0, GRT Document Upload (Claims)     Caller mentioned after their last issue, they had tried going for another of their GRT submissions and make a claim for this. However, when caller tried uploading some documents, they get errors where it is indicated the document did not submit. Caller tried troubleshooting, similar to what they did with their other submission (clear cache) but the issue persists.",
+      "answer_text": "The relevant team(s) have been notified of the caller's situation with the BGP 2.0 GRT claim submission issue\nThe caller was advised to keep an eye on their email for any updates",
+      "claims": [
+        {
+          "claim": "The relevant team(s) have been notified of the caller's situation with the BGP 2.0 GRT claim submission issue",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller was advised to keep an eye on their email for any updates",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Business Grants Portal 2.0",
+        "scheme_type": "none",
+        "stage": "not_applicable",
+        "what_l1": "technical_issues",
+        "what_l2": "system_fault",
+        "what_l3": "upload-crash"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Business Grants Portal 2.0"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00207",
+      "question": "A caller is enquiring on behalf of another company that shares the same directorship as their own company. The caller wants to know if there is POS support available and what the application steps are for such a grant.",
+      "expected_outcome": "The caller understands that PSG grant supports POS systems, knows the key eligibility criteria to consider, knows where to find available solutions, and understands the application process through BGP.",
+      "enquiry_text": "Caller wants to ask for another company if there are POS support that they can tap into. If have, what are the steps to apply for such a grant.    (Confirmed that DARSHNI'S PTE. LTD. and R6 CONSTRUCTION   PTE. LTD. share the same Directorship).",
+      "answer_text": "The PSG grant supports purchase of POS systems.\nCallers can use the Solutions Directory on the GoBusiness site PSG page to look for available POS systems.\nCallers must consider their SSIC Code for the Sector when looking at PSG solutions.\nIf the caller's sector is not listed in the Solutions Directory, the caller may consider grants indicated under the Generic (non-sector specific) section.\nFor PSG IT Solutions, callers have to get the solution as listed and from the Pre-Approved vendor.\nPSG IT Solutions support is for the first time adoption of a solution.\nIf a company applied for that category of solution in the past, the company will not be able to get the PSG support.\nThe BGP User Guide for applying for PSG support can be found on the Enterprise SG site PSG page under the How to apply section Step 4.\nThe PSG application process includes confirming the solution wanted in the directory, then going to the BGP to make a submission for review and approval of the PO.",
+      "claims": [
+        {
+          "claim": "The PSG grant supports purchase of POS systems.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Callers can use the Solutions Directory on the GoBusiness site PSG page to look for available POS systems.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Callers must consider their SSIC Code for the Sector when looking at PSG solutions.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "If the caller's sector is not listed in the Solutions Directory, the caller may consider grants indicated under the Generic (non-sector specific) section.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "For PSG IT Solutions, callers have to get the solution as listed and from the Pre-Approved vendor.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "PSG IT Solutions support is for the first time adoption of a solution.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "If a company applied for that category of solution in the past, the company will not be able to get the PSG support.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The BGP User Guide for applying for PSG support can be found on the Enterprise SG site PSG page under the How to apply section Step 4.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The PSG application process includes confirming the solution wanted in the directory, then going to the BGP to make a submission for review and approval of the PO.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "pre_application",
+        "what_l1": "general_enquiries",
+        "what_l2": "how_to",
+        "what_l3": "apply-steps"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00639",
+      "question": "A caller has been trying all morning to reach Traffic Police to clarify whether their lorry with a G-Plate needs to install a speed limiter. They previously checked with LTA, who indicated that this enquiry falls under Traffic Police's purview, but they have been unable to reach any customer service officer.",
+      "expected_outcome": "The caller's enquiry is escalated to Traffic Police and Traffic Police responds to the caller with the clarification they need.",
+      "enquiry_text": "Caller has been trying to contact Traffic Police the entire morning to clarify on whether their  lorry with a G-Plate needs to install speed limiter.  However, they are unable to reach any customer service officer.     Caller has previously checked with LTA who mentioned that their enquiry is under TP's purview",
+      "answer_text": "",
+      "claims": [],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": null,
+        "scheme_type": null,
+        "stage": "none",
+        "what_l1": "out_of_scope",
+        "what_l2": "human_request",
+        "what_l3": "chase-unanswered-channel"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": null
+        },
+        {
+          "ministry": "MOT",
+          "agency": "LTA",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00645",
+      "question": "A company had their PSG claim submission rejected because they made payment to their vendor before submitting the application. Although the campaign activities only started after the application was approved, the payment timing violated PSG eligibility criteria. The company wants to appeal the rejection and needs confirmation of the appeal process to show their vendor, FY ADVERTISEMENT PTE. LTD.",
+      "expected_outcome": "The user understands that their appeal request has been submitted and will be reviewed, knows the timeline for the appeal process, and receives confirmation that they will be contacted by email within the specified timeframe.",
+      "enquiry_text": "",
+      "answer_text": "For PSG, applicants must not have made any form of payment, including deposits, for the solution they are applying for, as this is one of the main Eligibility Criteria.\nThe appeal is subject to approval and the timeline for the appeal approval and the data patch to reinstate the claim can take between 6 to 8 weeks upon receipt of complete documents.\nThe claims PO will reach out to the applicant via email in the next 2 weeks to start the appeal process.",
+      "claims": [
+        {
+          "claim": "For PSG, applicants must not have made any form of payment, including deposits, for the solution they are applying for, as this is one of the main Eligibility Criteria.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The appeal is subject to approval and the timeline for the appeal approval and the data patch to reinstate the claim can take between 6 to 8 weeks upon receipt of complete documents.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The claims PO will reach out to the applicant via email in the next 2 weeks to start the appeal process.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "decision_appeal",
+        "what_l3": "appeal-my-decision"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    }
+  ]
+}
