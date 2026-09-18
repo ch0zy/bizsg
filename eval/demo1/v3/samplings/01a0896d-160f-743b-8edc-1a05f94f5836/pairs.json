@@ -1,0 +1,1592 @@
+{
+  "sampling_id": "01a0896d-160f-743b-8edc-1a05f94f5836",
+  "pairs": [
+    {
+      "case_id": "ESG-2512-00070",
+      "question": "A founder and CEO of Maxpiro.ai Pte Ltd is following up on their SSG Tech Grant application for CrackDetect AI. They have already submitted the application and are seeking an update on its status. They are offering to provide any additional details or documents that may be needed.",
+      "expected_outcome": "The person receives an update on their SSG Tech Grant application status or is informed about what additional information or next steps are required.",
+      "enquiry_text": "[WARNING: EXTERNAL EMAIL]  Exercise caution before opening attachments, clicking links or sharing information.             Good morning Jessica,    Happy New Year! I hope you had a wonderful start to 2026.     I just wanted to follow up regarding our SSG Tech Grant application for CrackDetect AI. Please let me know if any further details or documents are needed from our side.    Looking forward to your kind update. Thanks.     Best Regards and Thanks    Ganesan Muruganandam (Anand)    Founder   CEO, Maxpiro.ai Pte Ltd    HP: [PHONE]    Email:   [EMAIL]        www.maxpiro.com",
+      "answer_text": "",
+      "claims": [],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Startup SG Tech",
+        "scheme_type": "grant",
+        "stage": "none",
+        "what_l1": "my_cases",
+        "what_l2": "application_status",
+        "what_l3": "where-is-it"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Startup SG Tech"
+        },
+        {
+          "ministry": "MOM",
+          "agency": "SSG",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2512-00996",
+      "question": "A company is experiencing a technical issue when trying to upload a file to a submission system. The file is 87 KB in size but the system is displaying an error message preventing the upload.",
+      "expected_outcome": "The company successfully uploads their file after receiving troubleshooting guidance and confirmation that the technical issue has been resolved.",
+      "enquiry_text": "Hi Maslina,       Just tried and still unable to upload file with error message below. Our file is 87 KB in size.",
+      "answer_text": "The technical team has confirmed that the file upload issue has been resolved.\nWhen submitting the Branch Code, leading zeros should be removed before resubmitting the application.\nFor example, instead of submitting \"072\", submit \"72\" for the Branch Code.\nAcceptable attachment types are Pdf, Docx, Pptx, Png, Jpg, and Jpeg.\nThe maximum file size for attachments is 9.5 MB in total.",
+      "claims": [
+        {
+          "claim": "The technical team has confirmed that the file upload issue has been resolved.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "When submitting the Branch Code, leading zeros should be removed before resubmitting the application.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "For example, instead of submitting \"072\", submit \"72\" for the Branch Code.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Acceptable attachment types are Pdf, Docx, Pptx, Png, Jpg, and Jpeg.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The maximum file size for attachments is 9.5 MB in total.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Business Grants Portal 2.0",
+        "scheme_type": "none",
+        "stage": "not_applicable",
+        "what_l1": "technical_issues",
+        "what_l2": "system_fault",
+        "what_l3": "upload-crash"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Business Grants Portal 2.0"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00008",
+      "question": "A company director is attempting to submit claims for an Overseas Market Preparation (OMP) Grant with reference ID 240799EZ. The director discovered that the claims submission closing date in the Business Grants Portal (BGP) is set to 30 December 2025 instead of 31 December 2025, which is the actual last day of the month, and the portal will not allow submission of the claims.",
+      "expected_outcome": "The director receives confirmation that Enterprise Singapore has received the change request to reactivate the grant in the BGP Portal and understands that the request is under review, with Enterprise Singapore committing to provide the review outcome as soon as possible.",
+      "enquiry_text": "Ref ID: 240799EZ Claims submission Alex Neo  [EMAIL]  Wed 31/12/2025, 20:19 ENTERPRISESG enquiries-reply (ENTERPRISESG)  Dear Mark,  I'm trying to submit the claims for the above mentioned OMP Grant but realise that the closing date is 30/12/25 instead of 31/12/25 which is the actual last day of the month. Pls help to reactivate the grant in BGP Portal so that I can process and submit the claims. Thank you and Happy New Year.  Regards Alex Neo Director",
+      "answer_text": "Enterprise Singapore acknowledged receipt of the change request submission on 2 January 2026 at 10:18 AM\nThe change request for Grant Ref ID 240799EZ is currently under review by Enterprise Singapore's team\nEnterprise Singapore will be in touch regarding the review outcome as soon as possible",
+      "claims": [
+        {
+          "claim": "Enterprise Singapore acknowledged receipt of the change request submission on 2 January 2026 at 10:18 AM",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The change request for Grant Ref ID 240799EZ is currently under review by Enterprise Singapore's team",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Enterprise Singapore will be in touch regarding the review outcome as soon as possible",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Market Readiness Assistance",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "correct-mistake"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance"
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00028",
+      "question": "A caller received PSG claim approval notifications on 30 November 2025 for two claims (reference IDs 2508W5AY-CL01 and 2508SRGF-CL01). She has not received the disbursements and wants to check on the payment status, having confirmed she selected corporate PayNow and has been receiving other grant disbursements successfully through that method.",
+      "expected_outcome": "The caller receives confirmation of when the PSG claim disbursements were made and understands that the payments have been successfully processed.",
+      "enquiry_text": "2508W5AY-CL01 Agency: EntSG  PSG      Caller saying she received her PSG claim approval notification on 30th November 2025. She confirmed did not received any notification or email about any failure in payments.     Caller does not have any access to a computer hence verbally confirmed that she did chose corporate paynow     Caller said she has been receiving her other disbursement for her other grants from her corporate paynow all this while.     Paynow Proxy: [UEN]\n\n2508SRGF-CL01   Agency: EntSG  PSG      Caller saying she received her PSG claim approval notification on 30th November 2025. She confirmed did not received any notification or email about any failure in payments.     Caller does not have any access to a computer hence verbally confirmed that she did chose corporate paynow     Caller said she has been receiving her other disbursement for her other grants from her corporate paynow all this while.     Paynow Proxy: [UEN]",
+      "answer_text": "The PSG claim with reference ID 2508W5AY-CL01 was successfully disbursed on 2 January 2026.\nThe PSG claim with reference ID 2508SRGF-CL01 was successfully disbursed on 2 January 2026.\nEnterprise Singapore's Finance team confirmed that the claims were successfully disbursed.",
+      "claims": [
+        {
+          "claim": "The PSG claim with reference ID 2508W5AY-CL01 was successfully disbursed on 2 January 2026.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The PSG claim with reference ID 2508SRGF-CL01 was successfully disbursed on 2 January 2026.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Enterprise Singapore's Finance team confirmed that the claims were successfully disbursed.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "disbursement",
+        "what_l1": "my_cases",
+        "what_l2": "application_status",
+        "what_l3": "post-approval-collection"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00047",
+      "question": "A company has submitted retrospective applications for speed limiters and is waiting for a final response from the Land Transport Authority (LTA). The case has been kept open while awaiting LTA's decision on all the retrospective applications.",
+      "expected_outcome": "The user understands the current status of their retrospective speed limiter applications with the Land Transport Authority.",
+      "enquiry_text": "Keeping the case open while pending TP's final response regarding all retro applications for Speed Limiters",
+      "answer_text": "The Land Transport Authority is reviewing the retrospective speed limiter applications",
+      "claims": [
+        {
+          "claim": "The Land Transport Authority is reviewing the retrospective speed limiter applications",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "pre_application",
+        "what_l1": "general_enquiries",
+        "what_l2": "eligibility",
+        "what_l3": "pending_decision_status"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00053",
+      "question": "A caller's company has an approved PSG claim (250932SM-CL01) that was approved on 28th November, but they have not yet received the disbursement. The caller has confirmed that the corporate PayNow details were filled in the BGP claim form and no payment failure email was received.",
+      "expected_outcome": "The caller receives confirmation that the issue has been escalated to the relevant team and later learns when the payment was disbursed to the company's PayNow proxy.",
+      "enquiry_text": "250932SM-CL01  Agency: EntSG  PSG      Caller mentioned her PSG claim was approved 28th November and till now they have not received any disbursement, hence called in to checked.     Caller confirmed she has filled up the corporate paynow in BGP claim form (after being guided to check)      Caller also confirmed they did not receive any payment failure email.     Paynow Proxy:  [UEN]",
+      "answer_text": "The payment for PSG claim 250932SM-CL01 was disbursed to the company's PayNow proxy on 2 January 2026\nThe payment for PSG claim 250932SM-CL01 was disbursed to the PayNow proxy indicated in the claim form",
+      "claims": [
+        {
+          "claim": "The payment for PSG claim 250932SM-CL01 was disbursed to the company's PayNow proxy on 2 January 2026",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The payment for PSG claim 250932SM-CL01 was disbursed to the PayNow proxy indicated in the claim form",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "disbursement",
+        "what_l1": "my_cases",
+        "what_l2": "application_status",
+        "what_l3": "where-is-it"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00059",
+      "question": "A caller is enquiring about the status of three MRA claims for Athena Digital Pte. Ltd. that were submitted between August and October 2025. The caller has previously spoken to an ESG officer in person about these claims and is threatening to escalate to MTI if the issue is not resolved.",
+      "expected_outcome": "The user understands that their MRA claims are undergoing internal review and that processing is on hold until the review is completed, and knows to wait for email contact from ESG officers.",
+      "enquiry_text": "2501GGUF-CL01  Agency: Enterprise Singapore     Caller enquiring about the status of their claims:  First submitted: Aug  01, 2025   Last submitted: Oct 16, 2025     Caller claims that they have went down to spoken to ESG officer personally regarding this and it has been clarified.      Caller intends to   escalate to MTI if this issue is not resolved.",
+      "answer_text": "Each resubmission of an MRA claim is assessed by Enterprise Singapore on a case-by-case basis.\nThe Project Officer will reach out again if further clarification is needed for the MRA claims.\nThe MRA claims for grant reference IDs 2409RQDY-CL01, 2409EU25-CL01, and 2501GGUF-CL01 are undergoing internal review.\nThe processing of the MRA claims will be put on hold until the internal review is completed.",
+      "claims": [
+        {
+          "claim": "Each resubmission of an MRA claim is assessed by Enterprise Singapore on a case-by-case basis.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Project Officer will reach out again if further clarification is needed for the MRA claims.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The MRA claims for grant reference IDs 2409RQDY-CL01, 2409EU25-CL01, and 2501GGUF-CL01 are undergoing internal review.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The processing of the MRA claims will be put on hold until the internal review is completed.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Market Readiness Assistance",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "application_status",
+        "what_l3": "where-is-it"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00093",
+      "question": "A company submitted a Change Request on 25 December 2025 to extend their Claim Due Date from 29 December 2025 because they have not completed the audit for their Enterprise Development Grant claim. The caller is enquiring about the status of this Change Request with reference number 241154BK-CR01.",
+      "expected_outcome": "The caller understands that the Change Request will take time to process and knows the proper claim submission procedure, including the requirement to select an auditor from Enterprise Singapore's Pre-Qualified Panel and wait for Change Request approval before submitting the claim.",
+      "enquiry_text": "241154BK-CR01    Agency:Enterprise Singapore           Caller enquiring on the above Change Request submitted on   25 Dec 2025, to extend the Claim Due Date because they have not completed the Audit.Initial Claim Due Date: 29 Dec 2025        Caller enquiring on the status of the above Change Request.",
+      "answer_text": "The Change Request will require some time to process.\nThe company should have submitted the Claim before the Claim Due Date.\nDuring final claim submission in BGP, the company must select an auditor from Enterprise Singapore's Pre-Qualified Panel to verify the claims.\nAn Enterprise Singapore officer will verify that the project deliverables have been met.\nThe Enterprise Singapore officer may contact the company for further information if required.\nA site visit or presentation meeting may be arranged by Enterprise Singapore for verification purposes.\nThe company may be asked to revise the Project Report if the information is incomplete.\nThe auditor that the company has appointed will verify the claim documents and issue an Audit Report upon completion of the verification.\nThe company should wait for the approval of the Change Request before submitting the Claim.",
+      "claims": [
+        {
+          "claim": "The Change Request will require some time to process.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company should have submitted the Claim before the Claim Due Date.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "During final claim submission in BGP, the company must select an auditor from Enterprise Singapore's Pre-Qualified Panel to verify the claims.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "An Enterprise Singapore officer will verify that the project deliverables have been met.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Enterprise Singapore officer may contact the company for further information if required.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "A site visit or presentation meeting may be arranged by Enterprise Singapore for verification purposes.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company may be asked to revise the Project Report if the information is incomplete.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The auditor that the company has appointed will verify the claim documents and issue an Audit Report upon completion of the verification.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company should wait for the approval of the Change Request before submitting the Claim.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Enterprise Development Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "change_application",
+        "what_l3": "claim_due_date_extension"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Enterprise Development Grant"
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00097",
+      "question": "A grant applicant is experiencing difficulties with document submission due to file size limitations in the online system. They had to delete a previously uploaded document to submit new required information, made a resubmission on 31 December 2025 with an explanation in the remarks box, and are now waiting for a response from their Processing Officer regarding this matter.",
+      "expected_outcome": "The user receives confirmation that their Processing Officer has been notified about their resubmission and the document upload issue, and understands that the Processing Officer will contact them directly to obtain the required documents.",
+      "enquiry_text": "25102JJP-CL01    Agency: Enterprise SG          Caller would like to request assistance in clarifying the requests by their PO. Caller mentioned how they are getting exhausted with the back and forth, especially as they are not tech savvy. They were asked to provide additional information, caller was able to provide but due to the size of their document they were unable to upload. They had attempted to reduce the size of the document but it did not work, only after deleting a document they had already uploaded (caller justifies that the PO should already have received that document from previous submissions) where they able to proceed. Caller was then informed they should not delete any documents but mentioned the alternative is them being unable to submit.         Caller made a resubmission, providing the PO their response as to why they deleted the file but are still waiting for a response. Caller would like to get a response from the PO on this matter.          (Caller spoke on the phone with his wife Mrs. TIAN to discuss this matter).",
+      "answer_text": "Resubmissions have no set time frame to process and are assessed on a case-by-case basis.\nThe Processing Officer has been informed about the resubmission made on 31 December 2025.\nThe Processing Officer has been informed about the reason provided for why the applicant needed to make the resubmission the way they did.\nThe Processing Officer will be contacting the applicant via email to obtain the documents.",
+      "claims": [
+        {
+          "claim": "Resubmissions have no set time frame to process and are assessed on a case-by-case basis.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Processing Officer has been informed about the resubmission made on 31 December 2025.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Processing Officer has been informed about the reason provided for why the applicant needed to make the resubmission the way they did.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Processing Officer will be contacting the applicant via email to obtain the documents.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Energy Efficiency Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "rfa-response"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Energy Efficiency Grant"
+        },
+        {
+          "ministry": "MSE",
+          "agency": "NEA",
+          "scheme": null
+        },
+        {
+          "ministry": "MND",
+          "agency": "BCA",
+          "scheme": null
+        },
+        {
+          "ministry": "MOT",
+          "agency": "MPA",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00124",
+      "question": "A company representative has received conflicting emails about their Business Growth Programme claim - one requesting an intern's payslip and another stating the claim is under processing. She has logged into the BGP2.0 portal and sees several items marked in red under Updates Required.",
+      "expected_outcome": "Ms Azizah understands that the mandatory documents including the intern's payslip are still required despite the processing status, and she knows she must update the company profile information in BGP2.0 before completing the claim application.",
+      "enquiry_text": "AY250415GYNDC-CL251013VS9        Ms Azizah informed that coy received an email from Officer on 17Dec 2025, requesting for Intern's Payslip. While she was compiling the needed documents, coy received another email on 3 Jan 2026, she said the email       stated that the claim is now under processing.           Must coy still provide the mandatory documents (*payslip) since it is processing now.  She has logged into BGP2.0 and said that there are a few items in RED under Updates Required.",
+      "answer_text": "The mandatory documents are still required by the processing team to assess and review the Business Growth Programme claim application\nThe company needs to update the Company Employment Size in BGP2.0\nThe company needs to update the Company's Description in BGP2.0\nThe company needs to provide FY Statements in BGP2.0\nThe company profile must be updated in BGP2.0 before the company can proceed to complete the Business Growth Programme claim application",
+      "claims": [
+        {
+          "claim": "The mandatory documents are still required by the processing team to assess and review the Business Growth Programme claim application",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company needs to update the Company Employment Size in BGP2.0",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company needs to update the Company's Description in BGP2.0",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company needs to provide FY Statements in BGP2.0",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The company profile must be updated in BGP2.0 before the company can proceed to complete the Business Growth Programme claim application",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Global Ready Talent Programme",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "rfa-response"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Global Ready Talent Programme"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00126",
+      "question": "A caller is attempting to fill out the downloadable GRT Claim Form from BGP 2.0's GRT Claim Submission but encounters technical errors that prevent them from entering the correct details. The caller has no issues with some columns but receives a \"#NAME?\" error in columns E & F when filling in the Working Days Per Week column using the dropdown, and a data validation error when filling in the No of Unpaid Leave Days column.",
+      "expected_outcome": "The caller receives guidance on the GRT Claim Form, has their technical issues documented and escalated to the relevant technical team, and is advised to monitor their email for updates on the resolution.",
+      "enquiry_text": "ESG-GRT-L-2422930-CL01 Type: GRT Claim Form issue     Caller would like assistance regarding the downloadable GRT Claim Form from the BGP 2.0's GRT Claim Submission. When caller tries to fill in the form they encounter a few errors that prevents them from providing the correct details.",
+      "answer_text": "When filling in the Working Days Per Week column using the dropdown, columns E & F show an error of \"#NAME?\"\nWhen filling in the No of Unpaid Leave Days column, the GRT Claim Form encounters an error saying \"Does not match the data validation restrictions defined for this cell\"\nThe caller was informed that Enterprise Singapore will highlight the issue with the downloaded GRT Claim Form to the relevant team\nThe caller was advised to keep an eye on their email for any updates on the GRT Claim Form issue\nThe caller was asked to provide screenshots of the errors encountered on the GRT Claim Form along with timestamps of when these errors occurred",
+      "claims": [
+        {
+          "claim": "When filling in the Working Days Per Week column using the dropdown, columns E & F show an error of \"#NAME?\"",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "When filling in the No of Unpaid Leave Days column, the GRT Claim Form encounters an error saying \"Does not match the data validation restrictions defined for this cell\"",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller was informed that Enterprise Singapore will highlight the issue with the downloaded GRT Claim Form to the relevant team",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller was advised to keep an eye on their email for any updates on the GRT Claim Form issue",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller was asked to provide screenshots of the errors encountered on the GRT Claim Form along with timestamps of when these errors occurred",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Business Grants Portal 2.0",
+        "scheme_type": "none",
+        "stage": "not_applicable",
+        "what_l1": "technical_issues",
+        "what_l2": "form_filling",
+        "what_l3": "downloadable_form_errors"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Business Grants Portal 2.0"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00127",
+      "question": "A company representative is calling about the Global Ready Talent Programme (GRT) after receiving an email about changes to local internship support. They have a foreign student studying in Singapore who wants to apply for support, and they want to confirm the reason for discontinuing local internship support.",
+      "expected_outcome": "The representative understands that GRT local internship support is being discontinued effective 1 April 2026, that all students must be Singaporean or PR to qualify for GRT regardless of internship location, and that the programme will focus solely on overseas internships going forward.",
+      "enquiry_text": "Caller would like to confirm about the reason of discontinuing support for local internships. Caller enquiring that they have a foreign student that studies in SG and wants to apply for support.",
+      "answer_text": "Local internship support under the Global Ready Talent Programme is for internships that are based in Singapore.\nAll students must be Singaporean or PR for a company to apply for the Global Ready Talent Programme, even for overseas internships.\nThe Global Ready Talent Programme has provided over 30,000 internship opportunities across more than 4,000 companies since its launch in 2019.\nLocal internship support under the Global Ready Talent Programme will be discontinued with effect from 1 April 2026.\nThe Global Ready Talent Programme will focus solely on supporting overseas internships after 1 April 2026.\nThe Global Ready Talent Programme will continue to support overseas internships through allowances to students via institutes of higher learning.",
+      "claims": [
+        {
+          "claim": "Local internship support under the Global Ready Talent Programme is for internships that are based in Singapore.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "All students must be Singaporean or PR for a company to apply for the Global Ready Talent Programme, even for overseas internships.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Global Ready Talent Programme has provided over 30,000 internship opportunities across more than 4,000 companies since its launch in 2019.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Local internship support under the Global Ready Talent Programme will be discontinued with effect from 1 April 2026.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Global Ready Talent Programme will focus solely on supporting overseas internships after 1 April 2026.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Global Ready Talent Programme will continue to support overseas internships through allowances to students via institutes of higher learning.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Global Ready Talent Programme",
+        "scheme_type": "grant",
+        "stage": "none",
+        "what_l1": "general_enquiries",
+        "what_l2": "eligibility",
+        "what_l3": "foreigner-eligibility"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Global Ready Talent Programme"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00135",
+      "question": "A sole proprietor hawker received an email notification that her EEG claim has been approved. Her UEN number is not linked to her PayNow because her PayNow is linked to her NRIC instead. She wants the disbursement to be made to her personal PayNow via her NRIC (last 4 digits: 5650H).",
+      "expected_outcome": "The user's request to receive EEG disbursement via her NRIC-linked PayNow is escalated to the relevant team, and she is informed to watch for their reply in her email.",
+      "enquiry_text": "25103FGQ-CL01 Agency: EntSG  EEG   Caller received an email about her EEG claim has been approved. However, caller said her UEN number is not link to her paynow as she is a sole proprietor (hawker) and her paynow is linked to her NRIC.     Caller would like to have her disbursement to her personal paynow via her NRIC that is registered.     Paynow Proxy - 5650H (last 4 digit of her NRIC)",
+      "answer_text": "The relevant team will be notified about the request to disburse to the NRIC-linked PayNow\nThe caller should look out for a reply in her email",
+      "claims": [
+        {
+          "claim": "The relevant team will be notified about the request to disburse to the NRIC-linked PayNow",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should look out for a reply in her email",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Energy Efficiency Grant",
+        "scheme_type": "grant",
+        "stage": "disbursement",
+        "what_l1": "my_cases",
+        "what_l2": "change_application",
+        "what_l3": "payment_details_correction"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Energy Efficiency Grant"
+        },
+        {
+          "ministry": "MSE",
+          "agency": "NEA",
+          "scheme": null
+        },
+        {
+          "ministry": "MND",
+          "agency": "BCA",
+          "scheme": null
+        },
+        {
+          "ministry": "MOT",
+          "agency": "MPA",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00145",
+      "question": "A caller is experiencing a technical issue with the Business Growth Programme (BGP) 2.0 Grant Reimbursement Tracker (GRT) system where they are unable to submit their claim because clicking the next button does not proceed. They have previously requested assistance for this issue and are now following up on their request.",
+      "expected_outcome": "The caller receives confirmation that the relevant team has been notified of their technical issue and is advised to monitor their email for updates on the resolution.",
+      "enquiry_text": "AY250529SQVSQ  Type: BGP 2.0. GRT. Claim Submission      Caller would like to request a follow up on their request for assistance on their inability to submit their claim. That when they click next it does not proceed.\n\nAY250529MGT8C  Type: BGP 2.0, GRT Document Upload (Claims)     Caller mentioned after their last issue, they had tried going for another of their GRT submissions and make a claim for this. However, when caller tried uploading some documents, they get errors where it is indicated the document did not submit. Caller tried troubleshooting, similar to what they did with their other submission (clear cache) but the issue persists.",
+      "answer_text": "The same technical issue with the BGP 2.0 GRT claim submission is still persisting for the caller\nThe relevant team(s) have been notified of the caller's situation with the BGP 2.0 GRT claim submission issue\nEnterprise Singapore will request a follow-up on handling the caller's BGP 2.0 GRT claim submission situation\nThe caller was advised to keep an eye on their email for any updates regarding the BGP 2.0 GRT claim submission issue",
+      "claims": [
+        {
+          "claim": "The same technical issue with the BGP 2.0 GRT claim submission is still persisting for the caller",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The relevant team(s) have been notified of the caller's situation with the BGP 2.0 GRT claim submission issue",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Enterprise Singapore will request a follow-up on handling the caller's BGP 2.0 GRT claim submission situation",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller was advised to keep an eye on their email for any updates regarding the BGP 2.0 GRT claim submission issue",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Business Grants Portal 2.0",
+        "scheme_type": "none",
+        "stage": "not_applicable",
+        "what_l1": "technical_issues",
+        "what_l2": "system_fault",
+        "what_l3": "upload-crash"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Business Grants Portal 2.0"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00185",
+      "question": "A caller was advised by another agency that there is support of up to 50% available through SFEC. The caller is approaching this from an IT perspective and wants to understand what grants are available and how SFEC works with these grants.",
+      "expected_outcome": "The caller understands how SFEC works in conjunction with other grants like PSG, including the eligibility criteria, support levels, and how the 90% out-of-pocket expense coverage is calculated when combining grants with SFEC balance.",
+      "enquiry_text": "Caller was advised by an agency to look into the SFEC because they were told there was support of up to 50%. Caller is calling in from an IT Perspective and just wants to know what these grants are and how SFEC works into this.",
+      "answer_text": "Certain grants are supported by SFEC.\nThe Productivity Solutions Grant (PSG) provides 50% support.\nThe Productivity Solutions Grant (PSG) supports first-time adoption of solutions listed in the Solutions Directory.\nWith the amount not covered by the grant plus an eligible company's SFEC balance, 90% of out-of-pocket expenses will be covered based on these criteria.\nOther supportable grants can be found on the SkillsFuture page on the Enterprise Singapore website.\nBusiness Advisors from the SME Centres can provide further assistance with grants.",
+      "claims": [
+        {
+          "claim": "Certain grants are supported by SFEC.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Productivity Solutions Grant (PSG) provides 50% support.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Productivity Solutions Grant (PSG) supports first-time adoption of solutions listed in the Solutions Directory.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "With the amount not covered by the grant plus an eligible company's SFEC balance, 90% of out-of-pocket expenses will be covered based on these criteria.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Other supportable grants can be found on the SkillsFuture page on the Enterprise Singapore website.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Business Advisors from the SME Centres can provide further assistance with grants.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": null,
+        "scheme_type": "none",
+        "stage": "not_applicable",
+        "what_l1": "general_enquiries",
+        "what_l2": "scheme_discovery",
+        "what_l3": "what-is-x"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": null
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00200",
+      "question": "A caller is inquiring about a GIRO form because they want to submit a claim but have not yet done so. The caller's organization also has PayNow Corporate available as a payment option.",
+      "expected_outcome": "The caller understands that they should select PayNow as the disbursement mode instead of GIRO when submitting their claim form, since their organization has PayNow Corporate.",
+      "enquiry_text": "25123EZZ Agency - Enterprise Singapore     Related to ESG-2601-00118  we need to clarify what the GA needs, and also to check if GA needs assistance on submitting claims.     - Caller ask for GIRO form. Wants to submit claim but have not yet done so.",
+      "answer_text": "When submitting the claim form, the caller should select PayNow as the disbursement mode instead of GIRO.\nThe caller's organization has PayNow Corporate available.",
+      "claims": [
+        {
+          "claim": "When submitting the claim form, the caller should select PayNow as the disbursement mode instead of GIRO.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller's organization has PayNow Corporate available.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "disbursement",
+        "what_l1": "technical_issues",
+        "what_l2": "making_payment",
+        "what_l3": "giro-setup"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00202",
+      "question": "A caller has had their claims approved on 8 August 2025 but has not yet received the disbursement. The caller has checked their bank account and found no details about the disbursement.",
+      "expected_outcome": "The caller understands that the issue has been escalated to the relevant team and knows to look out for an email from an ESG officer regarding the disbursement.",
+      "enquiry_text": "ESG-GRT-L-2419857     Caller enquiring about the status of her disbursement as claims has been approved on 8 August 2025 but they still has not received the disbursement.  Caller mentioned that they have checked their bank account and there is no details about the disbursement.",
+      "answer_text": "The caller indicated Corporate Paynow as the payment method under Payment Details.\nThe Paynow Proxy used for the disbursement is the caller's UEN.\nThe issue will be highlighted to the relevant team at Enterprise Singapore.\nThe caller should look out for an email from an Enterprise Singapore officer regarding the disbursement.",
+      "claims": [
+        {
+          "claim": "The caller indicated Corporate Paynow as the payment method under Payment Details.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Paynow Proxy used for the disbursement is the caller's UEN.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The issue will be highlighted to the relevant team at Enterprise Singapore.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should look out for an email from an Enterprise Singapore officer regarding the disbursement.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Global Ready Talent Programme",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "my_records",
+        "what_l3": "my-payment-history"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Global Ready Talent Programme"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00207",
+      "question": "A caller is enquiring on behalf of another company that shares the same directorship as their own company. The caller wants to know if there is POS support available and what the application steps are for such a grant.",
+      "expected_outcome": "The caller understands that PSG grant supports POS systems, knows the key eligibility criteria to consider, knows where to find available solutions, and understands the application process through BGP.",
+      "enquiry_text": "Caller wants to ask for another company if there are POS support that they can tap into. If have, what are the steps to apply for such a grant.    (Confirmed that DARSHNI'S PTE. LTD. and R6 CONSTRUCTION   PTE. LTD. share the same Directorship).",
+      "answer_text": "The PSG grant supports purchase of POS systems.\nCallers can use the Solutions Directory on the GoBusiness site PSG page to look for available POS systems.\nCallers must consider their SSIC Code for the Sector when looking at PSG solutions.\nIf the caller's sector is not listed in the Solutions Directory, the caller may consider grants indicated under the Generic (non-sector specific) section.\nFor PSG IT Solutions, callers have to get the solution as listed and from the Pre-Approved vendor.\nPSG IT Solutions support is for the first time adoption of a solution.\nIf a company applied for that category of solution in the past, the company will not be able to get the PSG support.\nThe BGP User Guide for applying for PSG support can be found on the Enterprise SG site PSG page under the How to apply section Step 4.\nThe PSG application process includes confirming the solution wanted in the directory, then going to the BGP to make a submission for review and approval of the PO.",
+      "claims": [
+        {
+          "claim": "The PSG grant supports purchase of POS systems.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Callers can use the Solutions Directory on the GoBusiness site PSG page to look for available POS systems.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Callers must consider their SSIC Code for the Sector when looking at PSG solutions.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "If the caller's sector is not listed in the Solutions Directory, the caller may consider grants indicated under the Generic (non-sector specific) section.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "For PSG IT Solutions, callers have to get the solution as listed and from the Pre-Approved vendor.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "PSG IT Solutions support is for the first time adoption of a solution.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "If a company applied for that category of solution in the past, the company will not be able to get the PSG support.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The BGP User Guide for applying for PSG support can be found on the Enterprise SG site PSG page under the How to apply section Step 4.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The PSG application process includes confirming the solution wanted in the directory, then going to the BGP to make a submission for review and approval of the PO.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "pre_application",
+        "what_l1": "general_enquiries",
+        "what_l2": "how_to",
+        "what_l3": "apply-steps"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00214",
+      "question": "A caller has submitted a PSG claim (Ref ID: 25103PE6-CL01) and made multiple resubmissions, including one in December 2025 and another on 5 January 2026. The caller is frustrated because the processing officer has requested the same bank statement information that was already provided in the first resubmission in December 2025, specifically the bank statement for the month when payment for the Speed Limiter was made.",
+      "expected_outcome": "The caller understands that each resubmission is handled on a case-by-case basis with no specific response timeframe, that the officer needs time to review the latest resubmission made on 5 January 2026, and that they should monitor their email and BGP portal for updates on their claim status.",
+      "enquiry_text": "25103PE6-CL01    Agency: Enterprise SG          Caller would like to request clarification from the PO on why they had asked them for the same details and if there's anything specific as they provided the information during the first resubmission in December 2025. Caller mentioned having made another resubmission on 5 Jan 2026, wherein caller was asked to provide their b   ank statement on the month they made payment for the Speed Limiter again.",
+      "answer_text": "Each resubmission is handled on a case-by-case basis.\nThere is no specific time frame for a response to a resubmission.\nThe caller should keep an eye on their email for any updates on their claim.\nThe caller should check their BGP for any changes to the status of their claim.",
+      "claims": [
+        {
+          "claim": "Each resubmission is handled on a case-by-case basis.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "There is no specific time frame for a response to a resubmission.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should keep an eye on their email for any updates on their claim.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should check their BGP for any changes to the status of their claim.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "rfa-response"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00215",
+      "question": "A caller has submitted an MRA Claim on 09 Dec 2025 and is enquiring about its status. The caller has confirmed that there is no Resubmission Request after the Claim was submitted.",
+      "expected_outcome": "The caller understands the processing timeline for their MRA Claim and knows what to expect regarding clarifications.",
+      "enquiry_text": "2504JY9F-CL01    Agency:Enterprise Singapore           Caller enquiring on the above MRA Claim submitted since 09 Dec 2025. Caller confirmed that there is no Resubmission Request after the Claim was submitted.",
+      "answer_text": "MRA Claim processing takes 12 weeks\nIf there is any clarification needed, the relevant team will revert back to the caller",
+      "claims": [
+        {
+          "claim": "MRA Claim processing takes 12 weeks",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "If there is any clarification needed, the relevant team will revert back to the caller",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Market Readiness Assistance",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "application_status",
+        "what_l3": "where-is-it"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance"
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00226",
+      "question": "An exhibition company is organizing Breakbulk Asia 2026, scheduled for 18-19 November 2026 in Singapore. The company wants to discuss Enterprise Singapore's participation in this event but has not previously liaised with any Enterprise Singapore officer.",
+      "expected_outcome": "The user receives confirmation that their request to discuss Enterprise Singapore's attendance at Breakbulk Asia 2026 will be highlighted to the relevant officers, and they are advised to monitor their email for updates.",
+      "enquiry_text": "PEO-IVR    Caller would like to reach out to the Enterprise SG officer who is in charge of handling the events that Enterprise SG is participating in. Caller mentioned that they are the Exhibition Company and would like to speak with an Enterprise SG officer regarding an event they are participating in but caller has no officer previously liaised with.",
+      "answer_text": "Enterprise Singapore is unable to transfer calls from the general line to specific officers\nEnterprise Singapore can highlight requests to the relevant officers regarding Enterprise Singapore's attendance at events\nThe caller should keep an eye on their email for updates on their request\nTo better assist with requests about Enterprise Singapore's participation, the caller should provide specific details about what aspects of Enterprise Singapore's participation they would like to discuss\nTo better assist with requests about Enterprise Singapore's participation, the caller should provide details about the nature of collaboration or partnership opportunities they have in mind",
+      "claims": [
+        {
+          "claim": "Enterprise Singapore is unable to transfer calls from the general line to specific officers",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Enterprise Singapore can highlight requests to the relevant officers regarding Enterprise Singapore's attendance at events",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should keep an eye on their email for updates on their request",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "To better assist with requests about Enterprise Singapore's participation, the caller should provide specific details about what aspects of Enterprise Singapore's participation they would like to discuss",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "To better assist with requests about Enterprise Singapore's participation, the caller should provide details about the nature of collaboration or partnership opportunities they have in mind",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": null,
+        "scheme_type": "none",
+        "stage": "not_applicable",
+        "what_l1": "out_of_scope",
+        "what_l2": "partnership_proposal",
+        "what_l3": "event_participation_enquiry"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00249",
+      "question": "A business has submitted a claim under the Business Growth Programme (BGP) but the claim is pending re-submission because the Project Officer (PO) questioned why equipment was delivered before the application was submitted. The caller is enquiring why the PO raised this question about the equipment delivery timing.",
+      "expected_outcome": "The caller understands that retrospective applications are not supported, knows how to submit clarifications to the Project Officer through the BGP portal, and understands that their resubmission will be assessed on a case-by-case basis.",
+      "enquiry_text": "2510U5J8-CL01  Agency: Enterprise Singapore      Pending re-submission:  PO enquired on why the equipment was delivered before the application was submitted.     As such, caller enquiring why the PO ask this question.\n\n2510VVSV-CL01   Agency: Enterprise Singapore      Pending re-submission:  PO enquired on why the equipment was delivered before the application was submitted.     As such, caller enquiring why the PO ask this question.",
+      "answer_text": "Retrospective applications under the Business Growth Programme are not supported, where retrospective application means paying the vendor, signing the contract, or installing the equipment before submitting the application.\nSince the Business Growth Programme claim is still pending re-submission, the caller can explain directly to the Project Officer via the BGP portal.\nTo submit clarifications in the BGP portal, the caller should navigate to My Claims, then Updates Required, click on the Project Title, go to Claims, click on Proceed, then click on Declare & Review, then Review, then Submit.\nA remarks text box will appear in the BGP portal where the caller can write comments or clarifications.\nEach resubmission under the Business Growth Programme is assessed on a case-by-case basis.\nThe Project Officer will assess the resubmission accordingly and will reach out again if further clarification is needed.",
+      "claims": [
+        {
+          "claim": "Retrospective applications under the Business Growth Programme are not supported, where retrospective application means paying the vendor, signing the contract, or installing the equipment before submitting the application.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Since the Business Growth Programme claim is still pending re-submission, the caller can explain directly to the Project Officer via the BGP portal.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "To submit clarifications in the BGP portal, the caller should navigate to My Claims, then Updates Required, click on the Project Title, go to Claims, click on Proceed, then click on Declare & Review, then Review, then Submit.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "A remarks text box will appear in the BGP portal where the caller can write comments or clarifications.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Each resubmission under the Business Growth Programme is assessed on a case-by-case basis.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Project Officer will assess the resubmission accordingly and will reach out again if further clarification is needed.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Energy Efficiency Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "rfa-response"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Energy Efficiency Grant"
+        },
+        {
+          "ministry": "MSE",
+          "agency": "NEA",
+          "scheme": null
+        },
+        {
+          "ministry": "MND",
+          "agency": "BCA",
+          "scheme": null
+        },
+        {
+          "ministry": "MOT",
+          "agency": "MPA",
+          "scheme": null
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00283",
+      "question": "A caller attempted to claim their entity on StartupSG Network but received an error message stating that their profile has already been claimed. They are seeking assistance to resolve this issue and regain access to their entity profile.",
+      "expected_outcome": "The caller receives confirmation that their issue has been escalated to the relevant team and understands they should wait for an email from an officer who will assist with resolving the profile claim issue.",
+      "enquiry_text": "Caller got prompted the following message upon trying to claim entity on StartupSG Network: Your profile has already been claimed     Seeking assistance regarding this",
+      "answer_text": "The issue will be highlighted to the relevant team\nThe caller should look out for an email from an Enterprise Singapore officer",
+      "claims": [
+        {
+          "claim": "The issue will be highlighted to the relevant team",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should look out for an email from an Enterprise Singapore officer",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Startup SG Network",
+        "scheme_type": "registration",
+        "stage": "none",
+        "what_l1": "technical_issues",
+        "what_l2": "form_filling",
+        "what_l3": "entity_already_claimed"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Startup SG Network"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00292",
+      "question": "A caller is completing the Declare Review section of an application form for speed limiters. They are uncertain about how to answer questions 8 and 9, and have encountered an error in the Proposal section that is preventing submission.",
+      "expected_outcome": "The caller successfully answers questions 8 and 9 correctly, resolves the Proposal section error by providing the Deployment Location, and submits the application.",
+      "enquiry_text": "Caller is at the Declare   Review of the Application Form and wanted to ask about question 8 \"The applicant agrees that primary usage of this solution should be for Applicant company...\" and \"....and not be cross shared with other companies.\". Should he indicate yes or no, same thing for question 9 \"Has the applicant or any of its shareholders or directors been subject to debarment from participating in any Grant Schemes?\".    Then caller mentioned having an error in the Proposal section and wants to know what to do with this.",
+      "answer_text": "If the speed limiters will only be used by the applicant company's vehicles and will not be shared with other companies, the applicant should answer \"Yes\" to question 8\nQuestion 9 asks if any of the shareholders or directors have been blacklisted from receiving government support\nIf none of the shareholders or directors have been subject to debarment, the applicant should answer \"No\" to question 9\nThe error in the Proposal section was caused by not answering the Deployment Location field\nThe Deployment Location should be the ACRA registered address\nThe Deployment Location must not be at a home or a building meant for people to reside in",
+      "claims": [
+        {
+          "claim": "If the speed limiters will only be used by the applicant company's vehicles and will not be shared with other companies, the applicant should answer \"Yes\" to question 8",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Question 9 asks if any of the shareholders or directors have been blacklisted from receiving government support",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "If none of the shareholders or directors have been subject to debarment, the applicant should answer \"No\" to question 9",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The error in the Proposal section was caused by not answering the Deployment Location field",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Deployment Location should be the ACRA registered address",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The Deployment Location must not be at a home or a building meant for people to reside in",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "pre_application",
+        "what_l1": "general_enquiries",
+        "what_l2": "how_to",
+        "what_l3": "apply-steps"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00639",
+      "question": "A caller has been trying all morning to reach Traffic Police to clarify whether their lorry with a G-Plate needs to install a speed limiter. They previously checked with LTA, who indicated that this enquiry falls under Traffic Police's purview, but they have been unable to reach any customer service officer.",
+      "expected_outcome": "The caller's enquiry is escalated to Traffic Police and Traffic Police responds to the caller with the clarification they need.",
+      "enquiry_text": "Caller has been trying to contact Traffic Police the entire morning to clarify on whether their  lorry with a G-Plate needs to install speed limiter.  However, they are unable to reach any customer service officer.     Caller has previously checked with LTA who mentioned that their enquiry is under TP's purview",
+      "answer_text": "",
+      "claims": [],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": null,
+        "scheme_type": null,
+        "stage": "none",
+        "what_l1": "out_of_scope",
+        "what_l2": "human_request",
+        "what_l3": "chase-unanswered-channel"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": null
+        },
+        {
+          "ministry": "MOT",
+          "agency": "LTA",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00645",
+      "question": "A company had their PSG claim submission rejected because they made payment to their vendor before submitting the application. Although the company only started their campaign activities after the application was approved, the payment timing violated PSG eligibility criteria. The company wants to appeal the rejection based on their campaign execution timeline rather than payment timing, and needs confirmation of the appeal process to show their vendor, FY ADVERTISEMENT PTE. LTD.",
+      "expected_outcome": "The user understands that their appeal request has been submitted and will be reviewed, knows the timeline for appeal approval is 6 to 8 weeks upon receipt of complete documents, and knows that the claims PO will reach out via email within 2 weeks to start the appeal process.",
+      "enquiry_text": "25083QAB-CL01    Agency: Enterprise SG     Caller would like to request an appeal for their rejected claim submission. Caller confirmed the reason their application was rejected (as per the rejection letter) was due to them making the payment before the application. Caller liaised with their vendor and would like to appeal that although they had made the payment before the application, they had only started the campaign activities after the application has been approved.         Caller would like to request that Enterprise SG can review their application based on the campaign's execution timeline instead of when they've made a payment. Caller would also like an email to be provided to them to indicate if this is not supported, or at least to confirm the appeal is in process so they may show this to their vendor (FY ADVERTISEMENT PTE. LTD.).",
+      "answer_text": "For PSG, applicants must not have made any form of payment, including deposits, for the solution they are applying for, as this is one of the main Eligibility Criteria.\nThe appeal is subject to approval.\nThe timeline for appeal approval and the data patch to reinstate the claim can take between 6 to 8 weeks upon receipt of complete documents.\nThe claims PO will reach out to the company via email in the next 2 weeks to start the appeal process.",
+      "claims": [
+        {
+          "claim": "For PSG, applicants must not have made any form of payment, including deposits, for the solution they are applying for, as this is one of the main Eligibility Criteria.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The appeal is subject to approval.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The timeline for appeal approval and the data patch to reinstate the claim can take between 6 to 8 weeks upon receipt of complete documents.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The claims PO will reach out to the company via email in the next 2 weeks to start the appeal process.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Productivity Solutions Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "decision_appeal",
+        "what_l3": "appeal-my-decision"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00669",
+      "question": "A caller is assisting his father with an Enterprise Enterprise Grant (EEG) claim that is pending resubmission after a Project Officer requested additional documentation. The caller has questions about the resubmission requirements and whether there are issues with the payment method used for the vendor purchase.",
+      "expected_outcome": "The caller understands how to address the Project Officer's documentation request through the resubmission process and receives clarification on whether the payment method will affect the claim.",
+      "enquiry_text": "2512ZRWH-CL01     Agency: Enterprise SG      Caller is calling in to check on his father's company's EEG claim and resubmission request by the PO and would like to clarify on a few things for their claim.    1. Caller mentioned the PO had asked them to provide the final financial documents from the month they had made the payment to their vendor (invoice, bank statement, transaction advise). Caller mentioned they had already provided the documents and does not understand why the PO asked for this information again.  2. Caller also wants to know if there would be an issue with their claim documentation, if the payments were made from his account and not his father's account, when purchasing the solution.",
+      "answer_text": "The caller can request clarification via the remarks box when making a resubmission for the EEG claim.\nEnterprise Singapore will highlight and request the Project Officer to clarify if there is anything specific that has not yet been provided in the earlier resubmission.\nSole Proprietorships are able to use personal accounts for payments under the EEG claim.\nEnterprise Singapore will double-check whether using an account that is not from an employee of the company is acceptable for the EEG claim.\nThe caller should make the payment method clarification request via the remarks box when resubmitting the EEG claim.\nThe caller should monitor the email indicated under the Main Contact Person section for updates regarding the EEG claim.",
+      "claims": [
+        {
+          "claim": "The caller can request clarification via the remarks box when making a resubmission for the EEG claim.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Enterprise Singapore will highlight and request the Project Officer to clarify if there is anything specific that has not yet been provided in the earlier resubmission.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Sole Proprietorships are able to use personal accounts for payments under the EEG claim.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Enterprise Singapore will double-check whether using an account that is not from an employee of the company is acceptable for the EEG claim.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should make the payment method clarification request via the remarks box when resubmitting the EEG claim.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should monitor the email indicated under the Main Contact Person section for updates regarding the EEG claim.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Energy Efficiency Grant",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "rfa-response"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Energy Efficiency Grant"
+        },
+        {
+          "ministry": "MSE",
+          "agency": "NEA",
+          "scheme": null
+        },
+        {
+          "ministry": "MND",
+          "agency": "BCA",
+          "scheme": null
+        },
+        {
+          "ministry": "MOT",
+          "agency": "MPA",
+          "scheme": null
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00740",
+      "question": "A caller has received a Letter of Offer (LOF) for her Market Readiness Assistance (MRA) grant from Enterprise Singapore. She wants to confirm whether she needs to do anything else besides accepting the LOF, and her claim is due by 30 September 2026.",
+      "expected_outcome": "The caller understands that she needs to submit her claim once her project is completed and before the due date of 30 September 2026, and that the Project Officer will contact her via the Business Grants Portal if any additional details are required.",
+      "enquiry_text": "2505GJBS Agency: EntSG  MRA      Caller asking about her MRA, is there anything other than accepting the LOF needed.      The claim due date is 30 September 2026.",
+      "answer_text": "If the Project Officer requires any additional details for the MRA grant, the Project Officer will reach out via the Business Grants Portal.\nThe caller needs to submit her MRA claim once her project is completed.\nThe caller needs to submit her MRA claim before the due date of 30 September 2026.",
+      "claims": [
+        {
+          "claim": "If the Project Officer requires any additional details for the MRA grant, the Project Officer will reach out via the Business Grants Portal.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller needs to submit her MRA claim once her project is completed.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller needs to submit her MRA claim before the due date of 30 September 2026.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Market Readiness Assistance",
+        "scheme_type": "grant",
+        "stage": "application",
+        "what_l1": "general_enquiries",
+        "what_l2": "obligations",
+        "what_l3": "licence-conditions"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-00792",
+      "question": "A Head of Marketing at a semiconductor packaging company in Singapore wants to inquire about a specific project process in detail and is seeking the email address of the relevant Business Advisor for further communication.",
+      "expected_outcome": "The person receives guidance on how to arrange an e-meeting with Enterprise Singapore and understands the process for booking an appointment through the appropriate channel.",
+      "enquiry_text": "Thank you very much for your reply. Please accept my apologies for the delayed response, as I have been occupied with work over the past few days.     I am the Head of Marketing at a semiconductor packaging company based in Singapore. I am writing to inquire about the specific project process in detail. Could you please provide me with the email address of the relevant contact BA for further communication?     For your reference, here is the link to our company website:  华封科技",
+      "answer_text": "If the person is not located in Singapore, a Singapore-based colleague should help make the appointment\nAppointments for e-meetings can be made through https://partnersengage.enterprisesg.gov.sg/book-appointment",
+      "claims": [
+        {
+          "claim": "If the person is not located in Singapore, a Singapore-based colleague should help make the appointment",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Appointments for e-meetings can be made through https://partnersengage.enterprisesg.gov.sg/book-appointment",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": null,
+        "scheme_type": "none",
+        "stage": "not_applicable",
+        "what_l1": "general_enquiries",
+        "what_l2": "scheme_discovery",
+        "what_l3": "contact_routing"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": null
+        }
+      ],
+      "tier": "not_escalated",
+      "channel": "email"
+    },
+    {
+      "case_id": "ESG-2601-00931",
+      "question": "A caller received an email notification that their claim has been rejected but cannot find the reason for the rejection in the email. The caller wants to understand why the claim was rejected and speak with the relevant team about it.",
+      "expected_outcome": "The caller understands where to find the rejection letter, learns the specific reasons why the claim was rejected, and is informed that a request can be made for the Processing Officer to reach out for further clarification.",
+      "enquiry_text": "2411SR3A-CL01    Agency: Enterprise SG     Caller received an email that their claim has been rejected but could not find a reason. Caller would like to know what the reason is and speak with the relevant team on it.",
+      "answer_text": "The rejection letter can be found by navigating to the BGP site, then the Claims tab, then the Completed tab, then Project Title, then Letters & Documents, then Rejection Letter.\nThe claim was rejected because the outcome reference in the meeting differs from the email validation and cannot be validated against the note of meeting, raising concerns about the accuracy of the report.\nThe claim was rejected because the profile reports of the Potential Partners contain only generic information making it unclear how the assessment was made that the Potential Partners are suitable for the company.\nFour out of five leads could not be properly validated because most leads are no longer interested or suitable, or collaboration might disrupt their operations, which contradicts the information provided by the vendor in the original meeting notes.\nOne lead's validation email was sent to an incorrect contact person, so no validation occurred for that lead.\nA request can be made for the Processing Officer to reach out to the caller to clarify further on the reason for rejection.",
+      "claims": [
+        {
+          "claim": "The rejection letter can be found by navigating to the BGP site, then the Claims tab, then the Completed tab, then Project Title, then Letters & Documents, then Rejection Letter.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The claim was rejected because the outcome reference in the meeting differs from the email validation and cannot be validated against the note of meeting, raising concerns about the accuracy of the report.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The claim was rejected because the profile reports of the Potential Partners contain only generic information making it unclear how the assessment was made that the Potential Partners are suitable for the company.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "Four out of five leads could not be properly validated because most leads are no longer interested or suitable, or collaboration might disrupt their operations, which contradicts the information provided by the vendor in the original meeting notes.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "One lead's validation email was sent to an incorrect contact person, so no validation occurred for that lead.",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "A request can be made for the Processing Officer to reach out to the caller to clarify further on the reason for rejection.",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Market Readiness Assistance",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "respond_to_agency",
+        "what_l3": "rfa-response"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    },
+    {
+      "case_id": "ESG-2601-01059",
+      "question": "A caller has submitted two Global Ready Talent (GRT) internship claims with reference IDs ESG-GRT-L-2420340-C01 and ESG-GRT-L-2316201-C02, totaling more than $15,000. The claims have not been disbursed yet and the caller is experiencing cashflow issues. The caller is seeking assistance to expedite these claims.",
+      "expected_outcome": "The caller is guided to check the claim status in the BGP 2.0 system under All Grants, and the matter is escalated as urgent due to cashflow issues with the caller advised to monitor their email for updates.",
+      "enquiry_text": "ESG-GRT-L-2420340-C01   Type: GRT Status Check/Expedite        Caller has been doing internship applications for GRT and would like assistance in expediting a few claims that have not provided the disbursement yet. Caller mentioned for the two Ref ID's they have ( ESG-GRT-L-2420340-C01     ESG-GRT-L-2316201-C02)   on hand it's already totalling to more than $15k and that they are now experiencing cashflow issues and would need assistance in getting this expedited.",
+      "answer_text": "The caller can check claim submissions by navigating to BGP 2.0 and then to All Grants\nThe claim status shows as Processing in the BGP 2.0 system\nThe matter will be highlighted as urgent due to the caller's cashflow issues to check on the status of the claims\nThe caller should keep an eye on their email for any updates regarding the claims",
+      "claims": [
+        {
+          "claim": "The caller can check claim submissions by navigating to BGP 2.0 and then to All Grants",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The claim status shows as Processing in the BGP 2.0 system",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The matter will be highlighted as urgent due to the caller's cashflow issues to check on the status of the claims",
+          "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "The caller should keep an eye on their email for any updates regarding the claims",
+          "agency": "ESG",
+          "source": null
+        }
+      ],
+      "taxonomy": {
+        "ministry": "MTI",
+        "agency": "ESG",
+        "scheme": "ESG.Global Ready Talent Programme",
+        "scheme_type": "grant",
+        "stage": "claim",
+        "what_l1": "my_cases",
+        "what_l2": "application_status",
+        "what_l3": "expedite-request"
+      },
+      "agency": "ESG",
+      "who": [
+        {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Global Ready Talent Programme"
+        }
+      ],
+      "tier": "escalated",
+      "channel": "call"
+    }
+  ]
+}
