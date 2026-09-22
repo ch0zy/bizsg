@@ -398,6 +398,16 @@
           "claim": "The Processing Officer will be contacting the applicant via email to obtain the documents.",
           "agency": "ESG",
           "source": null
+        },
+        {
+          "claim": "For construction-related document submissions, the Building and Construction Authority (BCA) requires supporting documents to be uploaded via the CORENET e-Submission system, not the ESG portal.",
+          "agency": "BCA",
+          "source": null
+        },
+        {
+          "claim": "Maritime Port Authority (MPA) vessel-related grant documentation must be submitted separately through MPA's online services portal.",
+          "agency": "MPA",
+          "source": null
         }
       ],
       "taxonomy": {
@@ -1105,6 +1115,16 @@
           "claim": "The Project Officer will assess the resubmission accordingly and will reach out again if further clarification is needed.",
           "agency": "ESG",
           "source": null
+        },
+        {
+          "claim": "For businesses in the food and beverage sector, NEA may require a valid food shop licence before BGP equipment grant disbursements can proceed.",
+          "agency": "NEA",
+          "source": null
+        },
+        {
+          "claim": "NEA can be contacted at 1800-2255 632 for queries on food establishment licensing requirements that may affect grant eligibility.",
+          "agency": "NEA",
+          "source": null
         }
       ],
       "taxonomy": {
@@ -1358,6 +1378,16 @@
         {
           "claim": "The caller should monitor the email indicated under the Main Contact Person section for updates regarding the EEG claim.",
           "agency": "ESG",
+          "source": null
+        },
+        {
+          "claim": "For EEG claims involving NEA-regulated equipment, the National Environment Agency requires a valid food shop or factory licence to be on record before disbursement.",
+          "agency": "NEA",
+          "source": null
+        },
+        {
+          "claim": "BCA grants for green building retrofits are administered separately and should be applied for via the BCA portal at gobusiness.gov.sg.",
+          "agency": "BCA",
           "source": null
         }
       ],

@@ -74,6 +74,16 @@
         "claim": "Application status updates for SSG Tech Grant submissions are managed by the SSG helpdesk. Please contact them directly with your application reference number and they will be able to assist you.",
         "agency": "ESG",
         "source": null
+      },
+      {
+        "claim": "The SSG Tech Grant is administered by SkillsFuture Singapore (SSG). Status updates on submitted applications are available through the SSG Grants portal at skillsfuture.gov.sg.",
+        "agency": "SSG",
+        "source": null
+      },
+      {
+        "claim": "For urgent follow-ups on SSG Tech Grant applications, SSG can be reached at 6785 5785 during office hours.",
+        "agency": "SSG",
+        "source": null
       }
     ],
     "taxonomy": {
