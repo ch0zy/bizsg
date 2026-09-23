@@ -1,0 +1,351 @@
+[
+  {
+    "conversation_id": "conv-a-001",
+    "turns": [
+      {
+        "case_id": "ESG-2512-00070",
+        "question": "A founder and CEO of Maxpiro.ai Pte Ltd is following up on their SSG Tech Grant application for CrackDetect AI. They have already submitted the application and are seeking an update on its status. They are offering to provide any additional details or documents if needed.",
+        "expected_outcome": "The user receives an update on their SSG Tech Grant application status for CrackDetect AI, or is informed of any additional documents or information required to process their application.",
+        "enquiry_text": "[WARNING: EXTERNAL EMAIL]  Exercise caution before opening attachments, clicking links or sharing information.             Good morning Jessica,    Happy New Year! I hope you had a wonderful start to 2026.     I just wanted to follow up regarding our SSG Tech Grant application for CrackDetect AI. Please let me know if any further details or documents are needed from our side.    Looking forward to your kind update. Thanks.     Best Regards and Thanks    Ganesan Muruganandam (Anand)    Founder   CEO, Maxpiro.ai Pte Ltd    HP: [PHONE]    Email:   [EMAIL]        www.maxpiro.com",
+        "answer_text": "Application status updates for SSG Tech Grant submissions are managed by the SSG helpdesk. Please contact them directly with your application reference number and they will be able to assist you.",
+        "claims": [
+          {
+            "claim": "Application status updates for SSG Tech Grant submissions are managed by the SSG helpdesk. Please contact them directly with your application reference number and they will be able to assist you.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "SkillsFuture Singapore (SSG) manages all application status communications for SSG-administered grants, including the SSG Tech Grant. Enquiries about application status should be directed to SSG directly as Enterprise Singapore does not have visibility into SSG's internal processing systems.",
+                "title": "SSG Contact Us \u2014 Tech Grant enquiries",
+                "url": "https://www.ssg.gov.sg/contact-us.html",
+                "type": "url"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Startup SG Tech",
+          "scheme_type": "grant",
+          "stage": "none",
+          "what_l1": "my_cases",
+          "what_l2": "application_status",
+          "what_l3": "where-is-it"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Startup SG Tech"
+          },
+          {
+            "ministry": "MOM",
+            "agency": "SSG",
+            "scheme": null
+          }
+        ],
+        "tier": "escalated",
+        "channel": "email",
+        "sources": [
+          {
+            "id": "src-070-1",
+            "type": "url",
+            "url": "https://www.ssg.gov.sg/contact-us.html",
+            "title": "SSG Contact Us \u2014 Tech Grant enquiries"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv-a-002",
+    "turns": [
+      {
+        "case_id": "ESG-2601-00008",
+        "question": "A company director is attempting to submit claims for an Overseas Market Preparation (OMP) Grant with reference ID 240799EZ. The director discovered that the claims submission closing date in the Business Grants Portal (BGP) is set to 30 December 2025 instead of 31 December 2025, which is the actual last day of the month, and the portal has closed before the director could submit the claims.",
+        "expected_outcome": "The director receives confirmation that Enterprise Singapore has received the change request to reactivate the grant in the BGP Portal and understands that the request is under review with a response to come.",
+        "enquiry_text": "Ref ID: 240799EZ Claims submission Alex Neo  [EMAIL]  Wed 31/12/2025, 20:19 ENTERPRISESG enquiries-reply (ENTERPRISESG)  Dear Mark,  I'm trying to submit the claims for the above mentioned OMP Grant but realise that the closing date is 30/12/25 instead of 31/12/25 which is the actual last day of the month. Pls help to reactivate the grant in BGP Portal so that I can process and submit the claims. Thank you and Happy New Year.  Regards Alex Neo Director",
+        "answer_text": "Enterprise Singapore acknowledged receipt of the change request submission on 2 January 2026 at 10:18 AM.\nThe change request for Grant reference ID 240799EZ is currently under review by the Enterprise Singapore team.\nEnterprise Singapore will be in touch regarding the review outcome as soon as possible.",
+        "claims": [
+          {
+            "claim": "Enterprise Singapore acknowledged receipt of the change request submission on 2 January 2026 at 10:18 AM.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Enterprise Singapore logs the receipt date of all change requests submitted via BGP. The receipt date is recorded at the time of submission and is used as the start date for processing SLAs. Applicants receive an automated email confirmation upon submission.",
+                "title": "BGP Portal \u2014 Claims submission FAQ",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/faq.html",
+                "type": "url"
+              },
+              {
+                "text": "Change request processing is governed by the BGP SLA framework. Standard review window is 5 to 10 working days from acknowledgement date.",
+                "type": "doc",
+                "title": "ESG Claims Processing Guidelines v2.4"
+              },
+              {
+                "text": "Applicants may check change request status by logging into BGP and navigating to My Applications > Change Requests.",
+                "type": "url",
+                "title": "BGP Portal \u2014 Claims submission FAQ",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/faq.html"
+              }
+            ]
+          },
+          {
+            "claim": "The change request for Grant reference ID 240799EZ is currently under review by the Enterprise Singapore team.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Change requests for active BGP grants are reviewed by an assigned Project Officer. The review period depends on the complexity of the change. Applicants will be contacted via email once the review is complete.",
+                "title": "ESG Claims Processing Guidelines v2.4",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "Enterprise Singapore will be in touch regarding the review outcome as soon as possible.",
+            "agency": "ESG",
+            "sources": []
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance",
+          "scheme_type": "grant",
+          "stage": "claim",
+          "what_l1": "my_cases",
+          "what_l2": "respond_to_agency",
+          "what_l3": "correct-mistake"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Market Readiness Assistance"
+          }
+        ],
+        "tier": "not_escalated",
+        "channel": "email",
+        "sources": [
+          {
+            "id": "src-008-1",
+            "type": "url",
+            "url": "https://www.businessgrants.gov.sg/content/bgp/help/faq.html",
+            "title": "BGP Portal \u2014 Claims submission FAQ"
+          },
+          {
+            "id": "src-008-2",
+            "type": "doc",
+            "title": "ESG Claims Processing Guidelines v2.4",
+            "excerpt": "Claims must be submitted within the grant approval period. If the portal displays an incorrect closing date, the applicant should contact the administering agency immediately with their grant reference number to request a date correction or portal reactivation. The agency will review the request within 3 working days."
+          },
+          {
+            "id": "src-008-3",
+            "type": "url",
+            "url": "https://www.enterprisesg.gov.sg/financial-support/grants/market-readiness-assistance-grant",
+            "title": "Market Readiness Assistance Grant \u2014 Enterprise Singapore"
+          }
+        ]
+      },
+      {
+        "case_id": "ESG-2601-00047",
+        "question": "A company has submitted retrospective applications for speed limiters and is waiting for a final response from the Land Transport Authority (LTA). The case has been kept open while awaiting LTA's decision on all the retrospective applications.",
+        "expected_outcome": "The user understands the current status of their retrospective speed limiter applications with the Land Transport Authority.",
+        "enquiry_text": "Keeping the case open while pending TP's final response regarding all retro applications for Speed Limiters",
+        "answer_text": "The Land Transport Authority is reviewing the retrospective speed limiter applications",
+        "claims": [
+          {
+            "claim": "The Land Transport Authority is reviewing the retrospective speed limiter applications",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "The Land Transport Authority (LTA) reviews retrospective speed limiter applications case-by-case. Processing timelines depend on documentation completeness. LTA will contact the applicant via registered email once a decision is made.",
+                "title": "LTA \u2014 Speed Limiter Retrofit Programme FAQ",
+                "type": "doc"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant",
+          "scheme_type": "grant",
+          "stage": "pre_application",
+          "what_l1": "general_enquiries",
+          "what_l2": "eligibility",
+          "what_l3": "pending_decision_status"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Productivity Solutions Grant"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "email",
+        "sources": [
+          {
+            "id": "src-047-1",
+            "type": "doc",
+            "title": "LTA \u2014 Speed Limiter Retrofit Programme FAQ",
+            "excerpt": "Retrospective applications for speed limiters submitted before the programme deadline are subject to review by LTA. Applicants will be notified of the outcome by post or email. Processing times may vary depending on the volume of applications received."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv-a-003",
+    "turns": [
+      {
+        "case_id": "ESG-2601-00093",
+        "question": "A company submitted a Change Request on 25 December 2025 to extend their Claim Due Date from 29 December 2025 because they have not completed the audit for their Enterprise Development Grant claim. The caller is enquiring about the status of this Change Request with reference number 241154BK-CR01.",
+        "expected_outcome": "The caller understands that the Change Request requires time to process and knows the proper claim submission procedure, including the requirement to select an auditor from Enterprise Singapore's Pre-Qualified Panel and wait for Change Request approval before submitting the claim.",
+        "enquiry_text": "241154BK-CR01    Agency:Enterprise Singapore           Caller enquiring on the above Change Request submitted on   25 Dec 2025, to extend the Claim Due Date because they have not completed the Audit.Initial Claim Due Date: 29 Dec 2025        Caller enquiring on the status of the above Change Request.",
+        "answer_text": "The Change Request will require some time to process.\nThe company should have submitted the claim before the Claim Due Date.\nDuring final claim submission in BGP, the company must select an auditor from Enterprise Singapore's Pre-Qualified Panel to verify the claims.\nAn Enterprise Singapore officer will verify that the project deliverables have been met.\nThe Enterprise Singapore officer may contact the company for further information if required.\nA site visit or presentation meeting may be arranged for the purpose of verifying project deliverables.\nThe company may be asked to revise the Project Report if the information is incomplete.\nThe auditor that the company has appointed will verify the claim documents and issue an Audit Report upon completion of the verification.\nThe company should wait for the approval of the Change Request before submitting the claim.",
+        "claims": [
+          {
+            "claim": "The Change Request will require some time to process.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Change requests submitted through BGP require manual review by an Enterprise Singapore officer. Standard processing time is 5 to 10 working days. Complex requests may take longer.",
+                "title": "BGP \u2014 How to submit a Change Request",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/change-request.html",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The company should have submitted the claim before the Claim Due Date.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Under BGP grant conditions, claims must be submitted on or before the Claim Due Date in the Letter of Offer. Retrospective extensions are assessed at Enterprise Singapore's discretion and are not guaranteed.",
+                "title": "ESG Claims Processing Guidelines v2.4",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "During final claim submission in BGP, the company must select an auditor from Enterprise Singapore's Pre-Qualified Panel to verify the claims.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "During final claim submission in BGP, companies must select a pre-approved auditor from the BGP panel. The auditor selection screen appears in Step 3 of the submission flow.",
+                "title": "EDG Claim Submission Guide \u2014 Auditor Requirements",
+                "type": "doc"
+              },
+              {
+                "text": "EDG claims above $30,000 must be verified by an auditor from Enterprise Singapore's Pre-Qualified Panel. The auditor must be appointed before final claim submission.",
+                "type": "doc",
+                "title": "EDG Claim Submission Guide \u2014 Auditor Requirements"
+              }
+            ]
+          },
+          {
+            "claim": "An Enterprise Singapore officer will verify that the project deliverables have been met.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Enterprise Singapore officers verify that all project deliverables in the approved scope have been completed and are supported by adequate documentation before processing the final claim.",
+                "title": "Enterprise Development Grant \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/financial-support/grants/enterprise-development-grant",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The Enterprise Singapore officer may contact the company for further information if required.",
+            "agency": "ESG",
+            "sources": []
+          },
+          {
+            "claim": "A site visit or presentation meeting may be arranged for the purpose of verifying project deliverables.",
+            "agency": "ACRA",
+            "sources": [
+              {
+                "text": "Site visits or presentation meetings may be arranged at the officer's discretion for projects with high grant quantum or complex deliverables. The officer will provide at least 5 working days notice.",
+                "title": "BGP \u2014 How to submit a Change Request",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/change-request.html",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The company may be asked to revise the Project Report if the information is incomplete.",
+            "agency": "ACRA",
+            "sources": [
+              {
+                "text": "If the Project Report is insufficient, the assigned officer will issue a revision request via BGP. Companies are typically given 5 working days to resubmit.",
+                "title": "EDG Claim Submission Guide \u2014 Auditor Requirements",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The auditor that the company has appointed will verify the claim documents and issue an Audit Report upon completion of the verification.",
+            "agency": "MOM",
+            "sources": [
+              {
+                "text": "The appointed auditor verifies receipts, invoices, and proof of payment. Auditors must be from the BGP-approved panel and must be independent of the company.",
+                "title": "EDG Claim Submission Guide \u2014 Auditor Requirements",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The company should wait for the approval of the Change Request before submitting the claim.",
+            "agency": "ESG",
+            "sources": []
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Enterprise Development Grant",
+          "scheme_type": "grant",
+          "stage": "claim",
+          "what_l1": "my_cases",
+          "what_l2": "change_application",
+          "what_l3": "claim_due_date_extension"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Enterprise Development Grant"
+          }
+        ],
+        "tier": "not_escalated",
+        "channel": "call",
+        "sources": [
+          {
+            "id": "src-093-1",
+            "type": "url",
+            "url": "https://www.businessgrants.gov.sg/content/bgp/help/change-request.html",
+            "title": "BGP \u2014 How to submit a Change Request"
+          },
+          {
+            "id": "src-093-2",
+            "type": "doc",
+            "title": "EDG Claim Submission Guide \u2014 Auditor Requirements",
+            "excerpt": "All EDG claims above $30,000 must be verified by an auditor from Enterprise Singapore's Pre-Qualified Panel. The company is responsible for appointing the auditor before final claim submission. The auditor will issue an Audit Report which must be uploaded in BGP as part of the claim package."
+          },
+          {
+            "id": "src-093-3",
+            "type": "url",
+            "url": "https://www.enterprisesg.gov.sg/financial-support/grants/enterprise-development-grant",
+            "title": "Enterprise Development Grant \u2014 Enterprise Singapore"
+          }
+        ]
+      }
+    ]
+  }
+]

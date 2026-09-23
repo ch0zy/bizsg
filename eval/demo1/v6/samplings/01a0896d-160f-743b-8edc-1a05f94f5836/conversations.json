@@ -1,0 +1,655 @@
+[
+  {
+    "conversation_id": "conv-b-001",
+    "topic": "BGP portal technical issues",
+    "turns": [
+      {
+        "case_id": "ESG-2512-00996",
+        "question": "A company is experiencing a technical issue when trying to upload a file to a submission system. The file is 87 KB in size but the system is displaying an error message preventing the upload.",
+        "expected_outcome": "The company successfully uploads their file after receiving troubleshooting guidance and confirmation that the technical issue has been resolved.",
+        "enquiry_text": "Hi Maslina,       Just tried and still unable to upload file with error message below. Our file is 87 KB in size.",
+        "answer_text": "The technical team has confirmed that the file upload issue has been resolved.\nWhen submitting the Branch Code, leading zeros should be removed before resubmitting the application.\nFor example, instead of submitting \"072\", submit \"72\" for the Branch Code.\nAcceptable attachment types are Pdf, Docx, Pptx, Png, Jpg, and Jpeg.\nThe maximum file size for attachments is 9.5 MB in total.",
+        "claims": [
+          {
+            "claim": "The technical team has confirmed that the file upload issue has been resolved.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "File upload issues on the BGP portal are investigated and resolved by the portal operations team. Once resolved, users are notified via email. If the issue persists after the fix, users should clear browser cache and retry using Chrome or Edge.",
+                "title": "BGP Portal \u2014 Technical Support FAQ",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/technical-support.html",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "When submitting the Branch Code, leading zeros should be removed before resubmitting the application.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "When entering bank branch codes in BGP, leading zeros must be removed. For example, Branch Code '072' should be entered as '72'. This is a known field validation requirement in the BGP portal's payment details section.",
+                "title": "BGP Payment Details Guide \u2014 Branch Code Entry",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "For example, instead of submitting \"072\", submit \"72\" for the Branch Code.",
+            "agency": "ESG",
+            "sources": []
+          },
+          {
+            "claim": "Acceptable attachment types are Pdf, Docx, Pptx, Png, Jpg, and Jpeg.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Accepted file types for BGP portal attachments are: PDF, DOCX, PPTX, PNG, JPG, and JPEG. Files in other formats (e.g. XLSX, MOV, ZIP) will be rejected at upload.",
+                "title": "BGP Portal \u2014 File Attachment Requirements",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/attachments.html",
+                "type": "url"
+              },
+              {
+                "text": "File type restrictions apply to all BGP attachment fields. If a required document is in an unsupported format, convert to PDF before uploading.",
+                "type": "url",
+                "title": "BGP Portal \u2014 File Attachment Requirements",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/attachments.html"
+              }
+            ]
+          },
+          {
+            "claim": "The maximum file size for attachments is 9.5 MB in total.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "The maximum combined file size for all attachments in a single BGP submission is 9.5 MB. If the total exceeds this limit, users should compress files or split submissions across multiple resubmissions where permitted.",
+                "title": "BGP Portal \u2014 File Attachment Requirements",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/attachments.html",
+                "type": "url"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Business Grants Portal 2.0",
+          "scheme_type": "none",
+          "stage": "not_applicable",
+          "what_l1": "technical_issues",
+          "what_l2": "system_fault",
+          "what_l3": "upload-crash"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Business Grants Portal 2.0"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "email"
+      },
+      {
+        "case_id": "ESG-2601-00126",
+        "question": "A caller is attempting to fill out the downloadable GRT Claim Form from BGP 2.0's GRT Claim Submission but encounters technical errors that prevent them from entering the correct details. The caller has no issues with some columns but receives a \"#NAME?\" error in columns E & F when filling in the Working Days Per Week column using the dropdown, and a data validation error when filling in the No of Unpaid Leave Days column.",
+        "expected_outcome": "The caller receives guidance on the GRT Claim Form, has their technical issues documented and escalated to the relevant technical team, and is advised to monitor their email for updates on the resolution.",
+        "enquiry_text": "ESG-GRT-L-2422930-CL01 Type: GRT Claim Form issue     Caller would like assistance regarding the downloadable GRT Claim Form from the BGP 2.0's GRT Claim Submission. When caller tries to fill in the form they encounter a few errors that prevents them from providing the correct details.",
+        "answer_text": "When filling in the Working Days Per Week column using the dropdown, columns E & F show an error of \"#NAME?\"\nWhen filling in the No of Unpaid Leave Days column, the GRT Claim Form encounters an error saying \"Does not match the data validation restrictions defined for this cell\"\nThe caller was informed that Enterprise Singapore will highlight the issue with the downloaded GRT Claim Form to the relevant team\nThe caller was advised to keep an eye on their email for any updates on the GRT Claim Form issue\nThe caller was asked to provide screenshots of the errors encountered on the GRT Claim Form along with timestamps of when these errors occurred",
+        "claims": [
+          {
+            "claim": "When filling in the Working Days Per Week column using the dropdown, columns E & F show an error of \"#NAME?\"",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "The GRT Claim Form's Working Days Per Week dropdown applies to columns E and F simultaneously. Selecting a value in one column auto-populates the other. This is intended behaviour in the current form version.",
+                "title": "GRT Claim Form User Guide v1.3",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "When filling in the No of Unpaid Leave Days column, the GRT Claim Form encounters an error saying \"Does not match the data validation restrictions defined for this cell\"",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "A known issue exists with the No of Unpaid Leave Days column in the GRT Claim Form where entering certain values triggers a validation error. Enterprise Singapore has been notified and is working on a fix.",
+                "title": "GRT Claim Form User Guide v1.3",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The caller was informed that Enterprise Singapore will highlight the issue with the downloaded GRT Claim Form to the relevant team",
+            "agency": "ESG",
+            "sources": []
+          },
+          {
+            "claim": "The caller was advised to keep an eye on their email for any updates on the GRT Claim Form issue",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Callers experiencing GRT Claim Form errors will be updated via email once a resolution is available. Enterprise Singapore aims to notify affected users within 5 working days of a confirmed fix.",
+                "title": "Global Ready Talent Programme \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/grow-your-business/talent-for-growth/global-ready-talent-programme",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The caller was asked to provide screenshots of the errors encountered on the GRT Claim Form along with timestamps of when these errors occurred",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Screenshots of form errors assist the technical team in diagnosing GRT Claim Form issues. Screenshots should capture the full browser window including the error message and the field where the error occurs.",
+                "title": "GRT Claim Form User Guide v1.3",
+                "type": "doc"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Business Grants Portal 2.0",
+          "scheme_type": "none",
+          "stage": "not_applicable",
+          "what_l1": "technical_issues",
+          "what_l2": "form_filling",
+          "what_l3": "downloadable_form_errors"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Business Grants Portal 2.0"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "call"
+      },
+      {
+        "case_id": "ESG-2601-00097",
+        "question": "A grant applicant is experiencing difficulties with document submission due to file size limitations in the online system. They had to delete a previously uploaded document to submit new required information, made a resubmission on 31 December 2025 with an explanation in the remarks box, and are now waiting for a response from their Processing Officer regarding this matter.",
+        "expected_outcome": "The user receives confirmation that their Processing Officer has been notified about their resubmission and the document upload issue, and understands that the Processing Officer will contact them directly to obtain the required documents.",
+        "enquiry_text": "25102JJP-CL01    Agency: Enterprise SG          Caller would like to request assistance in clarifying the requests by their PO. Caller mentioned how they are getting exhausted with the back and forth, especially as they are not tech savvy. They were asked to provide additional information, caller was able to provide but due to the size of their document they were unable to upload. They had attempted to reduce the size of the document but it did not work, only after deleting a document they had already uploaded (caller justifies that the PO should already have received that document from previous submissions) where they able to proceed. Caller was then informed they should not delete any documents but mentioned the alternative is them being unable to submit.         Caller made a resubmission, providing the PO their response as to why they deleted the file but are still waiting for a response. Caller would like to get a response from the PO on this matter.          (Caller spoke on the phone with his wife Mrs. TIAN to discuss this matter).",
+        "answer_text": "Resubmissions have no set time frame to process and are assessed on a case-by-case basis.\nThe Processing Officer has been informed about the resubmission made on 31 December 2025.\nThe Processing Officer has been informed about the reason provided for why the applicant needed to make the resubmission the way they did.\nThe Processing Officer will be contacting the applicant via email to obtain the documents.",
+        "claims": [
+          {
+            "claim": "Resubmissions have no set time frame to process and are assessed on a case-by-case basis.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "BGP resubmissions are assessed on a case-by-case basis with no fixed processing timeline. Priority is given based on submission date and complexity. Applicants are advised to monitor their email for updates.",
+                "title": "ESG Claims Processing Guidelines v2.4",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The Processing Officer has been informed about the resubmission made on 31 December 2025.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "When a resubmission is made, the assigned Processing Officer is notified via an internal alert in the BGP system. The officer reviews the resubmission within their standard workload queue.",
+                "title": "ESG Claims Processing Guidelines v2.4",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The Processing Officer has been informed about the reason provided for why the applicant needed to make the resubmission the way they did.",
+            "agency": "ESG",
+            "sources": []
+          },
+          {
+            "claim": "The Processing Officer will be contacting the applicant via email to obtain the documents.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Processing Officers contact applicants via the email address registered under the BGP account's Main Contact Person. Ensure this address is current to avoid missed communications.",
+                "title": "ESG Claims Processing Guidelines v2.4",
+                "type": "doc"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Energy Efficiency Grant",
+          "scheme_type": "grant",
+          "stage": "claim",
+          "what_l1": "my_cases",
+          "what_l2": "respond_to_agency",
+          "what_l3": "rfa-response"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Energy Efficiency Grant"
+          },
+          {
+            "ministry": "MSE",
+            "agency": "NEA",
+            "scheme": null
+          },
+          {
+            "ministry": "MND",
+            "agency": "BCA",
+            "scheme": null
+          },
+          {
+            "ministry": "MOT",
+            "agency": "MPA",
+            "scheme": null
+          }
+        ],
+        "tier": "escalated",
+        "channel": "call"
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv-b-002",
+    "topic": "MRA claims under review",
+    "turns": [
+      {
+        "case_id": "ESG-2601-00059",
+        "question": "A caller is enquiring about the status of three MRA claims for Athena Digital Pte. Ltd. that were submitted between August and October 2025. The caller has previously spoken to an ESG officer in person about these claims and is threatening to escalate to MTI if the issue is not resolved.",
+        "expected_outcome": "The user understands that their MRA claims are undergoing internal review and that processing is on hold until the review is completed, and knows to wait for email contact from ESG officers.",
+        "enquiry_text": "2501GGUF-CL01  Agency: Enterprise Singapore     Caller enquiring about the status of their claims:  First submitted: Aug  01, 2025   Last submitted: Oct 16, 2025     Caller claims that they have went down to spoken to ESG officer personally regarding this and it has been clarified.      Caller intends to   escalate to MTI if this issue is not resolved.",
+        "answer_text": "Each resubmission of an MRA claim is assessed by Enterprise Singapore on a case-by-case basis.\nThe Project Officer will reach out again if further clarification is needed for the MRA claims.\nThe MRA claims for grant reference IDs 2409RQDY-CL01, 2409EU25-CL01, and 2501GGUF-CL01 are undergoing internal review.\nThe processing of the MRA claims will be put on hold until the internal review is completed.",
+        "claims": [
+          {
+            "claim": "Each resubmission of an MRA claim is assessed by Enterprise Singapore on a case-by-case basis.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Each MRA claim resubmission is independently assessed by the assigned Project Officer. There is no automatic approval on resubmission \u2014 each is evaluated against the grant conditions and supporting documentation provided.",
+                "title": "Market Readiness Assistance Grant \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/financial-support/grants/market-readiness-assistance-grant",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The Project Officer will reach out again if further clarification is needed for the MRA claims.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "If the Project Officer requires additional information following a resubmission, they will contact the applicant via email within the standard review period. Companies should monitor the email address registered under their BGP account.",
+                "title": "ESG Claims Processing Guidelines v2.4",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The MRA claims for grant reference IDs 2409RQDY-CL01, 2409EU25-CL01, and 2501GGUF-CL01 are undergoing internal review.",
+            "agency": "ESG",
+            "sources": []
+          },
+          {
+            "claim": "The processing of the MRA claims will be put on hold until the internal review is completed.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "MRA claims subject to internal review are placed on hold pending the outcome. The hold period varies depending on the nature of the review. Applicants will be notified once the hold is lifted and processing resumes.",
+                "title": "Market Readiness Assistance Grant \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/financial-support/grants/market-readiness-assistance-grant",
+                "type": "url"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Market Readiness Assistance",
+          "scheme_type": "grant",
+          "stage": "claim",
+          "what_l1": "my_cases",
+          "what_l2": "application_status",
+          "what_l3": "where-is-it"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Market Readiness Assistance"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "call"
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv-b-003",
+    "topic": "PSG disbursement status",
+    "turns": [
+      {
+        "case_id": "ESG-2601-00028",
+        "question": "A caller received PSG claim approval notifications on 30 November 2025 for two claims (reference IDs 2508W5AY-CL01 and 2508SRGF-CL01). She has not received the disbursements and wants to check on the payment status, having confirmed she selected corporate PayNow and has been receiving other grant disbursements successfully through that method.",
+        "expected_outcome": "The caller receives confirmation of when the PSG claim disbursements were made and understands that the payments have been successfully processed.",
+        "enquiry_text": "2508W5AY-CL01 Agency: EntSG  PSG      Caller saying she received her PSG claim approval notification on 30th November 2025. She confirmed did not received any notification or email about any failure in payments.     Caller does not have any access to a computer hence verbally confirmed that she did chose corporate paynow     Caller said she has been receiving her other disbursement for her other grants from her corporate paynow all this while.     Paynow Proxy: [UEN]\n\n2508SRGF-CL01   Agency: EntSG  PSG      Caller saying she received her PSG claim approval notification on 30th November 2025. She confirmed did not received any notification or email about any failure in payments.     Caller does not have any access to a computer hence verbally confirmed that she did chose corporate paynow     Caller said she has been receiving her other disbursement for her other grants from her corporate paynow all this while.     Paynow Proxy: [UEN]",
+        "answer_text": "The PSG claim with reference ID 2508W5AY-CL01 was successfully disbursed on 2 January 2026.\nThe PSG claim with reference ID 2508SRGF-CL01 was successfully disbursed on 2 January 2026.\nEnterprise Singapore's Finance team confirmed that the claims were successfully disbursed.",
+        "claims": [
+          {
+            "claim": "The PSG claim with reference ID 2508W5AY-CL01 was successfully disbursed on 2 January 2026.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "PSG claim disbursements are processed by Enterprise Singapore's Finance team after claim approval. Disbursement to PayNow-linked accounts typically occurs within 5 working days of approval confirmation.",
+                "title": "PSG Claim Disbursement Guide \u2014 Finance Team SOP",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The PSG claim with reference ID 2508SRGF-CL01 was successfully disbursed on 2 January 2026.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "PSG claim disbursements are processed by Enterprise Singapore's Finance team after claim approval. Disbursement to PayNow-linked accounts typically occurs within 5 working days of approval confirmation.",
+                "title": "PSG Claim Disbursement Guide \u2014 Finance Team SOP",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "Enterprise Singapore's Finance team confirmed that the claims were successfully disbursed.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Enterprise Singapore's Finance team confirms successful disbursement and logs the transaction date. Applicants can verify disbursement status by checking their BGP account under 'My Claims'.",
+                "title": "PSG Claim Disbursement Guide \u2014 Finance Team SOP",
+                "type": "doc"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant",
+          "scheme_type": "grant",
+          "stage": "disbursement",
+          "what_l1": "my_cases",
+          "what_l2": "application_status",
+          "what_l3": "post-approval-collection"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Productivity Solutions Grant"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "call"
+      },
+      {
+        "case_id": "ESG-2601-00053",
+        "question": "A caller's company has an approved PSG claim (250932SM-CL01) that was approved on 28th November, but they have not yet received the disbursement. The caller has confirmed that the corporate PayNow details were filled in the BGP claim form and no payment failure email was received.",
+        "expected_outcome": "The caller receives confirmation that the issue has been escalated to the relevant team and later learns when the payment was disbursed to the company's PayNow proxy.",
+        "enquiry_text": "250932SM-CL01  Agency: EntSG  PSG      Caller mentioned her PSG claim was approved 28th November and till now they have not received any disbursement, hence called in to checked.     Caller confirmed she has filled up the corporate paynow in BGP claim form (after being guided to check)      Caller also confirmed they did not receive any payment failure email.     Paynow Proxy:  [UEN]",
+        "answer_text": "The payment for PSG claim 250932SM-CL01 was disbursed to the company's PayNow proxy on 2 January 2026\nThe payment for PSG claim 250932SM-CL01 was disbursed to the PayNow proxy indicated in the claim form",
+        "claims": [
+          {
+            "claim": "The payment for PSG claim 250932SM-CL01 was disbursed to the company's PayNow proxy on 2 January 2026",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "PSG disbursements are made to the PayNow proxy registered in the company's BGP payment profile at the time of claim approval. Companies are advised to ensure their PayNow Corporate details are current before submitting a claim.",
+                "title": "BGP \u2014 Payment Details Setup Guide",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/payment-details.html",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The payment for PSG claim 250932SM-CL01 was disbursed to the PayNow proxy indicated in the claim form",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "The PayNow proxy used for disbursement is drawn from the payment details submitted in the BGP claim form. If the proxy has changed since submission, the company must contact Enterprise Singapore to update payment details before disbursement is processed.",
+                "title": "BGP \u2014 Payment Details Setup Guide",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/payment-details.html",
+                "type": "url"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Productivity Solutions Grant",
+          "scheme_type": "grant",
+          "stage": "disbursement",
+          "what_l1": "my_cases",
+          "what_l2": "application_status",
+          "what_l3": "where-is-it"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Productivity Solutions Grant"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "call"
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv-b-004",
+    "topic": "GRT local internship changes",
+    "turns": [
+      {
+        "case_id": "ESG-2601-00127",
+        "question": "A company representative is calling about the Global Ready Talent Programme (GRT) after receiving an email about changes to local internship support. They have a foreign student studying in Singapore who wants to apply for support, and they want to confirm the reason for discontinuing local internship support.",
+        "expected_outcome": "The representative understands that GRT local internship support is being discontinued effective 1 April 2026, that all students must be Singaporean or PR to qualify for GRT regardless of internship location, and that the programme will focus solely on overseas internships going forward.",
+        "enquiry_text": "Caller would like to confirm about the reason of discontinuing support for local internships. Caller enquiring that they have a foreign student that studies in SG and wants to apply for support.",
+        "answer_text": "Local internship support under the Global Ready Talent Programme is for internships that are based in Singapore.\nAll students must be Singaporean or PR for a company to apply for the Global Ready Talent Programme, even for overseas internships.\nThe Global Ready Talent Programme has provided over 30,000 internship opportunities across more than 4,000 companies since its launch in 2019.\nLocal internship support under the Global Ready Talent Programme will be discontinued with effect from 1 April 2026.\nThe Global Ready Talent Programme will focus solely on supporting overseas internships after 1 April 2026.\nThe Global Ready Talent Programme will continue to support overseas internships through allowances to students via institutes of higher learning.",
+        "claims": [
+          {
+            "claim": "Local internship support under the Global Ready Talent Programme is for internships that are based in Singapore.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Local internship support under the Global Ready Talent (GRT) Programme is available for internships hosted in Singapore. Host companies must be Singapore-registered entities.",
+                "title": "Global Ready Talent Programme \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/grow-your-business/talent-for-growth/global-ready-talent-programme",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "All students must be Singaporean or PR for a company to apply for the Global Ready Talent Programme, even for overseas internships.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "All interns supported under the GRT Programme's local internship track must be Singapore Citizens or Permanent Residents. Non-resident students are not eligible for local GRT support.",
+                "title": "Global Ready Talent Programme \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/grow-your-business/talent-for-growth/global-ready-talent-programme",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The Global Ready Talent Programme has provided over 30,000 internship opportunities across more than 4,000 companies since its launch in 2019.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "The Global Ready Talent Programme has facilitated over 30,000 internship placements since its launch, supporting Singapore companies in building talent pipelines both locally and overseas.",
+                "title": "Global Ready Talent Programme \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/grow-your-business/talent-for-growth/global-ready-talent-programme",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "Local internship support under the Global Ready Talent Programme will be discontinued with effect from 1 April 2026.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Local internship support under the GRT Programme will be discontinued from 31 March 2026. Companies with in-progress local internship applications should check their BGP account for the exact transition timeline.",
+                "title": "GRT Programme Transition Circular \u2014 March 2026",
+                "type": "doc"
+              },
+              {
+                "text": "Existing local internship cohorts approved before 31 March 2026 will be honoured and disbursed under the previous programme terms.",
+                "type": "doc",
+                "title": "GRT Programme Transition Circular \u2014 March 2026"
+              },
+              {
+                "text": "Companies may contact the GRT programme team at grt@enterprisesg.gov.sg for transition-related queries.",
+                "type": "url",
+                "title": "Global Ready Talent Programme \u2014 Enterprise Singapore",
+                "url": "https://www.enterprisesg.gov.sg/grow-your-business/talent-for-growth/global-ready-talent-programme"
+              }
+            ]
+          },
+          {
+            "claim": "The Global Ready Talent Programme will focus solely on supporting overseas internships after 1 April 2026.",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "From April 2026, the GRT Programme will focus exclusively on overseas internships, supporting Singapore students and companies with cross-border internship placements in key markets.",
+                "title": "GRT Programme Transition Circular \u2014 March 2026",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The Global Ready Talent Programme will continue to support overseas internships through allowances to students via institutes of higher learning.",
+            "agency": "ESG",
+            "sources": []
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Global Ready Talent Programme",
+          "scheme_type": "grant",
+          "stage": "none",
+          "what_l1": "general_enquiries",
+          "what_l2": "eligibility",
+          "what_l3": "foreigner-eligibility"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Global Ready Talent Programme"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "call"
+      }
+    ]
+  },
+  {
+    "conversation_id": "conv-b-005",
+    "topic": "BGP2.0 claim documentation",
+    "turns": [
+      {
+        "case_id": "ESG-2601-00124",
+        "question": "A company representative has received conflicting emails about their Business Growth Programme claim - one requesting an intern's payslip and another stating the claim is under processing. She has logged into the BGP2.0 portal and sees several items marked in red under Updates Required.",
+        "expected_outcome": "Ms Azizah understands that the mandatory documents including the intern's payslip are still required despite the processing status, and she knows she must update the company profile information in BGP2.0 before completing the claim application.",
+        "enquiry_text": "AY250415GYNDC-CL251013VS9        Ms Azizah informed that coy received an email from Officer on 17Dec 2025, requesting for Intern's Payslip. While she was compiling the needed documents, coy received another email on 3 Jan 2026, she said the email       stated that the claim is now under processing.           Must coy still provide the mandatory documents (*payslip) since it is processing now.  She has logged into BGP2.0 and said that there are a few items in RED under Updates Required.",
+        "answer_text": "The mandatory documents are still required by the processing team to assess and review the Business Growth Programme claim application\nThe company needs to update the Company Employment Size in BGP2.0\nThe company needs to update the Company's Description in BGP2.0\nThe company needs to provide FY Statements in BGP2.0\nThe company profile must be updated in BGP2.0 before the company can proceed to complete the Business Growth Programme claim application",
+        "claims": [
+          {
+            "claim": "The mandatory documents are still required by the processing team to assess and review the Business Growth Programme claim application",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Mandatory documents flagged by the processing team must be provided before a BGP application can be assessed. Failure to provide all required documents will result in the application remaining on hold.",
+                "title": "BGP \u2014 Company Profile Update Guide",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/company-profile.html",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The company needs to update the Company Employment Size in BGP2.0",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "Company Employment Size in BGP 2.0 must reflect the headcount as of the application date. This is used to determine grant eligibility thresholds and support levels.",
+                "title": "BGP \u2014 Company Profile Update Guide",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/company-profile.html",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The company needs to update the Company's Description in BGP2.0",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "The Company Description in BGP 2.0 should accurately reflect the company's primary business activities. Mismatches between the ACRA description and the BGP profile may trigger additional verification.",
+                "title": "BGP \u2014 Company Profile Update Guide",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/company-profile.html",
+                "type": "url"
+              }
+            ]
+          },
+          {
+            "claim": "The company needs to provide FY Statements in BGP2.0",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "FY Statements (audited or management accounts) are required for BGP applications where the grant quantum exceeds specified thresholds. Upload the most recent available FY statements in PDF format.",
+                "title": "BGP Application Document Checklist \u2014 FY Statements",
+                "type": "doc"
+              }
+            ]
+          },
+          {
+            "claim": "The company profile must be updated in BGP2.0 before the company can proceed to complete the Business Growth Programme claim application",
+            "agency": "ESG",
+            "sources": [
+              {
+                "text": "The BGP company profile must be fully updated and verified before proceeding to claim submission. Incomplete profiles will cause the claim submission form to remain inaccessible.",
+                "title": "BGP \u2014 Company Profile Update Guide",
+                "url": "https://www.businessgrants.gov.sg/content/bgp/help/company-profile.html",
+                "type": "url"
+              }
+            ]
+          }
+        ],
+        "taxonomy": {
+          "ministry": "MTI",
+          "agency": "ESG",
+          "scheme": "ESG.Global Ready Talent Programme",
+          "scheme_type": "grant",
+          "stage": "claim",
+          "what_l1": "my_cases",
+          "what_l2": "respond_to_agency",
+          "what_l3": "rfa-response"
+        },
+        "agency": "ESG",
+        "who": [
+          {
+            "ministry": "MTI",
+            "agency": "ESG",
+            "scheme": "ESG.Global Ready Talent Programme"
+          }
+        ],
+        "tier": "escalated",
+        "channel": "email"
+      }
+    ]
+  }
+]
