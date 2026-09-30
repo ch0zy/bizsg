@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>BusinessSG Demo 2</title>
+<title>BizSG Demo 2</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -181,16 +181,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <body>
 
 <div class="page-hdr">
-  <h1>BusinessSG CPF Employer Transactions</h1>
+  <h1>BizSG CPF Employer Transactions</h1>
   <p>WhatsApp Prototype</p>
   <div class="badge">🔒 Design Prototype · Not for public use</div>
 </div>
 
 <div id="app">
   <div class="wa-hdr">
-    <div class="wa-av">BG</div>
+    <div class="wa-av">B</div>
     <div style="flex:1">
-      <div class="wa-hn">BusinessSG <span class="wa-oba"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.5L4 7.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="wa-hn">BizSG <span class="wa-oba"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.5L4 7.5L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="wa-hs"><span class="wa-sdot"></span><span>online</span></div>
     </div>
   </div>
@@ -476,7 +476,7 @@ async function go(v){
 
     /* ── WELCOME ── */
     case 'welcome':
-      await say(()=>{aT('in','👋 *Hi! I\'m the BusinessSG Assistant.*\n\nI can help you with CPF employer transactions. What do you need to do today?\n\n_Type your situation or browse common tasks below._','text message');},800);
+      await say(()=>{aT('in','👋 *Hi! I\'m BizSG.*\n\nI can help you with CPF employer transactions. What do you need to do today?\n\n_Type your situation or browse common tasks below._','text message');},800);
       await say(()=>{aLM('Common CPF tasks:','Tap to see options','Browse tasks',[
         {label:'📝 Update company details',desc:'Address, contact, SSIC or DDA',v:'flow_update'},
         {label:'🚫 No CPF contributions payable',desc:'Notify CPF when nothing is due',v:'flow_notify'},
